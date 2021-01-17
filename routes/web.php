@@ -14,12 +14,12 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 Route::get('admin', [AdminController::class, 'index'])->name('dashboard');
 
@@ -34,5 +34,14 @@ Route::get('admin/kendaraan', [AdminController::class, 'kendaraan'])->name('kend
 Route::post('admin/kendaraan/data', [AdminController::class, 'getDataKendaraan'])->name('kendaraan.data');
 Route::post('admin/kendaraan/save', [AdminController::class, 'saveKendaraan'])->name('kendaraan.save');
 Route::post('admin/kendaraan/delete', [AdminController::class, 'hapusKendaraan'])->name('kendaraan.delete');
+
+Route::get('admin/pelanggan', [AdminController::class, 'pelanggan'])->name('pelanggan');
+Route::post('admin/pelanggan/data', [AdminController::class, 'getDataPelanggan'])->name('pelanggan.data');
+
+Route::get('admin/users', [AdminController::class, 'users'])->name('users');
+Route::post('admin/users/data', [AdminController::class, 'getDataUsers'])->name('users.data');
+Route::post('admin/users/save', [AdminController::class, 'saveUsers'])->name('users.save');
+Route::post('admin/users/delete', [AdminController::class, 'hapusUsers'])->name('users.delete');
+Route::post('admin/users/password', [AdminController::class, 'ubahPasswordUsers'])->name('users.password');
 
 require __DIR__.'/auth.php';

@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard'     => 'web',
         'passwords' => 'users',
     ],
 
@@ -37,8 +37,13 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
+            'driver'    => 'session',
+            'provider'  => 'users',
+        ],
+
+        'admin' => [
+            'driver'    => 'session',
+            'provider'  => 'users',
         ],
 
         'api' => [
@@ -67,8 +72,13 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'driver'    => 'eloquent',
+            'model'     => App\Models\User::class,
+        ],
+
+        'pelanggan' => [
+            'driver'    => 'eloquent',
+            'model'     => App\Models\Pelanggan::class,
         ],
 
         // 'users' => [
@@ -95,6 +105,13 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'pelanggan' => [
+            'provider' => 'pelanggan',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

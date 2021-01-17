@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -16,6 +17,7 @@ use Image;
 
 use App\Models\Cabang;
 use App\Models\Kendaraan;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -175,5 +177,90 @@ class AdminController extends Controller
         $delete = $query->delete();
 
         return response()->json($delete);
+    }
+
+    function pelanggan()
+    {
+        $pelanggan = DB::table('pelanggan')->orderBy('nama', 'asc')->get();
+      
+        return view('admin/pages/pelanggan', ['pelanggan' => $pelanggan]);
+    }
+
+    function getDataPelanggan(Request $request)
+    {
+        $data['data'] = DB::table('pelanggan')->where("telp", $request->telp)->first();
+
+        return response()->json($data);
+    }
+
+    function users()
+    {
+        $user = DB::table('users')->orderBy('name', 'asc')->get();
+      
+        return view('admin/pages/users', ['user' => $user]);
+    }
+
+    function getDataUsers(Request $request)
+    {
+        $data['data'] = DB::table('users')->where("id",$request->id)->get();
+
+        return response()->json($data);
+    }
+
+    function saveUsers(Request $request)
+    {
+        $data_user  = DB::table('users')->where("username",$request->username)->first();
+        
+        if(!empty($data_user->id) && ($data_user->id != $request->id))
+        {
+            $ret['status']  = "ERROR";
+            $ret['pesan']   = "Username sudah digunakan";
+        }
+        else
+        {   
+            $id                 = array('id' => $request->id);
+            $data['username']   = $request->username;
+            $data['name']       = $request->name;
+            
+            if($request->password != "")
+            {
+                $data['password'] = Hash::make($request->password);
+            }
+
+            User::updateOrCreate($id, $data);        
+    
+            $ret['status'] = "OK";
+        }
+
+        return response()->json($ret);
+    }
+
+    function hapusUsers(Request $request)
+    {
+        $delete  = DB::table('users')->where("id",$request->id)->delete();
+
+        return response()->json($delete);
+    }
+
+    function ubahPasswordUsers(Request $request)
+    {
+        if(!Hash::check($request->old_password, Auth::user()->password))
+        {
+            $ret['status']  = "ERROR";
+            $ret['pesan']   = "Password lama salah!";
+        }
+        else
+        {   
+            $id                 = array('id' => Auth::user()->id);
+            $data['username']   = Auth::user()->username;
+            $data['name']       = Auth::user()->name;
+            $data['password']   = Hash::make($request->password);
+
+            User::updateOrCreate($id, $data);        
+    
+            $ret['status'] = "OK";
+        }
+
+        return response()->json($ret);
     }
 }
