@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class Pelanggan extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $guard = 'admin';
-    
+    protected $table = 'pelanggan';
+    protected $guard = 'pelanggan';
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'username',
+        'email',
         'password',
     ];
 

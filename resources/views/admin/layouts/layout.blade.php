@@ -145,16 +145,12 @@
                                 <li class="dropdown">
                                     <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="{{URL::asset('images/users/default.png')}}" alt="user-img" class="img-circle"> </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> Profile</a></li>
-                                        <li><a href="{{url('admin/account')}}"><i class="md md-settings"></i> Settings</a></li>
-                                        <li><a href="javascript:void(0)"><i class="md md-lock"></i> Lock screen</a></li>
-                                        <li><a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
+                                        <li><a href="#" data-toggle="modal" data-target="#ubah-pw"><i class="fa fa-lock"></i> Ubah Password</a></li>
+                                        <li><a href="{{ route('admin.logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                            <i class="fa fa-sign-out"></i> Logout
                                         </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form></li>
                                     </ul>
@@ -180,23 +176,33 @@
                         </div>
                         <div class="user-info">
                             <div class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><font size="2">{{ Auth::user()->name }} </font></a>
+                                <a href="#" class="dropdown-toggle">{{ Auth::user()->name }}</a>                                
                             </div>
+
+                            <p class="text-muted m-0">Administrator</p>
                         </div>
                     </div>
                     <!--- Divider -->
                     <div id="sidebar-menu">
                         <ul>
                             <li>
-                                <a href="{{ Route('dashboard') }}" class="waves-effect  {{{ (Request::is('admin') ? 'active' : '') }}}"><i class="md md-dashboard"></i>Dashboard</a>
+                                <a href="{{ Route('dashboard') }}" class="waves-effect  {{{ (Request::is('admin') ? 'active' : '') }}}"><i class="md md-dashboard"></i> Dashboard</a>
                             </li>
 
                             <li>
-                                <a href="{{ Route('cabang') }}" class="waves-effect  {{{ (Request::is('admin/cabang') ? 'active' : '') }}}"><i class="md md-home"></i>Cabang</a>
+                                <a href="{{ Route('cabang') }}" class="waves-effect  {{{ (Request::is('admin/cabang') ? 'active' : '') }}}"><i class="md md-home"></i> Cabang</a>
                             </li>
 
                             <li>
-                                <a href="{{ Route('kendaraan') }}" class="waves-effect  {{{ (Request::is('admin/kendaraan') ? 'active' : '') }}}"><i class="fa fa-bicycle"></i>Kendaraan</a>
+                                <a href="{{ Route('kendaraan') }}" class="waves-effect  {{{ (Request::is('admin/kendaraan') ? 'active' : '') }}}"><i class="fa fa-bicycle"></i> Kendaraan</a>
+                            </li>
+
+                            <li>
+                                <a href="{{ Route('pelanggan') }}" class="waves-effect  {{{ (Request::is('admin/pelanggan') ? 'active' : '') }}}"><i class="fa fa-user"></i> Pelanggan</a>
+                            </li>
+
+                            <li>
+                                <a href="{{ Route('users') }}" class="waves-effect  {{{ (Request::is('admin/users') ? 'active' : '') }}}"><i class="fa fa-users"></i> Users</a>
                             </li>
 
                              {{-- <li>
@@ -223,17 +229,118 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <!-- Left Sidebar End -->                   
+            <!-- Left Sidebar End -->
+            
+            {{-- MODAL UBAH PASSWORD --}}
+            <div id="ubah-pw" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog"> 
+                    <div class="modal-content"> 
+                        <div class="modal-header"> 
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
+                            <h4 class="modal-title">Ubah Password</h4> 
+                        </div> 
+                        
+                        <form action="{{ Route('users.password') }}" method="post" enctype="multipart/form-data" id="modalform">
+                            {{ csrf_field() }}
+                            <div class="modal-body">
+                                <div class="row"> 
+                                    <div class="col-md-12"> 
+                                        <div class="form-group"> 
+                                            <label for="field-7" class="control-label">Password Lama</label> 
+                                            <input type="password" class="form-control" id="old_password" name="old_password" value="" required>
+                                        </div> 
+                                    </div> 
+                                </div>
+                                <div class="row"> 
+                                    <div class="col-md-12"> 
+                                        <div class="form-group"> 
+                                            <label for="field-7" class="control-label">Password</label> 
+                                            <input type="password" class="form-control" id="new_password" name="new_password" value="" required>
+                                        </div> 
+                                    </div> 
+                                </div> 
+                                <div class="row"> 
+                                    <div class="col-md-12"> 
+                                        <div class="form-group"> 
+                                            <label for="field-7" class="control-label">Konfirmasi Password</label> 
+                                            <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password" value="" required>
+                                        </div> 
+                                    </div> 
+                                </div> 
+                            </div>
+                            <div class="modal-footer"> 
+                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Tutup <i class="fa fa-close"></i></button> 
+                                <button type="button" id="submit" class="btn btn-primary waves-effect waves-light" onclick="ubahPassword()">Simpan <i class="fa fa-save"></i></button> 
+                            </div> 
+                        </form>
+                    </div> 
+                </div>
+            </div><!-- /.modal -->
 
             @yield('content')
 
                 <footer class="footer primary text-center">
-                    <marquee><font color="white"><b>Copyright © 2018 - Design and Developed by Fauzan Muhammad Abdussalam</b></font></marquee>
+                    <marquee><b>Copyright © 2021</b></marquee>
                 </footer>
 
             </div>
         </div>
         <!-- END wrapper -->
+
+        <script type="text/javascript">
+            function ubahPassword()
+            {
+                if($("#old_password").val() == "")
+                {
+                    alert("Harap isi password lama");
+                    return false;
+                }
+
+                if($("#new_password").val() == "")
+                {
+                    alert("Harap isi password baru");
+                    return false;
+                }
+
+                if($("#new_password").val() != $("#confirm_new_password").val())
+                {
+                    alert("Konfirmasi password tidak sesuai!");
+                    return false;
+                }
+
+                $.ajax(
+                {
+                    url: "{{ Route('users.password') }}",
+                    type: 'POST',
+                    data: 
+                    {
+                        old_password: $("#old_password").val(),
+                        password: $("#new_password").val(),
+                        _token: '{{csrf_token()}}'
+                    },
+                    success: function (response)
+                    {
+                        if(response.status != "OK")
+                        {
+                            alert(response.pesan);
+                            return false;
+                        }
+                        else
+                        {
+                            swal({
+                                title: "Berhasil!",
+                                text: "Password berhasil diubah!",
+                                type: "success"
+                            }, function() {
+                                location.reload();
+                            });
+                        }
+                    }
+                });
+                
+                return false;
+            }
+        </script>
     
         <script>
             var resizefunc = [];
