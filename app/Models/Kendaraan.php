@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class Kendaraan extends Model
 {
@@ -14,8 +13,21 @@ class Kendaraan extends Model
     protected $primaryKey   = 'id_kendaraan';
 
     protected $fillable = [
-        'nama_kendaraan', 'id_cabang', 'merk', 'jenis', 'harga_sewa', 'denda', 'jumlah_kendaraan', 'jumlah_terpakai', 'gambar'
+        'nama_kendaraan', 
+        'id_cabang', 
+        'merk', 
+        'jenis', 
+        'harga_sewa', 
+        'denda', 
+        'jumlah_kendaraan', 
+        'jumlah_terpakai', 
+        'gambar'
     ];
+
+    public function cabang() 
+    {
+        return $this->belongsTo(Cabang::class, 'id_cabang');
+    }
 
     public function getNextId() 
     {

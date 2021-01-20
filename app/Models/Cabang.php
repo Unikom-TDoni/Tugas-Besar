@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Cabang extends Model
@@ -15,4 +14,9 @@ class Cabang extends Model
     protected $fillable = [
         'nama_cabang', 'provinsi', 'kota', 'alamat'
     ];
+
+    public function kendaraan() 
+    {
+        return $this->hasMany(Kendaraan::class);
+    }
 }
