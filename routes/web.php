@@ -44,4 +44,6 @@ Route::post('admin/users/save', [AdminController::class, 'saveUsers'])->name('us
 Route::post('admin/users/delete', [AdminController::class, 'hapusUsers'])->name('users.delete');
 Route::post('admin/users/password', [AdminController::class, 'ubahPasswordUsers'])->name('users.password');
 
+Route::get('admin/transaksi', [AdminController::class, 'users'])->name('transaksi');
+
 require __DIR__.'/auth.php';

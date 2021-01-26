@@ -36,6 +36,15 @@
         <!-- Dropzone css -->
         <link href="{{URL::asset('assets/admin')}}/assets/dropzone/dropzone.css" rel="stylesheet" type="text/css" />
 
+        <!-- Plugins css-->
+        <link href="{{URL::asset('assets/admin')}}/assets/tagsinput/jquery.tagsinput.css" rel="stylesheet" />
+        <link href="{{URL::asset('assets/admin')}}/assets/toggles/toggles.css" rel="stylesheet" />
+        <link href="{{URL::asset('assets/admin')}}/assets/timepicker/bootstrap-timepicker.min.css" rel="stylesheet" />
+        <link href="{{URL::asset('assets/admin')}}/assets/timepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+        <link href="{{URL::asset('assets/admin')}}/assets/colorpicker/colorpicker.css" rel="stylesheet" type="text/css" />
+        <link href="{{URL::asset('assets/admin')}}/assets/jquery-multi-select/multi-select.css"  rel="stylesheet" type="text/css" />
+        <link href="{{URL::asset('assets/admin')}}/assets/select2/select2.css" rel="stylesheet" type="text/css" />
+
         <!-- Custom Files -->
         <link href="{{URL::asset('assets/admin')}}/css/helper.css" rel="stylesheet" type="text/css" />
         <link href="{{URL::asset('assets/admin')}}/css/style.css" rel="stylesheet" type="text/css" />
@@ -202,6 +211,10 @@
                             </li>
 
                             <li>
+                                <a href="{{ Route('transaksi') }}" class="waves-effect  {{{ (Request::is('admin/transaksi') ? 'active' : '') }}}"><i class="fa fa-cart-plus"></i> Transaksi</a>
+                            </li>
+
+                            <li>
                                 <a href="{{ Route('users') }}" class="waves-effect  {{{ (Request::is('admin/users') ? 'active' : '') }}}"><i class="fa fa-users"></i> Users</a>
                             </li>
 
@@ -270,7 +283,7 @@
                             </div>
                             <div class="modal-footer"> 
                                 <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Tutup <i class="fa fa-close"></i></button> 
-                                <button type="button" id="submit" class="btn btn-primary waves-effect waves-light" onclick="ubahPassword()">Simpan <i class="fa fa-save"></i></button> 
+                                <button type="button" class="btn btn-primary waves-effect waves-light" onclick="ubahPassword()">Simpan <i class="fa fa-save"></i></button> 
                             </div> 
                         </form>
                     </div> 
@@ -406,6 +419,104 @@
             $(document).ready(function() {
                 $('#datatable').dataTable();
             } );
+        </script>
+
+        <script src="{{URL::asset('assets/admin')}}/assets/tagsinput/jquery.tagsinput.min.js"></script>
+        <script src="{{URL::asset('assets/admin')}}/assets/toggles/toggles.min.js"></script>
+        <script src="{{URL::asset('assets/admin')}}/assets/timepicker/bootstrap-timepicker.min.js"></script>
+        <script src="{{URL::asset('assets/admin')}}/assets/timepicker/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="{{URL::asset('assets/admin')}}/assets/colorpicker/bootstrap-colorpicker.js"></script>
+        <script type="text/javascript" src="{{URL::asset('assets/admin')}}/assets/jquery-multi-select/jquery.multi-select.js"></script>
+        <script type="text/javascript" src="{{URL::asset('assets/admin')}}/assets/jquery-multi-select/jquery.quicksearch.js"></script>
+        <script src="{{URL::asset('assets/admin')}}/assets/bootstrap-inputmask/bootstrap-inputmask.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="{{URL::asset('assets/admin')}}/assets/spinner/spinner.min.js"></script>
+        <script src="{{URL::asset('assets/admin')}}/assets/select2/select2.min.js" type="text/javascript"></script>
+
+
+        <script>
+            jQuery(document).ready(function() {
+                    
+                // Tags Input
+                jQuery('.tags').tagsInput({width:'auto'});
+
+                // Form Toggles
+                jQuery('.toggle').toggles({on: true});
+
+                // Time Picker
+                jQuery('#timepicker').timepicker({defaultTIme: false});
+                jQuery('#timepicker2').timepicker({showMeridian: false});
+                jQuery('#timepicker3').timepicker({minuteStep: 15});
+
+                // Date Picker
+                jQuery('#datepicker').datepicker();
+                jQuery('#datepicker-inline').datepicker();
+                jQuery('#datepicker-multiple').datepicker({
+                    numberOfMonths: 3,
+                    showButtonPanel: true
+                });
+                //colorpicker start
+
+                $('.colorpicker-default').colorpicker({
+                    format: 'hex'
+                });
+                $('.colorpicker-rgba').colorpicker();
+
+
+                //multiselect start
+
+                $('#my_multi_select1').multiSelect();
+                $('#my_multi_select2').multiSelect({
+                    selectableOptgroup: true
+                });
+
+                $('#my_multi_select3').multiSelect({
+                    selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
+                    selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
+                    afterInit: function (ms) {
+                        var that = this,
+                            $selectableSearch = that.$selectableUl.prev(),
+                            $selectionSearch = that.$selectionUl.prev(),
+                            selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                            selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+                        that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                            .on('keydown', function (e) {
+                                if (e.which === 40) {
+                                    that.$selectableUl.focus();
+                                    return false;
+                                }
+                            });
+
+                        that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                            .on('keydown', function (e) {
+                                if (e.which == 40) {
+                                    that.$selectionUl.focus();
+                                    return false;
+                                }
+                            });
+                    },
+                    afterSelect: function () {
+                        this.qs1.cache();
+                        this.qs2.cache();
+                    },
+                    afterDeselect: function () {
+                        this.qs1.cache();
+                        this.qs2.cache();
+                    }
+                });
+
+                //spinner start
+                $('#spinner1').spinner();
+                $('#spinner2').spinner({disabled: true});
+                $('#spinner3').spinner({value:0, min: 0, max: 10});
+                $('#spinner4').spinner({value:0, step: 5, min: 0, max: 200});
+                //spinner end
+
+                // Select2
+                jQuery(".select2").select2({
+                    width: '100%'
+                });
+            });
         </script>
 
         <script type="text/javascript">
