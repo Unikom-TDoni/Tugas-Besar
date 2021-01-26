@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\User\HomepageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +36,13 @@ Route::get('admin/kendaraan', [AdminController::class, 'kendaraan'])->name('kend
 Route::post('admin/kendaraan/data', [AdminController::class, 'getDataKendaraan'])->name('kendaraan.data');
 Route::post('admin/kendaraan/save', [AdminController::class, 'saveKendaraan'])->name('kendaraan.save');
 Route::post('admin/kendaraan/delete', [AdminController::class, 'hapusKendaraan'])->name('kendaraan.delete');
+
+Route::group(['prefix' => 'user'], function () {
+    //Homepage Route
+    Route::group(['prefix' => 'homepage'], function () {
+        Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+    });
+});
 
 Route::get('admin/pelanggan', [AdminController::class, 'pelanggan'])->name('pelanggan');
 Route::post('admin/pelanggan/data', [AdminController::class, 'getDataPelanggan'])->name('pelanggan.data');
