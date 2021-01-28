@@ -17,11 +17,21 @@ final class KendaraanRepository extends BaseRepository
      * 
      * @return 
      */
-    public function getQueryOutlineInfoKendaraan($relation)
+    public function getOutlineInfoKendaraan($relation, $selectCabangRelation, $filterActiveCabang)
     {
         return $this->model
-                ->with($relation)
+                ->whereHas($relation, $filterActiveCabang)
+                ->with([$relation => $selectCabangRelation])
                 ->selectraw('id_kendaraan, id_cabang, nama_kendaraan, harga_sewa, jenis, gambar, (jumlah_kendaraan - jumlah_terpakai) AS jumlah_tersedia')
-                ->having('jumlah_tersedia','>', 0);
+                ->having('jumlah_tersedia','>', 0)
+                ->get();
+    }
+
+    public function getDetailInfoKendaraan($id, $relation, $selectCabangRelation, $filterActiveCabang) 
+    {
+        return $this->model
+                ->whereHas($relation, $filterActiveCabang)
+                ->with([$relation => $selectCabangRelation])
+                ->find($id, ['id_kendaraan', 'id_cabang', 'merk', 'nama_kendaraan', 'harga_sewa', 'jenis', 'gambar']);
     }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\User\HomepageController;
+use App\Http\Controllers\User\ProductDetailPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,18 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
 
+Route::group(['prefix' => 'user', 'as' => 'users.'], function () {
+    //Home Page Route
+    Route::group(['as' => 'homepage.'], function () {
+        Route::get('/homepage', [HomepageController::class, 'index'])->name('index');
+    });
+
+    //Detail Product Page Route
+    Route::group(['as' => 'detailpage.'], function () {
+        Route::get('/detailpage/{id}', [ProductDetailPageController::class, 'index'])->name('index');
+    });
+});
+
 Route::get('admin', [AdminController::class, 'index'])->name('dashboard');
 
 Route::get('admin/cabang', [AdminController::class, 'cabang'])->name('cabang');
@@ -36,13 +49,6 @@ Route::get('admin/kendaraan', [AdminController::class, 'kendaraan'])->name('kend
 Route::post('admin/kendaraan/data', [AdminController::class, 'getDataKendaraan'])->name('kendaraan.data');
 Route::post('admin/kendaraan/save', [AdminController::class, 'saveKendaraan'])->name('kendaraan.save');
 Route::post('admin/kendaraan/delete', [AdminController::class, 'hapusKendaraan'])->name('kendaraan.delete');
-
-Route::group(['prefix' => 'user'], function () {
-    //Homepage Route
-    Route::group(['prefix' => 'homepage'], function () {
-        Route::get('/', [HomepageController::class, 'index'])->name('homepage');
-    });
-});
 
 Route::get('admin/pelanggan', [AdminController::class, 'pelanggan'])->name('pelanggan');
 Route::post('admin/pelanggan/data', [AdminController::class, 'getDataPelanggan'])->name('pelanggan.data');

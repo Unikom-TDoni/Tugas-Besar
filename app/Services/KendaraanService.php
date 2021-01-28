@@ -5,7 +5,8 @@ namespace App\Services;
 use App\Repositories\KendaraanRepository;
 use App\Repositories\CabangRepository;
 
-final class KendaraanService {
+final class KendaraanService 
+{
 
     private $kendaraanRepository;
     private $cabangRepository;
@@ -16,13 +17,22 @@ final class KendaraanService {
         $this->cabangRepository = $cabangRepository;
     }
 
-    /**
-     * 
-     */
     public function getCompileOutlineInfoKendaraan() 
     {
-        $queryKendaraan = $this->kendaraanRepository->getQueryOutlineInfoKendaraan($this->cabangRepository::kendaraanRelation);
-        $filteredCabang = $this->cabangRepository->filterAktifCabangQuery($queryKendaraan);
-        return $filteredCabang->get();
+        return $this->kendaraanRepository->getOutlineInfoKendaraan(
+            $this->cabangRepository->getTableName(),
+            function($query) {$this->cabangRepository->selectKendaraanRelationColumn($query);},
+            function($query) {$this->cabangRepository->filterActiveCabang($query);}
+        );
+    }
+
+    public function getCompileDetailInfoKendaraan($id) 
+    {
+        return $this->kendaraanRepository->getDetailInfoKendaraan(
+            $id, 
+            $this->cabangRepository->getTableName(),
+            function($query) {$this->cabangRepository->selectKendaraanRelationColumn($query);},
+            function($query) {$this->cabangRepository->filterActiveCabang($query);}
+        );
     }
 }
