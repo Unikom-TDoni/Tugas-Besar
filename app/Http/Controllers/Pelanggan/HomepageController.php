@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Pelanggan;
 
 use App\Http\Controllers\Controller;
 use App\Services\KendaraanService;
@@ -17,6 +17,6 @@ final class HomepageController extends Controller
     public function index() 
     {
         $outlineInfo = $this->kendaraanService->getCompileOutlineInfoKendaraan();
-        return view('user.home-page', compact('outlineInfo'));
+        return view('pelanggan.home', compact('outlineInfo'));
     }
 }

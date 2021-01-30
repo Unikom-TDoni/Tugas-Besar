@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Kota extends Migration
+class CreateKotaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class Kota extends Migration
      */
     public function up()
     {
-        Schema::create('provinsi', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('nama');
-        });
-
         Schema::create('kota', function (Blueprint $table) {
-            $table->id('id');
-            $table->bigInteger('id_provinsi');
+            $table->id();
             $table->string('nama');
+            $table->unsignedBigInteger('id_provinsi');
+            $table->foreign('id_provinsi')->references('id')->on('provinsi')->onDelete('cascade');
         });
     }
 
@@ -32,7 +28,6 @@ class Kota extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('provinsi');
         Schema::dropIfExists('kota');
     }
 }

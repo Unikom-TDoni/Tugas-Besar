@@ -4,8 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Pelanggan extends Migration
-{
+class CreatePelangganTable extends Migration
+{    
     /**
      * Run the migrations.
      *
@@ -15,14 +15,14 @@ class Pelanggan extends Migration
     {
         Schema::create('pelanggan', function (Blueprint $table) {            
             $table->id();
-            $table->string('telp', 15)->unique();
+            $table->string('telp', 15)->unique()->nullable();
             $table->string('nama', 100);
-            $table->date('tanggal_lahir');
-            $table->string('jenis_kelamin', 10);
-            $table->text('alamat');
+            $table->date('tanggal_lahir')->nullable();
+            $table->string('jenis_kelamin', 10)->nullable();
+            $table->text('alamat')->nullable();
             $table->string('email', 100)->unique();
-            $table->text('gambar');
-            $table->text('password');
+            $table->text('gambar')->nullable();
+            $table->text('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

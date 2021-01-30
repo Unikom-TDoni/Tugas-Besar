@@ -2,8 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\User\HomepageController;
-use App\Http\Controllers\User\ProductDetailPageController;
+use App\Http\Controllers\Pelanggan\HomepageController;
+use App\Http\Controllers\Pelanggan\ProductDetailPageController;
+use App\Http\Controllers\Pelanggan\LoginPageController;
+use App\Http\Controllers\Pelanggan\RegisterPageController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +28,8 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
 
-Route::group(['prefix' => 'user', 'as' => 'users.'], function () {
+Route::group(['prefix' => 'pelanggan', 'as' => 'pelanggan.'], function () {
+
     //Home Page Route
     Route::group(['as' => 'homepage.'], function () {
         Route::get('/homepage', [HomepageController::class, 'index'])->name('index');
@@ -32,7 +37,19 @@ Route::group(['prefix' => 'user', 'as' => 'users.'], function () {
 
     //Detail Product Page Route
     Route::group(['as' => 'detailpage.'], function () {
-        Route::get('/detailpage/{id}', [ProductDetailPageController::class, 'index'])->name('index');
+        Route::get('/detail-product/{id}', [ProductDetailPageController::class, 'index'])->name('index');
+    });
+
+    // Login Page Route
+    Route::group(['as' => 'login.'], function () {
+        Route::get('/login', [LoginPageController::class, 'index'])->name('index');
+        Route::post('/login', [LoginPageController::class, 'store'])->name('store')->middleware('throttle:pelangganLogin');
+    });
+
+    // Register Page Route
+    Route::group(['as' => 'register.'], function () {
+        Route::get('/register', [RegisterPageController::class, 'index'])->name('index');
+        Route::post('/register', [RegisterPageController::class, 'store'])->name('store');
     });
 });
 

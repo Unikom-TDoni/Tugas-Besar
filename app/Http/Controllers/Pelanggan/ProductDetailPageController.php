@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Pelanggan;
 
-use App\Http\Controllers\Controller;
 use App\Services\KendaraanService;
+use App\Http\Controllers\Controller;
 
 final class ProductDetailPageController extends Controller
 { 
@@ -13,10 +13,10 @@ final class ProductDetailPageController extends Controller
     {
         $this->kendaraanService = $kendaraanService;
     }
-
+    
     public function index($id) 
     {
         $detailInfo = $this->kendaraanService->getCompileDetailInfoKendaraan($id);
-        return view('user.product-detail-page', compact('detailInfo')); 
+        return view('pelanggan.product-detail', compact('detailInfo')); 
     }
 }
