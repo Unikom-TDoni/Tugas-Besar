@@ -49,6 +49,7 @@ class Pelanggan extends Authenticatable
         $query = DB::table('pelanggan')->where("telp", $telp);
 
         return $query;
+    }
 
     public function setPasswordAttribute($password)
     {   
