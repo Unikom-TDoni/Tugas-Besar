@@ -11,13 +11,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 use File;
-use Storage;
-use Html;
-use Image;
 
 use App\Models\Cabang;
 use App\Models\Kendaraan;
+use App\Models\Pelanggan;
 use App\Models\User;
+use App\Models\Transaksi;
 
 class AdminController extends Controller
 {
@@ -28,7 +27,7 @@ class AdminController extends Controller
 
     function index()
     {
-      return view('admin/pages/dashboard');
+        return view('admin/pages/dashboard');
     }
 
     function swal($halaman, $proses)
@@ -38,29 +37,29 @@ class AdminController extends Controller
     }
 
     function cabang()
-    {
-      $cabang   = DB::table('cabang')
-                  ->leftJoin('provinsi', 'cabang.provinsi', '=', 'provinsi.id')
-                  ->leftJoin('kota', 'cabang.kota', '=', 'kota.id')
-                  ->select('cabang.*', 'provinsi.nama as provinsi', 'kota.nama as kota')
-                  ->orderBy('nama_cabang', 'asc')
-                  ->get();
+    {   
+        $classCabang = new Cabang();
+        
+        $cabang   = $classCabang->getListData()->get();
+        $provinsi = $classCabang->getListDataProvinsi()->get();
 
-      $provinsi = DB::table('provinsi')->orderBy('nama', 'asc')->get();
-      
-      return view('admin/pages/cabang', ['cabang' => $cabang, 'provinsi' => $provinsi]);
+        return view('admin/pages/cabang', ['cabang' => $cabang, 'provinsi' => $provinsi]);
     }
 
     function getKota(Request $request)
     {
-        $data['kota'] = DB::table('kota')->where("id_provinsi",$request->id_provinsi)->orderBy('nama', 'asc')->get();
+        $classCabang = new Cabang();
+
+        $data['kota'] = $classCabang->getListDataKotaByProvinsi($request->id_provinsi)->get();
 
         return response()->json($data);
     }
 
     function getDataCabang(Request $request)
     {
-        $data['cabang'] = DB::table('cabang')->where("id_cabang",$request->id_cabang)->get();
+        $classCabang = new Cabang();
+
+        $data['cabang'] = $classCabang->getDetailData($request->id_cabang)->get();
 
         return response()->json($data);
     }
@@ -69,6 +68,7 @@ class AdminController extends Controller
         $id     = array('id_cabang' => $request->id);
         $data   = array(
             'nama_cabang'   => $request->nama,
+            'telp'          => $request->telp,
             'provinsi'      => $request->provinsi,
             'kota'          => $request->kota,
             'alamat'        => $request->alamat
@@ -85,44 +85,47 @@ class AdminController extends Controller
 
     function hapusCabang(Request $request)
     {
-        $data = DB::table('cabang')->where("id_cabang",$request->id_cabang)->delete();;
+        $classCabang = new Cabang();
+
+        $data = $classCabang->getDetailData($request->id_cabang)->delete();;
 
         return response()->json($data);
     }
 
     function ubahAktivasiCabang(Request $request)
     {
-        $data = DB::table('cabang')->where("id_cabang",$request->id_cabang)->update(["is_aktif" => DB::raw("IF(is_aktif=1,0,1)")]);
+        $classCabang = new Cabang();
+
+        $data = $classCabang->updateAktivasi($request->id_cabang);
         
         return response()->json($data);
     }
 
     function kendaraan()
     {
-        $kendaraan   = DB::table('kendaraan')
-                        ->leftJoin('cabang', 'kendaraan.id_cabang', '=', 'cabang.id_cabang')
-                        ->select('kendaraan.*', 'cabang.nama_cabang as cabang', DB::raw('jumlah_kendaraan - jumlah_terpakai as jumlah_tersedia'))
-                        ->orderBy('nama_kendaraan', 'asc')
-                        ->get();
+        $classKendaraan = new Kendaraan();
+        $classCabang    = new Cabang();
 
-        
-        $cabang = DB::table('cabang')->orderBy('nama_cabang', 'asc')->get();
+        $kendaraan  = $classKendaraan->getListData()->get();
+        $cabang     = $classCabang->getListData()->get();
       
         return view('admin/pages/kendaraan', ['kendaraan' => $kendaraan, 'cabang' => $cabang]);
     }
 
     function getDataKendaraan(Request $request)
     {
-        $data['data'] = DB::table('kendaraan')->where("id_kendaraan",$request->id)->get();
+        $classKendaraan = new Kendaraan();
+        
+        $data['data'] = $classKendaraan->getDetailData($request->id)->get();
 
         return response()->json($data);
     }
 
     function saveKendaraan(Request $request)
     {
-        $ClassKendaraan = new Kendaraan();
+        $classKendaraan = new Kendaraan();
 
-        $id = ($request->id != "")?$request->id:$ClassKendaraan->getNextId();
+        $id = ($request->id != "")?$request->id:$classKendaraan->getNextId();
         
         if ($request->hasFile('gambar'))
         {
@@ -169,47 +172,58 @@ class AdminController extends Controller
 
     function hapusKendaraan(Request $request)
     {
-        $query  = DB::table('kendaraan')->where("id_kendaraan",$request->id);
-        $data   = $query->first();
+        $classKendaraan = new Kendaraan();
+        
+        $data = $classKendaraan->getDetailData($request->id)->first();
 
         File::delete("images/kendaraan/".$data->gambar);
 
-        $delete = $query->delete();
+        $delete = $classKendaraan->getDetailData($request->id)->delete();
 
         return response()->json($delete);
     }
 
     function pelanggan()
     {
-        $pelanggan = DB::table('pelanggan')->orderBy('nama', 'asc')->get();
+        $classPelanggan = new Pelanggan();
+
+        $pelanggan = $classPelanggan->getListData()->get();
       
         return view('admin/pages/pelanggan', ['pelanggan' => $pelanggan]);
     }
 
     function getDataPelanggan(Request $request)
     {
-        $data['data'] = DB::table('pelanggan')->where("telp", $request->telp)->first();
+        $classPelanggan = new Pelanggan();
+
+        $data['data'] = $classPelanggan->getDetailData($request->telp)->first();
 
         return response()->json($data);
     }
 
     function users()
     {
-        $user = DB::table('users')->orderBy('name', 'asc')->get();
+        $classUser = new User();
+
+        $user = $classUser->getListData()->get();
       
         return view('admin/pages/users', ['user' => $user]);
     }
 
     function getDataUsers(Request $request)
     {
-        $data['data'] = DB::table('users')->where("id",$request->id)->get();
+        $classUser = new User();
+        
+        $data['data'] = $classUser->getDetailData($request->id)->get();
 
         return response()->json($data);
     }
 
     function saveUsers(Request $request)
     {
-        $data_user  = DB::table('users')->where("username",$request->username)->first();
+        $classUser = new User();
+
+        $data_user  = $classUser->getDetailDataByUsername($request->username)->first();
         
         if(!empty($data_user->id) && ($data_user->id != $request->id))
         {
@@ -237,7 +251,9 @@ class AdminController extends Controller
 
     function hapusUsers(Request $request)
     {
-        $delete  = DB::table('users')->where("id",$request->id)->delete();
+        $classUser = new User();
+
+        $delete  = $classUser->getDetailData($request->id)->delete();
 
         return response()->json($delete);
     }
@@ -262,5 +278,91 @@ class AdminController extends Controller
         }
 
         return response()->json($ret);
+    }
+
+    function transaksi(Request $request)
+    {
+        $classTransaksi = new Transaksi();
+        $classKendaraan = new Kendaraan();
+
+        $tgl_awal   = ($request->tgl_awal!='')?$request->tgl_awal:date('Y-m-d');
+        $tgl_akhir  = ($request->tgl_akhir!='')?$request->tgl_akhir:date('Y-m-d');
+        $filter     = ($request->filter!='')?$request->filter:0;
+
+        $transaksi  = $classTransaksi->getListData($tgl_awal, $tgl_akhir, $filter)->get();
+        $kendaraan  = $classKendaraan->getListData()->get();
+              
+        return view('admin/pages/transaksi', [
+            'transaksi' => $transaksi,
+            'kendaraan' => $kendaraan,
+            'tgl_awal'  => $tgl_awal,
+            'tgl_akhir' => $tgl_akhir,
+            'filter'    => $filter,
+        ]);
+    }
+
+    function saveTransaksi(Request $request)
+    {
+        $classKendaraan = new Kendaraan();
+        $classTransaksi = new Transaksi();
+        $classPelanggan = new Pelanggan();
+        
+        $data_kendaraan = $classKendaraan->getDetailData($request->kendaraan)->first();
+        
+        $kode_transaksi = $classTransaksi->generateKodeTransaksi();
+        $harga_sewa     = $data_kendaraan->harga_sewa * $request->durasi;
+        $durasi_sewa    = $request->durasi-1;
+
+        $data   = array(
+            'kode_transaksi'                => $kode_transaksi,
+            'tanggal_transaksi'             => date("Y-m-d"),
+            'telp'                          => $request->telp,
+            'nama'                          => $request->nama,
+            'nomor_ktp'                     => $request->ktp,
+            'alamat'                        => $request->alamat,
+            'id_kendaraan'                  => $request->kendaraan,
+            'nomor_plat'                    => $request->nomor_plat,
+            'tanggal_mulai_peminjaman'      => $request->tanggal_pinjam,    
+            'tanggal_akhir_peminjaman'      => date("Y-m-d", strtotime("+$durasi_sewa days", strtotime($request->tanggal_pinjam))),
+            'is_diantar'                    => $request->is_diantar,
+            'waktu_antar'                   => ($request->is_diantar)?$request->tanggal_pinjam." ".$request->jam_antar:NULL,
+            'alamat_antar'                  => $request->alamat_antar,
+            'harga_sewa'                    => $harga_sewa,
+            'denda'                         => 0,
+            'total_bayar'                   => $harga_sewa,
+        );
+
+        Transaksi::Create($data);
+
+        $this->swal("transaksi", "ditambahkan");
+
+        return redirect('admin/transaksi');
+    }
+
+    function detailTransaksi(Request $request, $kode_transaksi)
+    {
+        $classTransaksi = new Transaksi();
+
+        $data = $classTransaksi->getDetailData($kode_transaksi)->first();
+              
+        return view('admin/pages/transaksi_detail', ['data' => $data]);
+    }
+
+    function updateStatusTransaksi(Request $request)
+    {
+        $classTransaksi = new Transaksi();
+        $classKendaraan = new Kendaraan();
+
+        $kode_transaksi = $request->kode_transaksi;
+        $status         = $request->status;
+        $value          = $request->value;
+
+        $data_transaksi = $classTransaksi->getDetailData($kode_transaksi)->first();
+        $data_kendaraan = $classKendaraan->getDetailData($data_transaksi->id_kendaraan)->first();
+        $value          = ($status == "denda")?$data_kendaraan->denda:$value;
+
+        $update  = $classTransaksi->updateStatusTransaksi($kode_transaksi, $status, $value);
+
+        return response()->json($update);
     }
 }

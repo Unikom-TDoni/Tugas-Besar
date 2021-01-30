@@ -211,7 +211,7 @@
                             </li>
 
                             <li>
-                                <a href="{{ Route('transaksi') }}" class="waves-effect  {{{ (Request::is('admin/transaksi') ? 'active' : '') }}}"><i class="fa fa-cart-plus"></i> Transaksi</a>
+                                <a href="{{ Route('transaksi') }}" class="waves-effect  {{{ ((Request::segment(2) == 'transaksi') ? 'active' : '') }}}"><i class="fa fa-cart-plus"></i> Transaksi</a>
                             </li>
 
                             <li>

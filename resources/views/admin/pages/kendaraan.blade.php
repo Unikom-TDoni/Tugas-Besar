@@ -146,7 +146,7 @@
                         <div class="col-md-12"> 
                             <div class="form-group"> 
                                 <label for="field-7" class="control-label">Gambar</label> 
-                                <input type="file" class="form-control" id="gambar" name="gambar" onchange="showGambar(this);" required> 
+                                <input type="file" class="form-control" id="gambar" name="gambar" onchange="showGambar(this);"> 
                             </div> 
                         </div> 
                     </div> 

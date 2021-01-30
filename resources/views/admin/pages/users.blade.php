@@ -10,7 +10,7 @@
                     <h4 class="pull-left page-title"><i class="fa fa-users"></i> Users</h4>
                     <ol class="breadcrumb pull-right">
                         <li><a href="{{ Route('dashboard') }}">Admin</a></li>
-                        <li class="active">Cabang</li>
+                        <li class="active">Users</li>
                     </ol>
                 </div>
             </div>

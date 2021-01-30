@@ -13,18 +13,19 @@ class Pelanggan extends Migration
      */
     public function up()
     {
-        Schema::create('pelanggan', function (Blueprint $table) {            
-            $table->id();
-            $table->string('telp', 15)->unique();
+        Schema::create('pelanggan', function (Blueprint $table) {       
+            $table->string('telp', 15);
             $table->string('nama', 100);
-            $table->date('tanggal_lahir');
-            $table->string('jenis_kelamin', 10);
-            $table->text('alamat');
-            $table->string('email', 100)->unique();
-            $table->text('gambar');
-            $table->text('password');
+            $table->date('tanggal_lahir')->nullable();
+            $table->string('jenis_kelamin', 10)->nullable();
+            $table->text('alamat')->nullable();
+            $table->string('email', 100)->nullable();
+            $table->string('nomor_ktp', 50)->nullable();
+            $table->text('gambar')->nullable();
+            $table->text('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->primary('telp');
         });
     }
 

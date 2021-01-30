@@ -16,6 +16,7 @@ class Cabang extends Migration
         Schema::create('cabang', function (Blueprint $table) {
             $table->id('id_cabang');
             $table->string('nama_cabang', 100);
+            $table->string('telp', 15);
             $table->string('kota', 50);
             $table->string('provinsi', 50);
             $table->text('alamat');
