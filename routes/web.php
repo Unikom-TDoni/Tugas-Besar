@@ -2,7 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\User\HomepageController;
+use App\Http\Controllers\Pelanggan\HomepageController;
+use App\Http\Controllers\Pelanggan\ProductDetailPageController;
+use App\Http\Controllers\Pelanggan\LoginPageController;
+use App\Http\Controllers\Pelanggan\RegisterPageController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +23,6 @@ use App\Http\Controllers\User\HomepageController;
 Route::get('/', function () {
     return view('dashboard');
 });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
 
 Route::group(['prefix' => 'admin'], function () 
 {    
@@ -69,10 +70,42 @@ Route::group(['prefix' => 'admin'], function ()
     });
 });
 
-Route::group(['prefix' => 'user'], function () {
+Route::group(['prefix' => 'user'], function () 
+{
     //Homepage Route    
-    Route::group(['prefix' => 'homepage'], function () {
+    Route::group(['prefix' => 'homepage'], function () 
+    {
         Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+    });
+});
+
+ 
+Route::group(['prefix' => 'pelanggan', 'as' => 'pelanggan.'], function () 
+{
+    //Home Page Route
+    Route::group(['as' => 'homepage.'], function () 
+    {
+        Route::get('/homepage', [HomepageController::class, 'index'])->name('index');
+    });
+
+    //Detail Product Page Route
+    Route::group(['as' => 'detailpage.'], function () 
+    {
+        Route::get('/detail-product/{id}', [ProductDetailPageController::class, 'index'])->name('index');
+    });
+
+    // Login Page Route
+    Route::group(['as' => 'login.'], function () 
+    {
+        Route::get('/login', [LoginPageController::class, 'index'])->name('index');
+        Route::post('/login', [LoginPageController::class, 'store'])->name('store')->middleware('throttle:pelangganLogin');
+    });
+
+    // Register Page Route
+    Route::group(['as' => 'register.'], function () 
+    {
+        Route::get('/register', [RegisterPageController::class, 'index'])->name('index');
+        Route::post('/register', [RegisterPageController::class, 'store'])->name('store');
     });
 });
 

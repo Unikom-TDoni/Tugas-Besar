@@ -46,6 +46,11 @@ return [
             'provider'  => 'users',
         ],
 
+        'pelanggan' => [
+            'driver'    => 'session',
+            'provider'  => 'pelanggan',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -130,5 +135,4 @@ return [
     */
 
     'password_timeout' => 10800,
-
 ];
