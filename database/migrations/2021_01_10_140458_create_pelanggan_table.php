@@ -26,7 +26,6 @@ class CreatePelangganTable extends Migration
             $table->text('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->primary('telp');
         });
     }
 

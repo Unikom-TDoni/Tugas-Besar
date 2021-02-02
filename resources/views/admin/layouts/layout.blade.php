@@ -215,6 +215,10 @@
                             </li>
 
                             <li>
+                                <a href="{{ Route('ulasan') }}" class="waves-effect  {{{ ((Request::segment(2) == 'ulasan') ? 'active' : '') }}}"><i class="md md-comment"></i> Ulasan</a>
+                            </li>
+
+                            <li>
                                 <a href="{{ Route('users') }}" class="waves-effect  {{{ (Request::is('admin/users') ? 'active' : '') }}}"><i class="fa fa-users"></i> Users</a>
                             </li>
 

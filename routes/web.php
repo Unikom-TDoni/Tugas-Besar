@@ -68,6 +68,14 @@ Route::group(['prefix' => 'admin'], function ()
         Route::get('detail/{id}', [AdminController::class, 'detailTransaksi'])->name('transaksi.detail');
         Route::post('status', [AdminController::class, 'updateStatusTransaksi'])->name('transaksi.status');
     });
+
+    Route::group(['prefix' => 'ulasan'], function () 
+    {
+        Route::get('/', [AdminController::class, 'ulasan'])->name('ulasan');
+        Route::get('detail/{id}', [AdminController::class, 'daftarUlasan'])->name('ulasan.detail');
+        Route::post('data', [AdminController::class, 'getDataUlasan'])->name('ulasan.data');
+        Route::post('status', [AdminController::class, 'updateStatusUlasan'])->name('ulasan.status');
+    });
 });
 
 Route::group(['prefix' => 'user'], function () 

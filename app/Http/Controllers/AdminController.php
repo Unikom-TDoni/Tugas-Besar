@@ -17,6 +17,7 @@ use App\Models\Kendaraan;
 use App\Models\Pelanggan;
 use App\Models\User;
 use App\Models\Transaksi;
+use App\Models\Ulasan;
 
 class AdminController extends Controller
 {
@@ -364,5 +365,67 @@ class AdminController extends Controller
         $update  = $classTransaksi->updateStatusTransaksi($kode_transaksi, $status, $value);
 
         return response()->json($update);
+    }
+
+    function ulasan()
+    {
+        $classKendaraan = new Kendaraan();
+        $classUlasan    = new Ulasan();
+
+        $list_kendaraan     = $classKendaraan->getListData()->get();
+        $ulasan             = $classUlasan->getDataByKendaraan()->get();
+        
+        $data_ulasan = array();
+        foreach($ulasan as $data)
+        {
+            $data_ulasan[$data->id_kendaraan] = $data;
+        }
+
+        $kendaraan = array();
+        foreach($list_kendaraan as $data_kendaraan)
+        {
+            $kendaraan[] =  array(
+                'id_kendaraan'                      => $data_kendaraan->id_kendaraan,
+                'nama_kendaraan'                    => $data_kendaraan->nama_kendaraan,
+                'cabang'                            => $data_kendaraan->cabang,
+                'jumlah_ulasan'                     => (!empty($data_ulasan[$data_kendaraan->id_kendaraan]->jumlah_ulasan))?$data_ulasan[$data_kendaraan->id_kendaraan]->jumlah_ulasan:0,
+                'jumlah_ulasan_ditampilkan'         => (!empty($data_ulasan[$data_kendaraan->id_kendaraan]->jumlah_ulasan_ditampilkan))?$data_ulasan[$data_kendaraan->id_kendaraan]->jumlah_ulasan_ditampilkan:0,
+                'jumlah_ulasan_tidak_ditampilkan'   => (!empty($data_ulasan[$data_kendaraan->id_kendaraan]->jumlah_ulasan_tidak_ditampilkan))?$data_ulasan[$data_kendaraan->id_kendaraan]->jumlah_ulasan_tidak_ditampilkan:0,
+            );;
+        }
+
+        return view('admin/pages/ulasan', ['kendaraan' => $kendaraan]);
+    }
+
+    function daftarUlasan(Request $request, $id_kendaraan)
+    {
+        $classUlasan    = new Ulasan();
+        $classKendaraan = new Kendaraan();
+
+        $ulasan     = $classUlasan->getListData($id_kendaraan)->get();
+        $kendaraan  = $classKendaraan->getDetailData($id_kendaraan)->first();
+              
+        return view('admin/pages/ulasan_detail', [
+            'ulasan'    => $ulasan,
+            'kendaraan' => $kendaraan,
+        ]);
+    }
+
+    function getDataUlasan(Request $request)
+    {
+        $classUlasan = new Ulasan();
+        
+        $data['data'] = $classUlasan->getDetailData($request->id)->first();
+
+        return response()->json($data);
+    }
+
+    function updateStatusUlasan(Request $request)
+    {
+        $classUlasan = new Ulasan();
+
+        $data = $classUlasan->updateStatus($request->id);
+        
+        return response()->json($data);
     }
 }
