@@ -24,6 +24,7 @@
                                 <th>Tanggal Lahir</th>
                                 <th>Jenis Kelamin</th>
                                 <th>No. Telp</th>
+                                <th>No. KTP</th>
                                 <th>Email</th>
                                 <th>Aksi</th>
                             </tr>
@@ -32,9 +33,10 @@
                             @foreach($pelanggan as $data)
                             <tr class="gradeX">
                                 <td>{{ $data->nama }}</td>
-                                <td>{{ date("d F Y", strtotime($data->tanggal_lahir)) }}</td>
+                                <td>{{ ($data->tanggal_lahir!="")?date("d-m-Y", strtotime($data->tanggal_lahir)):"" }}</td>
                                 <td>{{ $data->jenis_kelamin }}</td>
                                 <td>{{ $data->telp }}</td>
+                                <td>{{ $data->nomor_ktp }}</td>
                                 <td>{{ $data->email }}</td>
                                 <td>    
                                     <button class="btn btn-icon btn-sm btn-info" onclick="detail('{{ $data->telp }}')"><i class="fa fa-eye"></i> Detail</button>
@@ -101,6 +103,14 @@
                     </div> 
                     <div class="row"> 
                         <div class="form-group">
+                            <label class="col-sm-3 control-label">No. KTP</label>
+                            <div class="col-sm-9">
+                              <p class="form-control-static" id="ktp"></p>
+                            </div>
+                        </div>  
+                    </div> 
+                    <div class="row"> 
+                        <div class="form-group">
                             <label class="col-sm-3 control-label">Email</label>
                             <div class="col-sm-9">
                               <p class="form-control-static" id="email"></p>
@@ -154,7 +164,7 @@
 
                 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-                tgl_lahir       = date_tl.getDate() + " " + months[date_tl.getMonth()] + " " + date_tl.getFullYear();
+                tgl_lahir       = (value.tanggal_lahir !== null)?date_tl.getDate() + " " + months[date_tl.getMonth()] + " " + date_tl.getFullYear():"";
                 waktu_daftar    = date_td.getDate() + " " + months[date_td.getMonth()] + " " + date_td.getFullYear() + " " + date_td.getHours() + ":" + date_td.getMinutes();
 
                 $("#nama").html(value.nama);
@@ -162,6 +172,7 @@
                 $("#jenis_kelamin").html(value.jenis_kelamin);
                 $("#alamat").html(value.alamat);
                 $("#telp").html(value.telp);
+                $("#ktp").html(value.nomor_ktp);
                 $("#email").html(value.email);
                 $("#waktu_daftar").html(waktu_daftar);
                 $("#foto").attr("src", "{{ URL::asset('images/pelanggan') }}" + "/" + value.gambar);

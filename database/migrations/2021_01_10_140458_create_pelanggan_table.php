@@ -21,6 +21,7 @@ class CreatePelangganTable extends Migration
             $table->string('jenis_kelamin', 10)->nullable();
             $table->text('alamat')->nullable();
             $table->string('email', 100)->unique();
+            $table->string('nomor_ktp', 50)->nullable();
             $table->text('gambar')->nullable();
             $table->text('password')->nullable();
             $table->rememberToken();

@@ -23,7 +23,7 @@ class CreateKendaraanTable extends Migration
             $table->double('denda');
             $table->integer('jumlah_kendaraan');
             $table->integer('jumlah_terpakai')->default('0');
-            $table->text('gambar')->default('');
+            $table->text('gambar')->nullable();
             $table->foreign('id_cabang')->references('id_cabang')->on('cabang')->onDelete('cascade');
         });
     }

@@ -25,30 +25,94 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
+Route::group(['prefix' => 'admin'], function () 
+{    
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    
+    Route::group(['prefix' => 'cabang'], function () 
+    {
+        Route::get('/', [AdminController::class, 'cabang'])->name('cabang');
+        Route::post('get-kota-by-provinsi', [AdminController::class, 'getKota'])->name('cabang.getkota');
+        Route::post('data', [AdminController::class, 'getDataCabang'])->name('cabang.data');
+        Route::post('save', [AdminController::class, 'saveCabang'])->name('cabang.save');
+        Route::post('delete', [AdminController::class, 'hapusCabang'])->name('cabang.delete');
+        Route::post('aktivasi', [AdminController::class, 'ubahAktivasiCabang'])->name('cabang.aktivasi');
+    });
 
-Route::group(['prefix' => 'pelanggan', 'as' => 'pelanggan.'], function () {
+    Route::group(['prefix' => 'kendaraan'], function () 
+    {
+        Route::get('/', [AdminController::class, 'kendaraan'])->name('kendaraan');
+        Route::post('data', [AdminController::class, 'getDataKendaraan'])->name('kendaraan.data');
+        Route::post('save', [AdminController::class, 'saveKendaraan'])->name('kendaraan.save');
+        Route::post('delete', [AdminController::class, 'hapusKendaraan'])->name('kendaraan.delete');
+    });
 
+    Route::group(['prefix' => 'pelanggan'], function () 
+    {
+        Route::get('/', [AdminController::class, 'pelanggan'])->name('pelanggan');
+        Route::post('data', [AdminController::class, 'getDataPelanggan'])->name('pelanggan.data');
+    });
+
+    Route::group(['prefix' => 'users'], function () 
+    {
+        Route::get('/', [AdminController::class, 'users'])->name('users');
+        Route::post('data', [AdminController::class, 'getDataUsers'])->name('users.data');
+        Route::post('save', [AdminController::class, 'saveUsers'])->name('users.save');
+        Route::post('delete', [AdminController::class, 'hapusUsers'])->name('users.delete');
+        Route::post('password', [AdminController::class, 'ubahPasswordUsers'])->name('users.password');
+    });
+
+    Route::group(['prefix' => 'transaksi'], function () 
+    {
+        Route::get('/', [AdminController::class, 'transaksi'])->name('transaksi');
+        Route::post('save', [AdminController::class, 'saveTransaksi'])->name('transaksi.save');
+        Route::get('detail/{id}', [AdminController::class, 'detailTransaksi'])->name('transaksi.detail');
+        Route::post('status', [AdminController::class, 'updateStatusTransaksi'])->name('transaksi.status');
+    });
+
+    Route::group(['prefix' => 'ulasan'], function () 
+    {
+        Route::get('/', [AdminController::class, 'ulasan'])->name('ulasan');
+        Route::get('detail/{id}', [AdminController::class, 'daftarUlasan'])->name('ulasan.detail');
+        Route::post('data', [AdminController::class, 'getDataUlasan'])->name('ulasan.data');
+        Route::post('status', [AdminController::class, 'updateStatusUlasan'])->name('ulasan.status');
+    });
+});
+
+Route::group(['prefix' => 'user'], function () 
+{
+    //Homepage Route    
+    Route::group(['prefix' => 'homepage'], function () 
+    {
+        Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+    });
+});
+
+ 
+Route::group(['prefix' => 'pelanggan', 'as' => 'pelanggan.'], function () 
+{
     //Home Page Route
-    Route::group(['as' => 'homepage.'], function () {
+    Route::group(['as' => 'homepage.'], function () 
+    {
         Route::get('/homepage', [HomepageController::class, 'index'])->name('index');
     });
 
     //Detail Product Page Route
-    Route::group(['as' => 'detailpage.'], function () {
+    Route::group(['as' => 'detailpage.'], function () 
+    {
         Route::get('/detail-product/{id}', [ProductDetailPageController::class, 'index'])->name('index');
     });
 
     // Login Page Route
-    Route::group(['as' => 'login.'], function () {
+    Route::group(['as' => 'login.'], function () 
+    {
         Route::get('/login', [LoginPageController::class, 'index'])->name('index');
         Route::post('/login', [LoginPageController::class, 'store'])->name('store')->middleware('throttle:pelangganLogin');
     });
 
     // Register Page Route
-    Route::group(['as' => 'register.'], function () {
+    Route::group(['as' => 'register.'], function () 
+    {
         Route::get('/register', [RegisterPageController::class, 'index'])->name('index');
         Route::post('/register', [RegisterPageController::class, 'store'])->name('store');
     });
@@ -60,28 +124,5 @@ Route::group(['prefix' => 'pelanggan', 'as' => 'pelanggan.'], function () {
         Route::put('/profile/{id}', [ProfilePageController::class, 'update'])->name('update');
     });
 });
-
-Route::get('admin', [AdminController::class, 'index'])->name('dashboard');
-
-Route::get('admin/cabang', [AdminController::class, 'cabang'])->name('cabang');
-Route::post('admin/cabang/get-kota-by-provinsi', [AdminController::class, 'getKota'])->name('cabang.getkota');
-Route::post('admin/cabang/data', [AdminController::class, 'getDataCabang'])->name('cabang.data');
-Route::post('admin/cabang/save', [AdminController::class, 'saveCabang'])->name('cabang.save');
-Route::post('admin/cabang/delete', [AdminController::class, 'hapusCabang'])->name('cabang.delete');
-Route::post('admin/cabang/aktivasi', [AdminController::class, 'ubahAktivasiCabang'])->name('cabang.aktivasi');
-
-Route::get('admin/kendaraan', [AdminController::class, 'kendaraan'])->name('kendaraan');
-Route::post('admin/kendaraan/data', [AdminController::class, 'getDataKendaraan'])->name('kendaraan.data');
-Route::post('admin/kendaraan/save', [AdminController::class, 'saveKendaraan'])->name('kendaraan.save');
-Route::post('admin/kendaraan/delete', [AdminController::class, 'hapusKendaraan'])->name('kendaraan.delete');
-
-Route::get('admin/pelanggan', [AdminController::class, 'pelanggan'])->name('pelanggan');
-Route::post('admin/pelanggan/data', [AdminController::class, 'getDataPelanggan'])->name('pelanggan.data');
-
-Route::get('admin/users', [AdminController::class, 'users'])->name('users');
-Route::post('admin/users/data', [AdminController::class, 'getDataUsers'])->name('users.data');
-Route::post('admin/users/save', [AdminController::class, 'saveUsers'])->name('users.save');
-Route::post('admin/users/delete', [AdminController::class, 'hapusUsers'])->name('users.delete');
-Route::post('admin/users/password', [AdminController::class, 'ubahPasswordUsers'])->name('users.password');
 
 require __DIR__.'/auth.php';

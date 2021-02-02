@@ -28,6 +28,7 @@
                         <thead>
                             <tr>
                                 <th>Nama Cabang</th>
+                                <th>No. Telp</th>
                                 <th>Alamat</th>
                                 <th>Kota</th>
                                 <th>Provinsi</th>
@@ -46,6 +47,7 @@
                             
                             <tr class="gradeX" style="{{ $row_bg }}">
                                 <td>{{ $data->nama_cabang }}</td>
+                                <td>{{ $data->telp }}</td>
                                 <td>{{ $data->alamat }}</td>
                                 <td>{{ $data->kota }}</td>
                                 <td>{{ $data->provinsi }}</td>
@@ -88,6 +90,14 @@
                         </div> 
                     </div> 
                     <div class="row"> 
+                        <div class="col-md-12"> 
+                            <div class="form-group"> 
+                                <label class="control-label">No. Telp</label> 
+                                <input type="text" class="form-control" id="telp" name="telp" required> 
+                            </div> 
+                        </div> 
+                    </div> 
+                    <div class="row"> 
                         <div class="col-md-6"> 
                             <div class="form-group"> 
                                 <label class="control-label">Provinsi</label>
@@ -105,7 +115,7 @@
                                 <select class="form-control" id="kota" name="kota" required>
                                     <option value="">--Pilih Kota--</option>
                                 </select>
-                            </div> 
+                            </div>
                         </div> 
                     </div> 
                     <div class="row"> 
@@ -178,6 +188,7 @@
                     getKota(value.provinsi, value.kota);
                     $("#id").val(id_cabang);
                     $("#nama").val(value.nama_cabang);
+                    $("#telp").val(value.telp);
                     $("#provinsi").val(value.provinsi);
                     $("#kota").val(value.kota);
                     $("#alamat").val(value.alamat);
@@ -190,6 +201,7 @@
     {
         $("#id").val("");
         $("#nama").val("");
+        $("#telp").val("");
         $("#provinsi").val("");
         $("#kota").val("");
         $("#alamat").val("");
