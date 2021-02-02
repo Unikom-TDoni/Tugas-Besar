@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Pelanggan;
 
-use App\Services\LoginService;
+use App\Services\AuthService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\RateLimiter;
 use App\Http\Requests\Pelanggan\LoginRequest;
 
 final class LoginPageController extends Controller 
 {
-    private $loginService;
+    private $authService;
 
-    public function __construct(LoginService $loginService)
+    public function __construct(AuthService $authService)
     {
-        $this->loginService = $loginService;
+        $this->authService = $authService;
     }
 
     public function index() 
@@ -23,7 +23,7 @@ final class LoginPageController extends Controller
 
     public function store(LoginRequest $request) 
     {
-        return $this->loginService->authenticate($request->validated(), 
+        return $this->authService->authenticate($request->validated(), 
             [$this, 'onLoginSuccess'], 
             [$this, 'onLoginFail']
         );

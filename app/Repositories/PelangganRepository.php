@@ -16,4 +16,14 @@ final class PelangganRepository extends BaseRepository
     {
         $this->model->create($attribute);
     }
+
+    public function getProfile($id) 
+    {
+        return $this->model->findOrFail($id, ['id','nama', 'jenis_kelamin', 'tanggal_lahir', 'telp', 'alamat', 'gambar']);
+    }
+
+    public  function updateProfile($id, array $validatedData)
+    {  
+        $this->model->findOrFail($id)->update($validatedData);
+    }
 }

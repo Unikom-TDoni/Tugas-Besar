@@ -5,8 +5,8 @@
 
 <form method="POST" action="{{route('pelanggan.register.store')}}">
     @csrf
-    <input placeholder="Name" type="text" name="nama" id="nama"><br><br>
-    <input placeholder="Email" type="email" name="email" id="email"><br><br>
-    <input placeholder="Password" type="password" name="password" id="password"><br><br>
+    <input placeholder="Name" type="text" placeholder="Nama" name="nama" value="{{old('nama')}}"><br><br>
+    <input placeholder="Email" placeholder="Email" name="email" value="{{old('email')}}"><br><br>
+    <input placeholder="Password" type="password" placeholder="Password" name="password"><br><br>
     <button type="submit">Register</button>
 </form>

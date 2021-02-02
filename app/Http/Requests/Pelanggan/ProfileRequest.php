@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Pelanggan;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest 
+class ProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,16 +18,6 @@ class LoginRequest extends FormRequest
     }
 
     /**
-    * Prepare the data for validation.
-    *
-    * @return void
-    */
-    protected function prepareForValidation()
-    {
-        $this->merge(['remember' => $this->has('remember')]);
-    }
-    
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -34,9 +25,12 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|max:255',
-            'password' => 'required|string',
-            'remember' => 'required|boolean'
+            'nama' => 'string',
+            'gambar' => ['image'],
+            'alamat' => 'string', 
+            'tanggal_lahir' => 'date',
+            'jenis_kelamin' => 'string', 
+            'telp' => ['string', 'max:12', Rule::unique('pelanggan')->ignore($this->id)],
         ];
     }
 }

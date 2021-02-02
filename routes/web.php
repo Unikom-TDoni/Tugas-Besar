@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Pelanggan\HomepageController;
 use App\Http\Controllers\Pelanggan\ProductDetailPageController;
 use App\Http\Controllers\Pelanggan\LoginPageController;
+use App\Http\Controllers\Pelanggan\ProfilePageController;
 use App\Http\Controllers\Pelanggan\RegisterPageController;
 
 
@@ -50,6 +51,13 @@ Route::group(['prefix' => 'pelanggan', 'as' => 'pelanggan.'], function () {
     Route::group(['as' => 'register.'], function () {
         Route::get('/register', [RegisterPageController::class, 'index'])->name('index');
         Route::post('/register', [RegisterPageController::class, 'store'])->name('store');
+    });
+
+    //Profile Page Route
+    Route::group(['middleware' => ['web','auth:pelanggan'], 'as' => 'profile.'], function () {
+        Route::get('/profile', [ProfilePageController::class, 'index'])->name('index');
+        Route::post('/logout', [ProfilePageController::class, 'logout'])->name('logout');
+        Route::put('/profile/{id}', [ProfilePageController::class, 'update'])->name('update');
     });
 });
 

@@ -7,9 +7,8 @@ use App\Repositories\CabangRepository;
 
 final class KendaraanService 
 {
-
-    private $kendaraanRepository;
     private $cabangRepository;
+    private $kendaraanRepository;
 
     public function __construct(KendaraanRepository $kendaraanRepository, CabangRepository $cabangRepository)
     {
@@ -21,8 +20,8 @@ final class KendaraanService
     {
         return $this->kendaraanRepository->getOutlineInfoKendaraan(
             $this->cabangRepository->getTableName(),
-            function($query) {$this->cabangRepository->selectKendaraanRelationColumn($query);},
-            function($query) {$this->cabangRepository->filterActiveCabang($query);}
+            function($query) { return $this->cabangRepository->filterActiveCabang($query); },
+            function($query) { return $this->cabangRepository->selectKendaraanRelationColumn($query); },
         );
     }
 
@@ -31,8 +30,8 @@ final class KendaraanService
         return $this->kendaraanRepository->getDetailInfoKendaraan(
             $id, 
             $this->cabangRepository->getTableName(),
-            function($query) {$this->cabangRepository->selectKendaraanRelationColumn($query);},
-            function($query) {$this->cabangRepository->filterActiveCabang($query);}
+            function($query) { return $this->cabangRepository->filterActiveCabang($query); },
+            function($query) { return $this->cabangRepository->selectKendaraanRelationColumn($query); },
         );
     }
 }
