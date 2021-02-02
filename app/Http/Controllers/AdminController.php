@@ -28,7 +28,25 @@ class AdminController extends Controller
 
     function index()
     {
-        return view('admin/pages/dashboard');
+        $classCabang    = new Cabang();
+        $classKendaraan = new Kendaraan();
+        $classPelanggan = new Pelanggan();
+        $classUser      = new User();
+        $classTransaksi = new Transaksi();
+
+        $jumlah_cabang      = $classCabang->getListData()->count();
+        $jumlah_kendaraan   = $classKendaraan->getListData()->count();
+        $jumlah_pelanggan   = $classPelanggan->getListData()->count();
+        $jumlah_user        = $classUser->getListData()->count();
+        $transaksi          = $classTransaksi->getListData(date('Y-m-d'), date('Y-m-d'), 0)->get();
+
+        return view('admin/pages/dashboard', [
+            "jumlah_cabang"     => $jumlah_cabang,
+            "jumlah_kendaraan"  => $jumlah_kendaraan,
+            "jumlah_pelanggan"  => $jumlah_pelanggan,
+            "jumlah_user"       => $jumlah_user,
+            "transaksi"         => $transaksi,
+        ]);
     }
 
     function swal($halaman, $proses)

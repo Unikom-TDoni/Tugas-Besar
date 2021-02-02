@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <div class="panel">          
+            <div class="panel panel-default">          
                 <div class="panel-heading">
                     <h3 class="panel-title">Daftar Ulasan Kendaraan : {{ $kendaraan->nama_kendaraan }}</h3>
                 </div>
