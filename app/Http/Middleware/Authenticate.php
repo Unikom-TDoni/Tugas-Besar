@@ -13,12 +13,13 @@ class Authenticate extends Middleware
      * @param  array  $guards
      * @return string|null
      */
-    protected function redirectTo($request, $guards)
+    protected function redirectTo($request, $guards=array())
     {
-        if(in_array("pelanggan", $guards))
+        if(in_array("pelanggan", $guards)) {
             return route('pelanggan.login.index');
+        }
 
-        if (! $request->expectsJson()) {
+        if(!$request->expectsJson()) {
             return route('admin.login');
         }
     }
