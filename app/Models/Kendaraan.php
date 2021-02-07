@@ -29,6 +29,11 @@ class Kendaraan extends Model
         return $this->belongsTo(Cabang::class, 'id_cabang');
     }
 
+    public function transaksi() 
+    {
+        return $this->hasMany(Transaksi::class);
+    }
+
     public function getNextId() 
     {
         $statement = DB::select("show table status like 'kendaraan'");

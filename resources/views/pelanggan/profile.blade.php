@@ -13,6 +13,7 @@
     <input placeholder="Name" type="text" placeholder="Nama" name="nama" value="{{$profileData->nama}}"><br><br>
     <input placeholder="Alamat" type="text" name="alamat" value="{{$profileData->alamat}}"><br><br>
     <input placeholder="Telp" type="number" name="telp" value="{{$profileData->telp}}"><br><br>
+    <input placeholder="No Ktp" type="number" name="nomor_ktp" value="{{$profileData->nomor_ktp}}"><br><br>
     <input type="date" name="tanggal_lahir" value="{{$profileData->tanggal_lahir}}"><br><br>
     <select name="jenis_kelamin" selected="{{$profileData->jenis_kelamin}}">
         <option value="Pria">Pria</option>

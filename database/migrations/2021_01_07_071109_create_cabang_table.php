@@ -17,10 +17,12 @@ class CreateCabangTable extends Migration
             $table->id('id_cabang');
             $table->string('nama_cabang', 100);
             $table->string('telp', 15);
-            $table->string('kota', 50);
-            $table->string('provinsi', 50);
+            $table->unsignedBigInteger('id_kota');
+            $table->unsignedBigInteger('id_provinsi');
             $table->text('alamat');
             $table->integer('is_aktif')->default(1);
+            $table->foreign('id_kota')->references('id')->on('kota')->onDelete('cascade');
+            $table->foreign('id_cabang')->references('id')->on('provinsi')->onDelete('cascade');
         });
     }
 

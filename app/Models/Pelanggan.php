@@ -26,6 +26,7 @@ class Pelanggan extends Authenticatable
         'telp',
         'gambar',
         'email',
+        'nomor_ktp',
         'alamat',
         'password',
         'jenis_kelamin',
@@ -41,6 +42,11 @@ class Pelanggan extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function transaksi() 
+    {
+        return $this->hasMany(Transaksi::class);
+    }
 
     public function getListData() 
     {

@@ -6,19 +6,25 @@ use Illuminate\Support\Facades\File;
 
 final class FileService 
 {
-    private $lastFileData;
     private $defaultFilePath;
+    private $lastProcessedFile;
 
     public function __construct()
     {
         $this->defaultFilePath = 'images/profile/';
     }
 
+    /**
+     * Store file to public base
+     * 
+     * @param PrimaryKey @id
+     * @param mixed @file
+     */
     public function store($id, $file) 
     {
         if(is_null($file))
         {
-            $this->lastFileData = null;
+            $this->lastProcessedFile = null;
             return;
         }
 
@@ -29,11 +35,16 @@ final class FileService
         
         $file->move($this->defaultFilePath, $fileName);
 
-        $this->lastFileData = $this->defaultFilePath.$fileName;
+        $this->lastProcessedFile = $this->defaultFilePath.$fileName;
     }
 
+    /**
+     * Get Last Processed File
+     * 
+     * @return mixed
+     */
     public function getProcessedFileData()
     {
-        return $this->lastFileData;
+        return $this->lastProcessedFile;
     }
 }

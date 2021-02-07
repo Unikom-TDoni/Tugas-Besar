@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Pelanggan;
 
-use App\Services\KendaraanService;
+use App\Services\ProductService;
 use App\Http\Controllers\Controller;
 
 final class ProductDetailPageController extends Controller
 { 
-    private $kendaraanService;
+    private $productService;
 
-    public function __construct(KendaraanService $kendaraanService)
+    public function __construct(ProductService $productService)
     {
-        $this->kendaraanService = $kendaraanService;
+        $this->productService = $productService;
     }
     
     public function index($id) 
     {
-        $detailInfo = $this->kendaraanService->getCompileDetailInfoKendaraan($id);
+        $detailInfo = $this->productService->getDetailInfo($id);
         return view('pelanggan.product-detail', compact('detailInfo')); 
     }
 }

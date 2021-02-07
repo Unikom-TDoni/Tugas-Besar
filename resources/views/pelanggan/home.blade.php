@@ -5,7 +5,9 @@
       <th>Jenis : {{$info->jenis}}</th>
       <th>Gambar : {{$info->gambar}}</th>
       <th>Cabang : {{$info->cabang->nama_cabang}}</th>
-      <button type="button" onclick="window.location='{{route("pelanggan.detailpage.index", $info->id_kendaraan)}}'">Get Detail Info</button>
+      <a href="{{route("pelanggan.detailpage.index", $info->id_kendaraan)}}">
+        <button>Get Detail Info</button>
+      </a>
       <br>
     </tr>
 @endforeach

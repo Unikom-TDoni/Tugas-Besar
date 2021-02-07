@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Pelanggan;
 use Illuminate\Http\Request;
 use App\Services\AuthService;
 use App\Services\FileService;
-use App\Services\PelangganService;
+use App\Services\AccountService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pelanggan\ProfileRequest;
 
@@ -13,19 +13,19 @@ final class ProfilePageController extends Controller
 {
     private $authService;
     private $fileService;
-    private $pelangganService;
+    private $accountService;
 
-    public function __construct(AuthService $authService, PelangganService $pelangganService, FileService $fileService)
+    public function __construct(AuthService $authService, AccountService $accountService, FileService $fileService)
     {
         $this->fileService = $fileService;
         $this->authService = $authService;
-        $this->pelangganService = $pelangganService;
+        $this->accountService = $accountService;
     }
 
     public function index() 
     {
         $userId = $this->authService->getActivePelangganId();
-        $profileData = $this->pelangganService->getProfileData($userId);
+        $profileData = $this->accountService->getProfileData($userId);
         return view('pelanggan.profile', compact('profileData'));
     }
 
@@ -35,8 +35,8 @@ final class ProfilePageController extends Controller
 
         $this->fileService->store($id, $request->file('gambar'));
         $newData['gambar'] = $this->fileService->getProcessedFileData();
-
-        $this->pelangganService->updateProfileData($id, $newData);
+        
+        $this->accountService->updateProfileData($id, $newData);
         return redirect()->back()->with("status", 'success update profile');
     }
 

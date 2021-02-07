@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Repositories\KendaraanRepository;
 use App\Repositories\CabangRepository;
 
-final class KendaraanService 
+final class ProductService 
 {
     private $cabangRepository;
     private $kendaraanRepository;
@@ -16,7 +16,12 @@ final class KendaraanService
         $this->cabangRepository = $cabangRepository;
     }
 
-    public function getCompileOutlineInfoKendaraan() 
+    /**
+     * Get Outline Product Info
+     * 
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function getOutlineInfo() 
     {
         return $this->kendaraanRepository->getOutlineInfoKendaraan(
             $this->cabangRepository->getTableName(),
@@ -25,7 +30,13 @@ final class KendaraanService
         );
     }
 
-    public function getCompileDetailInfoKendaraan($id) 
+    /**
+     * Get detail product info
+     * 
+     * @param PrimaryKey @id
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function getDetailInfo($id) 
     {
         return $this->kendaraanRepository->getDetailInfoKendaraan(
             $id, 
