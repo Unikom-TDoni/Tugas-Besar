@@ -22,7 +22,7 @@ class CreateCabangTable extends Migration
             $table->text('alamat');
             $table->integer('is_aktif')->default(1);
             $table->foreign('id_kota')->references('id')->on('kota')->onDelete('cascade');
-            $table->foreign('id_cabang')->references('id')->on('provinsi')->onDelete('cascade');
+            $table->foreign('id_provinsi')->references('id')->on('provinsi')->onDelete('cascade');
         });
     }
 

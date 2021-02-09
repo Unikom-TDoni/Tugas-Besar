@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
-use App\Models\Kendaraan;
 
 class Transaksi extends Model
 {
     public $timestamps  = false;
+    public $incrementing = false;
+    
     protected $table    = 'transaksi';
-
+    protected $primaryKey   = 'kode_transaksi';
+    protected $keyType = 'string';
+    
     protected $fillable = [
         'kode_transaksi', 
         'tanggal_transaksi', 
@@ -21,16 +22,29 @@ class Transaksi extends Model
         'nomor_ktp', 
         'alamat', 
         'id_kendaraan', 
+        'id_pelanggan', 
         'nomor_plat', 
         'tanggal_mulai_peminjaman', 
         'tanggal_akhir_peminjaman', 
         'is_diantar', 
+        'is_transfer',
         'waktu_antar', 
         'alamat_antar', 
         'harga_sewa', 
         'denda', 
-        'total_bayar'
+        'total_bayar',
+        'status_pembayaran'
     ];
+
+    public function pelanggan() 
+    {
+        return $this->belongsTo(Pelanggan::class, 'id_pelanggan');
+    }
+
+    public function kendaraan() 
+    {
+        return $this->belongsTo(Kendaraan::class, 'id_kendaraan');
+    }
 
     public function getListData($tgl_awal, $tgl_akhir, $filter) 
     {

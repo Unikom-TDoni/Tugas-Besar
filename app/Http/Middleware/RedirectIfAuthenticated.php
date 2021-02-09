@@ -23,6 +23,8 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                if($guard == "pelanggan")
+                    return redirect('/pelanggan/homepage');
                 return redirect(RouteServiceProvider::HOME);
             }
         }

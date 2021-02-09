@@ -6,9 +6,14 @@ use App\Http\Controllers\Pelanggan\HomepageController;
 use App\Http\Controllers\Pelanggan\ProductDetailPageController;
 use App\Http\Controllers\Pelanggan\LoginPageController;
 use App\Http\Controllers\Pelanggan\ProfilePageController;
+use App\Http\Controllers\Pelanggan\ReciptPageController;
 use App\Http\Controllers\Pelanggan\RegisterPageController;
+<<<<<<< HEAD
 use App\Http\Controllers\Pelanggan\UlasanPageController;
 
+=======
+use App\Http\Controllers\Pelanggan\TransaksiPageController;
+>>>>>>> 1116eb51f5111b364f3d55a35ff37c85e9bcb9fe
 
 /*
 |--------------------------------------------------------------------------
@@ -94,34 +99,49 @@ Route::group(['prefix' => 'pelanggan', 'as' => 'pelanggan.'], function ()
     //Home Page Route
     Route::group(['as' => 'homepage.'], function () 
     {
-        Route::get('/homepage', [HomepageController::class, 'index'])->name('index');
+        Route::get('homepage', [HomepageController::class, 'index'])->name('index');
     });
 
     //Detail Product Page Route
     Route::group(['as' => 'detailpage.'], function () 
     {
-        Route::get('/detail-product/{id}', [ProductDetailPageController::class, 'index'])->name('index');
+        Route::get('detail-product/{id}', [ProductDetailPageController::class, 'index'])->name('index');
     });
 
     // Login Page Route
-    Route::group(['as' => 'login.'], function () 
+    Route::group(['middleware' => ['guest:pelanggan'],'as' => 'login.'], function () 
     {
-        Route::get('/login', [LoginPageController::class, 'index'])->name('index');
-        Route::post('/login', [LoginPageController::class, 'store'])->name('store')->middleware('throttle:pelangganLogin');
+        Route::get('login', [LoginPageController::class, 'index'])->name('index');
+        Route::post('login', [LoginPageController::class, 'store'])->name('store')->middleware('throttle:pelangganLogin');
     });
 
     // Register Page Route
     Route::group(['as' => 'register.'], function () 
     {
-        Route::get('/register', [RegisterPageController::class, 'index'])->name('index');
-        Route::post('/register', [RegisterPageController::class, 'store'])->name('store');
+        Route::get('register', [RegisterPageController::class, 'index'])->name('index');
+        Route::post('register', [RegisterPageController::class, 'store'])->name('store');
     });
 
     //Profile Page Route
-    Route::group(['middleware' => ['web','auth:pelanggan'], 'as' => 'profile.'], function () {
-        Route::get('/profile', [ProfilePageController::class, 'index'])->name('index');
-        Route::post('/logout', [ProfilePageController::class, 'logout'])->name('logout');
-        Route::put('/profile/{id}', [ProfilePageController::class, 'update'])->name('update');
+    Route::group(['middleware' => ['auth:pelanggan'], 'as' => 'profile.'], function () {
+        Route::get('profile', [ProfilePageController::class, 'index'])->name('index');
+        Route::post('logout', [ProfilePageController::class, 'logout'])->name('logout');
+        Route::put('profile/{id}', [ProfilePageController::class, 'update'])->name('update');
+    });
+
+    //Transaksi Page Route
+    Route::group(['middleware' => ['auth:pelanggan', 'profile.complate'], 'as' => 'transaksi.'], function () 
+    {
+        Route::get('transaksi/{id}', [TransaksiPageController::class, 'index'])->name('index');
+        Route::post('transaksi', [TransaksiPageController::class, 'store'])->name('store');
+    });
+
+    //Recipt Page Route
+    Route::group(['middleware' => ['auth:pelanggan'], 'as' => 'recipt.'], function () 
+    {
+        Route::get('recipt', [ReciptPageController::class, 'index'])->name('index');
+        Route::get('recipt/{id}', [ReciptPageController::class, 'show'])->name('show');
+        Route::put('recipt/{id}', [ReciptPageController::class, 'confrim'])->name('confrim');       
     });
 
     Route::group(['as'=> 'ulasan'], function(){

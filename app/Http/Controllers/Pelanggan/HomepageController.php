@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Pelanggan;
 
 use App\Http\Controllers\Controller;
-use App\Services\KendaraanService;
+use App\Services\ProductService;
 
 final class HomepageController extends Controller
 {
-    private $kendaraanService;
+    private $productService;
 
-    public function __construct(KendaraanService $kendaraanService)
+    public function __construct(ProductService $productService)
     {
-        $this->kendaraanService = $kendaraanService;
+        $this->productService = $productService;
     }
 
     public function index() 
     {
-        $outlineInfo = $this->kendaraanService->getCompileOutlineInfoKendaraan();
+        $outlineInfo = $this->productService->getOutlineInfo();
         return view('pelanggan.home', compact('outlineInfo'));
     }
 }
