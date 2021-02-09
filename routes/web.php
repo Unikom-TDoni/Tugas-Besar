@@ -7,7 +7,7 @@ use App\Http\Controllers\Pelanggan\ProductDetailPageController;
 use App\Http\Controllers\Pelanggan\LoginPageController;
 use App\Http\Controllers\Pelanggan\ProfilePageController;
 use App\Http\Controllers\Pelanggan\RegisterPageController;
-
+use App\Http\Controllers\Pelanggan\UlasanPageController;
 
 
 /*
@@ -122,6 +122,11 @@ Route::group(['prefix' => 'pelanggan', 'as' => 'pelanggan.'], function ()
         Route::get('/profile', [ProfilePageController::class, 'index'])->name('index');
         Route::post('/logout', [ProfilePageController::class, 'logout'])->name('logout');
         Route::put('/profile/{id}', [ProfilePageController::class, 'update'])->name('update');
+    });
+
+    Route::group(['as'=> 'ulasan'], function(){
+        Route::get('/ulasan', [UlasanPageController::class,'ulasan'])->name('ulasan');
+        Route::post('/ulasan/post', [UlasanPageController::class,'storeUlasan'])->name('storeUlasan');
     });
 });
 
