@@ -89,22 +89,23 @@ Route::group(['prefix' => 'user'], function ()
 });
 
  
-Route::group(['prefix' => 'pelanggan', 'as' => 'pelanggan.'], function () 
+Route::group(['as' => 'pelanggan.'], function () 
 {
     //Home Page Route
     Route::group(['as' => 'homepage.'], function () 
     {
         Route::get('homepage', [HomepageController::class, 'index'])->name('index');
+        Route::post('homepage', [HomepageController::class, 'filter'])->name('filter');
     });
 
     //Detail Product Page Route
-    Route::group(['as' => 'detailpage.'], function () 
+    Route::group(['as' => 'detail.'], function () 
     {
-        Route::get('detail-product/{id}', [ProductDetailPageController::class, 'index'])->name('index');
+        Route::get('detail/{id}', [ProductDetailPageController::class, 'index'])->name('index');
     });
 
     // Login Page Route
-    Route::group(['middleware' => ['guest:pelanggan'],'as' => 'login.'], function () 
+    Route::group(['middleware' => ['guest:pelanggan'], 'as' => 'login.'], function () 
     {
         Route::get('login', [LoginPageController::class, 'index'])->name('index');
         Route::post('login', [LoginPageController::class, 'store'])->name('store')->middleware('throttle:pelangganLogin');
@@ -127,16 +128,16 @@ Route::group(['prefix' => 'pelanggan', 'as' => 'pelanggan.'], function ()
     //Transaksi Page Route
     Route::group(['middleware' => ['auth:pelanggan', 'profile.complate'], 'as' => 'transaksi.'], function () 
     {
-        Route::get('transaksi/{id}', [TransaksiPageController::class, 'index'])->name('index');
-        Route::post('transaksi', [TransaksiPageController::class, 'store'])->name('store');
+        Route::get('detail/{id}/order', [TransaksiPageController::class, 'index'])->name('index');
+        Route::post('order', [TransaksiPageController::class, 'store'])->name('store');
     });
 
     //Recipt Page Route
     Route::group(['middleware' => ['auth:pelanggan'], 'as' => 'recipt.'], function () 
     {
-        Route::get('recipt', [ReciptPageController::class, 'index'])->name('index');
-        Route::get('recipt/{id}', [ReciptPageController::class, 'show'])->name('show');
-        Route::put('recipt/{id}', [ReciptPageController::class, 'confrim'])->name('confrim');       
+        Route::get('order', [ReciptPageController::class, 'index'])->name('index');
+        Route::get('order/{id}', [ReciptPageController::class, 'show'])->name('show');
+        Route::put('order/{id}', [ReciptPageController::class, 'confrim'])->name('confrim');       
     });
 });
 

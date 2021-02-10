@@ -23,6 +23,7 @@ class Transaksi extends Model
         'alamat', 
         'id_kendaraan', 
         'id_pelanggan', 
+        'id_bank_account',
         'nomor_plat', 
         'tanggal_mulai_peminjaman', 
         'tanggal_akhir_peminjaman', 
@@ -44,6 +45,11 @@ class Transaksi extends Model
     public function kendaraan() 
     {
         return $this->belongsTo(Kendaraan::class, 'id_kendaraan');
+    }
+
+    public function bankAccount()
+    {
+        return $this->belongsTo(BankAccount::class, 'id_bank_account');
     }
 
     public function getListData($tgl_awal, $tgl_akhir, $filter) 

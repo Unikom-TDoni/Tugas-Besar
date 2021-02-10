@@ -15,8 +15,8 @@ final class ReciptPageController extends Controller
 
     public function __construct(ReciptService $reciptService, AuthService $authService, BookingService $bookingService)
     {
-        $this->reciptService = $reciptService;
         $this->authService = $authService;
+        $this->reciptService = $reciptService;
         $this->bookingService = $bookingService;
     }
 

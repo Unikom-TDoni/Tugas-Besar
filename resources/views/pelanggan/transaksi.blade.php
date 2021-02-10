@@ -20,24 +20,29 @@
         <input type="date" name="tanggal_mulai_peminjaman" id="tanggal_mulai_peminjaman" onchange="adjustDateAkhirPinjam(this)" value="{{old('tanggal_mulai_peminjaman')}}"><br><br>
         <input type="date" name="tanggal_akhir_peminjaman" id="tanggal_akhir_peminjaman" value="{{old('tanggal_akhir_peminjaman')}}"><br><br>
 
-        <select name="is_transfer" onchange="chooseTipePembayaran(this)" selected="{{old('is_transfer')}}">
-            <option value=0>Manual</option>
-            <option value=1>Transfer</option>
+        <select name="is_transfer" id="tipe_pembayaran" onchange="chooseTipePembayaran()">
+            <option value=0 {{old('is_transfer') == 0 ? 'selected' : ''}}>Manual</option>
+            <option value=1 {{old('is_transfer') == 1 ? 'selected' : ''}}>Transfer</option>
         </select>
 
         <br><br>
 
-        <select name="is_diantar" id="tipe_pengambilan" onchange="chooseTipePengambilan(this)" style="display: none;" selected="{{old('is_diantar')}}">
+        <div id="data_transfer" style="display: none;">
+            <input placeholder="Nama Bank" type="string" name="nama_bank" value="{{old('nama_bank')}}"><br><br>
+            <input placeholder="No Rekening" type="number" name="nomor_rekening" value="{{old('nomor_rekening')}}"><br><br>
+            <input placeholder="Atas Nama" type="string" name="nama_rekening" value="{{old('atas_nama')}}"><br><br>
+        </div>
+
+        <select name="is_diantar" id="tipe_pengambilan" onchange="chooseTipePengambilan()" style="display: none;" selected="{{old('is_diantar')}}">
             <option value=0>Ambil Di Tempat</option>
             <option value=1>Di Antar</option>
         </select>
 
-        <br><br>
-
         <div id="data_antar" style="display: none;">
             <input type="time" name="waktu_antar" value="{{old('waktu_antar')}}"><br><br>
-            <input type="text" name="alamat_antar" value="{{old('alamat_antar')}}">
+            <input placeholder="alamat antar" type="text" name="alamat_antar" value="{{old('alamat_antar')}}">
         </div>
+        <br>
         <button type="submit">Pesan</button>
     </form>
     

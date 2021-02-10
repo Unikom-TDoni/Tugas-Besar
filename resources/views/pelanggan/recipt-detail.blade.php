@@ -1,7 +1,7 @@
 <tr>    
     <th>Kode Transaksi {{$detailInfo->kode_transaksi}}</th> <br>
     <th>Tanggal Mulai {{$detailInfo->tanggal_mulai_peminjaman}}</th> <br>
-    <th>Tanggal Berahkir {{$detailInfo->tanggal_ahkir_peminjaman}}</th> <br>
+    <th>Tanggal Berahkir {{$detailInfo->tanggal_akhir_peminjaman}}</th> <br>
     <th>Nama Kendaraan : {{$detailInfo->kendaraan->nama_kendaraan}}</th> <br>
     <th>Harga Sewa : {{$detailInfo->kendaraan->harga_sewa}}</th> <br>
     <th>Jenis : {{$detailInfo->kendaraan->jenis}}</th> <br>

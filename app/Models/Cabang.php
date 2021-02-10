@@ -21,6 +21,16 @@ class Cabang extends Model
         return $this->hasMany(Kendaraan::class);
     }
 
+    public function kota() 
+    {
+        return $this->belongsTo(Kota::class, 'id_kota');
+    }
+
+    public function provinsi() 
+    {
+        return $this->belongsTo(Provinsi::class, 'id_provinsi');
+    }
+
     public function getListData() 
     {
         $query = DB::table('cabang')

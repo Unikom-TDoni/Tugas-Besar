@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
         return [
             'nama' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:pelanggan',
-            'password' => 'required|string|min:8',
+            'password' => 'required|confirmed|string|min:8',
         ];
     }
 }

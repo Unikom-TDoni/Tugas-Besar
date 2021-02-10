@@ -5,18 +5,24 @@ namespace App\Services;
 use App\Repositories\KendaraanRepository;
 use App\Repositories\PelangganRepository;
 use App\Repositories\TransaksiRepository;
+use App\Repositories\BankAccountRepository;
 
 final class BookingService 
 {
     private $transaksiRepository;
     private $pelangganRepository;
     private $kendaraanRepository;
+    private $bankAccountRepository;
 
-    public function __construct(TransaksiRepository $transaksiRepository, PelangganRepository $pelangganRepository, KendaraanRepository $kendaraanRepository)
+    public function __construct(TransaksiRepository $transaksiRepository, 
+        PelangganRepository $pelangganRepository, 
+        KendaraanRepository $kendaraanRepository, 
+        BankAccountRepository $bankAccountRepository)
     {
         $this->transaksiRepository = $transaksiRepository;
         $this->pelangganRepository = $pelangganRepository;
         $this->kendaraanRepository = $kendaraanRepository;
+        $this->bankAccountRepository = $bankAccountRepository;
     }
 
     /**
@@ -26,6 +32,15 @@ final class BookingService
      */
     public function create(array $validatedData)
     {
+        if($validatedData['is_transfer'] == 1) 
+        {
+            $bankData = array(
+                'nama_rekening'=> $validatedData['nama_rekening'],  
+                'nama_bank' => $validatedData['nama_bank'],
+                'nomor_rekening' => $validatedData['nomor_rekening']);
+            $validatedData['id_bank_account'] = $this->bankAccountRepository->create($bankData);
+            foreach($bankData as $key => $value) unset($validatedData[$key]);
+        }
         $this->transaksiRepository->create($validatedData);
     }
     

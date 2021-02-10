@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
 use Closure;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,7 +24,7 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 if($guard == "pelanggan")
-                    return redirect('/pelanggan/homepage');
+                    return redirect()->route('pelanggan.homepage.index');
                 return redirect(RouteServiceProvider::HOME);
             }
         }

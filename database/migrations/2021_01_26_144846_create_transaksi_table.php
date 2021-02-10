@@ -17,6 +17,7 @@ class CreateTransaksiTable extends Migration
             $table->string('kode_transaksi', 50);
             $table->unsignedBigInteger('id_kendaraan');
             $table->unsignedBigInteger('id_pelanggan');
+            $table->unsignedBigInteger('id_bank_account');
             $table->date('tanggal_transaksi');
             $table->string('telp', 15);
             $table->string('nama', 100);
@@ -38,6 +39,7 @@ class CreateTransaksiTable extends Migration
             $table->dateTime('waktu_pengembalian')->nullable();
             $table->primary('kode_transaksi');
             $table->foreign('id_pelanggan')->references('id')->on('pelanggan')->onDelete('cascade');
+            $table->foreign('id_bank_account')->references('id')->on('bank_account')->onDelete('cascade');
             $table->foreign('id_kendaraan')->references('id_kendaraan')->on('kendaraan')->onDelete('cascade');
         });
     }

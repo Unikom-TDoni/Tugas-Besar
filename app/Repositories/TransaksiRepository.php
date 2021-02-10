@@ -31,6 +31,7 @@ final class TransaksiRepository extends BaseRepository
                 'id_kendaraan',
                 'is_transfer',
                 'is_diantar',
+                'waktu_antar',
                 'status_transaksi', 
                 'status_pembayaran', 
                 'status_pengembalian',

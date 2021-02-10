@@ -26,7 +26,7 @@ class ProfileRequest extends FormRequest
     {
         return [
             'nama' => 'string',
-            'gambar' => ['image'],
+            'gambar' => 'image',
             'alamat' => 'string', 
             'nomor_ktp' => 'string',
             'tanggal_lahir' => 'date',

@@ -41,7 +41,7 @@ final class PelangganRepository extends BaseRepository
      */
     public function getFormBookingData($id)
     {
-        return $this->model->findOrFail($id, ['id', 'nama', 'telp', 'alamat', 'nomor_ktp', 'nomor_rekening']);
+        return $this->model->findOrFail($id, ['id', 'nama', 'telp', 'alamat', 'nomor_ktp']);
     }
     
     /**
@@ -63,7 +63,7 @@ final class PelangganRepository extends BaseRepository
     */
     public function selectTransaksiRelationColumn($query) 
     {
-        return $query->select(['id', 'nama', 'telp', 'alamat', 'nomor_rekening', 'nomor_ktp']);
+        return $query->select(['id', 'nama', 'telp', 'alamat', 'nomor_ktp']);
     }
 
     /**

@@ -32,14 +32,17 @@ final class KendaraanRepository extends BaseRepository
      * @param Closure $selectDataCabang
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getOutlineInfoKendaraan(string $relation, Closure $filterActiveCabang, Closure $selectDataCabang)
+    public function getOutlineInfoKendaraan(array $relation, Closure $filterCabangRelation, array $filter = null)
     {
-        return $this->model
-            ->whereHas($relation, $filterActiveCabang)
-            ->with([$relation => $selectDataCabang])
-            ->selectraw('id_kendaraan, id_cabang, nama_kendaraan, harga_sewa, jenis, gambar, (jumlah_kendaraan - jumlah_terpakai) AS jumlah_tersedia')
-            ->having('jumlah_tersedia','>', 0)
-            ->get();
+        $query = $this->model
+            ->with($relation)
+            ->whereHas(array_key_first($relation), $filterCabangRelation);
+        
+        if(isset($filter))
+            foreach($filter as $key => $value)
+                $query = $query->where($key, $value);
+
+        return $query->get(['id_kendaraan', 'id_cabang', 'nama_kendaraan', 'harga_sewa', 'jenis', 'gambar']);
     }
 
     /**
@@ -47,16 +50,16 @@ final class KendaraanRepository extends BaseRepository
      * 
      * @param PrimaryKey $id
      * @param string $relation
-    *  @param Closure $filterActiveCabang
+    *  @param Closure $filterCabangRelation
      * @param Closure $selectDataCabang
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getDetailInfoKendaraan($id, $relation, Closure $filterActiveCabang, Closure $selectDataCabang) 
+    public function getDetailInfoKendaraan($id, array $relation, Closure $filterCabangRelation) 
     {
         return $this->model
-            ->whereHas($relation, $filterActiveCabang)
-            ->with([$relation => $selectDataCabang])
-            ->find($id, ['id_kendaraan', 'id_cabang', 'merk', 'nama_kendaraan', 'harga_sewa', 'jenis', 'gambar']);
+            ->with($relation)
+            ->whereHas(array_key_first($relation), $filterCabangRelation)
+            ->findOrFail($id, ['id_kendaraan', 'id_cabang', 'merk', 'nama_kendaraan', 'harga_sewa', 'jenis', 'gambar']);
     }
 
     /**
@@ -67,7 +70,7 @@ final class KendaraanRepository extends BaseRepository
      */
     public function selectOutlineInfoTransaksiRelationColumn($query)
     {
-        return $query->select(['id_kendaraan', 'nama_kendaraan', 'gambar']);
+        return $query->select(['id_kendaraan', 'id_cabang', 'nama_kendaraan', 'gambar']);
     }
 
     /**

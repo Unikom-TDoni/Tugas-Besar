@@ -1,11 +1,14 @@
-function chooseTipePembayaran(element) 
+function chooseTipePembayaran() 
 {
+    let element = document.getElementById("tipe_pembayaran");
     let blockValue = element.value == 0 ? 'none' : 'block';
+    document.getElementById("data_transfer").style.display = blockValue;
     document.getElementById("tipe_pengambilan").style.display = blockValue;
 }
 
-function chooseTipePengambilan(element) 
+function chooseTipePengambilan() 
 {
+    let element = document.getElementById("tipe_pengambilan");
     let blockValue = element.value == 0 ? 'none' : 'block';
     document.getElementById("data_antar").style.display = blockValue;
 }

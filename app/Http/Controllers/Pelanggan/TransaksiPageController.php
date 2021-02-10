@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Pelanggan;
 
 use App\Services\AuthService;
-use App\Services\ReciptService;
 use App\Services\BookingService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Pelanggan\TransaksiRequest;
+use App\Http\Requests\Pelanggan\BookingRequest;
 
 final class TransaksiPageController extends Controller
 {
@@ -26,7 +25,7 @@ final class TransaksiPageController extends Controller
         return view('pelanggan.transaksi', compact('dataTransaksi'));
     }
 
-    public function store(TransaksiRequest $request)
+    public function store(BookingRequest $request)
     {
         $validatedData = $request->validated();
         $this->bookingService->create($validatedData);

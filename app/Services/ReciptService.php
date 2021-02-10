@@ -26,24 +26,11 @@ final class ReciptService
             $kendaraan => function($query) { return $this->kendaraanRepository->selectOutlineInfoTransaksiRelationColumn($query);} 
         );
         
-        $outlineActiveRecipt = $this->transaksiRepository->getOutlineInfoRecipt(
-            $idPelanggan,
-            $relation
-        );
+        $outlineInfo = $this->transaksiRepository->getOutlineInfoRecipt($idPelanggan, $relation);
+        foreach($outlineInfo as $item) 
+            $item = $this->generateRecipteStatus($item);
 
-        foreach($outlineActiveRecipt as $item) 
-        {
-            $recipteStatus = $this->generateRecipteStatus(
-                $item->status_transaksi, 
-                $item->status_pembayaran, 
-                $item->status_pengembalian, 
-                $item->is_transfer, 
-                $item->is_diantar
-            );
-            $item->makeHidden(['status_transaksi', 'status_pembayaran', 'status_pengembalian', 'is_transfer', 'is_diantar']); 
-            $item->setAttribute('status_recipt', $recipteStatus);
-        }
-        return $outlineActiveRecipt;
+        return $outlineInfo;
     }
     
     public function getDetailInfo($kodeTransaski, $idPelanggan)
@@ -55,25 +42,26 @@ final class ReciptService
             $pelanggan => function($query) { return $this->pelangganRepository->selectTransaksiRelationColumn($query); }
         );
 
-        $detailInfo = $this->transaksiRepository->getDetailInfoRecipt(
-            $kodeTransaski,
-            $relation,
-        );
+        $detailInfo = $this->transaksiRepository->getDetailInfoRecipt($kodeTransaski, $relation);
+        $detailInfoWithRecipt = $this->generateRecipteStatus($detailInfo);
 
-        $recipteStatus = $this->generateRecipteStatus(
-            $detailInfo->status_transaksi, 
-            $detailInfo->status_pembayaran, 
-            $detailInfo->status_pengembalian, 
-            $detailInfo->is_transfer, 
-            $detailInfo->is_diantar
-        );
-
-        $detailInfo->makeHidden(['status_transaksi', 'status_pembayaran', 'status_pengembalian', 'is_transfer', 'is_diantar']); 
-        $detailInfo->setAttribute('status_recipt', $recipteStatus);
-
-        return $detailInfo->id_pelanggan == $idPelanggan ? $detailInfo : abort(404);
+        return $detailInfo->id_pelanggan == $idPelanggan ? $detailInfoWithRecipt : abort(404);
     }
     
+    private function generateRecipteStatus($modelTransaksi)
+    {
+        $status = $this->getCurrentStatusTransaksi($modelTransaksi->status_transaksi);
+        if($status == "Transaksi Dalam Proses") {
+            $status = $this->getCurrentStatusBayar($modelTransaksi->status_pembayaran, $modelTransaksi->is_transfer);
+            if($status == "Pembayaran Terkonfirmasi") {
+                $status = $this->getCurrentStatusPengembalian($modelTransaksi->status_pengembalian, $modelTransaksi->is_diantar);
+            }
+        }
+        $modelTransaksi->makeHidden(['status_transaksi', 'status_pembayaran', 'status_pengembalian', 'is_transfer', 'is_diantar']); 
+        $modelTransaksi->setAttribute('status_recipt', $status);
+        return $modelTransaksi;
+    }
+
     private function getCurrentStatusBayar($statusBayar, $isTransfer)
     {
         switch($statusBayar)
@@ -111,17 +99,5 @@ final class ReciptService
             case 2:
                 return 'Transaksi Dibatalkan';
         }
-    }
-
-    private function generateRecipteStatus($statusTransaksi, $statusBayar, $statusPengembalian, $isTransfer, $isDiantar)
-    {
-        $status = $this->getCurrentStatusTransaksi($statusTransaksi);
-        if($status == "Transaksi Dalam Proses") {
-            $status = $this->getCurrentStatusBayar($statusBayar, $isTransfer);
-            if($status == "Pembayaran Terkonfirmasi") {
-                $status = $this->getCurrentStatusPengembalian($statusPengembalian, $isDiantar);
-            }
-        }
-        return $status;
     }
 }
