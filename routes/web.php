@@ -8,12 +8,8 @@ use App\Http\Controllers\Pelanggan\LoginPageController;
 use App\Http\Controllers\Pelanggan\ProfilePageController;
 use App\Http\Controllers\Pelanggan\ReciptPageController;
 use App\Http\Controllers\Pelanggan\RegisterPageController;
-<<<<<<< HEAD
 use App\Http\Controllers\Pelanggan\UlasanPageController;
-
-=======
 use App\Http\Controllers\Pelanggan\TransaksiPageController;
->>>>>>> 1116eb51f5111b364f3d55a35ff37c85e9bcb9fe
 
 /*
 |--------------------------------------------------------------------------
