@@ -67,6 +67,6 @@ function runCompile(){
 exports.default = parallel(
     vendorImport,
     cssCompile,
-    jsCompile,
+    // jsCompile,
     runCompile
 )
