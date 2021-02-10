@@ -8,7 +8,12 @@ use App\Http\Controllers\Pelanggan\LoginPageController;
 use App\Http\Controllers\Pelanggan\ProfilePageController;
 use App\Http\Controllers\Pelanggan\ReciptPageController;
 use App\Http\Controllers\Pelanggan\RegisterPageController;
+<<<<<<< HEAD
+use App\Http\Controllers\Pelanggan\UlasanPageController;
+
+=======
 use App\Http\Controllers\Pelanggan\TransaksiPageController;
+>>>>>>> 1116eb51f5111b364f3d55a35ff37c85e9bcb9fe
 
 /*
 |--------------------------------------------------------------------------
@@ -138,6 +143,11 @@ Route::group(['as' => 'pelanggan.'], function ()
         Route::get('order', [ReciptPageController::class, 'index'])->name('index');
         Route::get('order/{id}', [ReciptPageController::class, 'show'])->name('show');
         Route::put('order/{id}', [ReciptPageController::class, 'confrim'])->name('confrim');       
+    });
+
+    Route::group(['as'=> 'ulasan'], function(){
+        Route::get('/ulasan', [UlasanPageController::class,'ulasan'])->name('ulasan');
+        Route::post('/ulasan/post', [UlasanPageController::class,'storeUlasan'])->name('storeUlasan');
     });
 });
 
