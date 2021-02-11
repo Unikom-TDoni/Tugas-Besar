@@ -2,21 +2,29 @@
 
 namespace App\Http\Controllers\Pelanggan;
 
+use Illuminate\Http\Request;
+use App\Services\ProductService;
 use App\Http\Controllers\Controller;
-use App\Services\KendaraanService;
 
 final class HomepageController extends Controller
 {
-    private $kendaraanService;
+    private $productService;
 
-    public function __construct(KendaraanService $kendaraanService)
+    public function __construct(ProductService $productService)
     {
-        $this->kendaraanService = $kendaraanService;
+        $this->productService = $productService;
     }
 
     public function index() 
     {
-        $outlineInfo = $this->kendaraanService->getCompileOutlineInfoKendaraan();
+        $outlineInfo = $this->productService->getOutlineInfo();
         return view('pelanggan.home', compact('outlineInfo'));
+    }
+
+    public function filter(Request $request)
+    {
+        $filterData = array_filter($request->except('_token'));
+        $outlineInfo = $this->productService->getOutlineInfo($filterData);
+        return view('pelanggan.home', compact('outlineInfo','filterData'));
     }
 }

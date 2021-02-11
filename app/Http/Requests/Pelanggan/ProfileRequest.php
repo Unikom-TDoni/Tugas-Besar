@@ -26,8 +26,9 @@ class ProfileRequest extends FormRequest
     {
         return [
             'nama' => 'string',
-            'gambar' => ['image'],
+            'gambar' => 'image',
             'alamat' => 'string', 
+            'nomor_ktp' => 'string',
             'tanggal_lahir' => 'date',
             'jenis_kelamin' => 'string', 
             'telp' => ['string', 'max:12', Rule::unique('pelanggan')->ignore($this->id)],

@@ -13,7 +13,7 @@ class Cabang extends Model
     protected $primaryKey   = 'id_cabang';
 
     protected $fillable = [
-        'nama_cabang', 'telp', 'provinsi', 'kota', 'alamat'
+        'nama_cabang', 'telp', 'id_provinsi', 'id_kota', 'alamat'
     ];
 
     public function kendaraan() 
@@ -21,11 +21,21 @@ class Cabang extends Model
         return $this->hasMany(Kendaraan::class);
     }
 
+    public function kota() 
+    {
+        return $this->belongsTo(Kota::class, 'id_kota');
+    }
+
+    public function provinsi() 
+    {
+        return $this->belongsTo(Provinsi::class, 'id_provinsi');
+    }
+
     public function getListData() 
     {
         $query = DB::table('cabang')
-                    ->leftJoin('provinsi', 'cabang.provinsi', '=', 'provinsi.id')
-                    ->leftJoin('kota', 'cabang.kota', '=', 'kota.id')
+                    ->leftJoin('provinsi', 'cabang.id_provinsi', '=', 'provinsi.id')
+                    ->leftJoin('kota', 'cabang.id_kota', '=', 'kota.id')
                     ->select('cabang.*', 'provinsi.nama as provinsi', 'kota.nama as kota')
                     ->orderBy('nama_cabang', 'asc');
 

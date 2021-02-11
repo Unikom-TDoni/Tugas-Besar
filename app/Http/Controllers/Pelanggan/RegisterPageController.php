@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Pelanggan;
 
-use App\Services\PelangganService;
+use App\Services\AccountService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pelanggan\RegisterRequest;
 
 final class RegisterPageController extends Controller 
 {
-    private $pelangganService;
+    private $accountService;
 
-    public function __construct(PelangganService $pelangganService)
+    public function __construct(AccountService $accountService)
     {
-        $this->pelangganService = $pelangganService;
+        $this->accountService = $accountService;
     }
 
     public function index() 
@@ -22,7 +22,7 @@ final class RegisterPageController extends Controller
 
     public function store(RegisterRequest $request)
     {
-        $this->pelangganService->Register($request->validated());
+        $this->accountService->register($request->validated());
         return redirect()->route('pelanggan.login.index');
     }
 }

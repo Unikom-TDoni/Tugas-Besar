@@ -7,7 +7,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <h4 class="pull-left page-title"><i class="md md-home"></i> Cabang</h4>
+                    <h4 class="pull-left page-title"><i class="md md-home"></i> Test Cabang</h4>
                     <ol class="breadcrumb pull-right">
                         <li><a href="{{ Route('dashboard') }}">Admin</a></li>
                         <li class="active">Cabang</li>

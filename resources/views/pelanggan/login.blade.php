@@ -10,3 +10,7 @@
     <label><input type="checkbox" name="remember">Remember Me</label><br><br>
     <button type="submit">Login</button>
 </form>
+
+<a href="{{route("pelanggan.register.index")}}">
+    <button>Register</button>
+</a>

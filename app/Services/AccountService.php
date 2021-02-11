@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Repositories\PelangganRepository;
 
-final class PelangganService 
+final class AccountService 
 {
     private $pelangganRepository;
     
@@ -17,22 +17,21 @@ final class PelangganService
      * Handling upcoming register request.
      *
      * @param array $validatedData
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function register(array $validatedData)
     {   
-        $this->pelangganRepository->insert($validatedData);
+        $this->pelangganRepository->create($validatedData);
     }
 
     /**
      * Get Pelanggan Profile 
      * 
      * @param PrimaryKey $id
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function getProfileData($id)
     {
-        return $this->pelangganRepository->getProfile($id);
+        return $this->pelangganRepository->getDataProfile($id);
     }
     
     /**
@@ -46,6 +45,23 @@ final class PelangganService
         if(is_null($validatedData['gambar']))
             unset($validatedData['gambar']);
 
-        $this->pelangganRepository->updateProfile($id, $validatedData);
+        $this->pelangganRepository->update($id, $validatedData);
+    }
+
+    /**
+     * Is profile data is complate
+     * 
+     * @param PrimaryKey @id
+     * @return boolean
+     */
+    public function isProfileComplate($id) 
+    {
+        $profileData = $this->pelangganRepository->getDataProfile($id)->toArray();
+        return empty(
+            array_filter(
+                $profileData, 
+                function ($val, $key) { return $val === null && $key !== 'gambar';},
+                ARRAY_FILTER_USE_BOTH
+            ));
     }
 }
