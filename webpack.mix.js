@@ -16,3 +16,9 @@ mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'pub
     require('tailwindcss'),
     require('autoprefixer'),
 ]);
+mix.browserSync({
+    files: [
+        'resources/views/**/*.php'
+    ],
+    proxy: 'http://127.0.0.1:8000'
+});

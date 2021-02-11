@@ -147,4 +147,10 @@ Route::group(['as' => 'pelanggan.'], function ()
     });
 });
 
+Route::group(['prefix'=>'test'], function(){
+    Route::get('/', function () {
+        return view('pelanggan/pages/home');
+    });
+});
+
 require __DIR__.'/auth.php';

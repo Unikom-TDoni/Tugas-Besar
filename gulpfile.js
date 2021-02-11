@@ -12,7 +12,7 @@ const files = {
     jsPath      : 'public/assets/pelanggan/sass/**/*.scss',
     cssPath     : 'public/assets/pelanggan/css',
     miniJsPath  : 'public/dist/js',
-    syncPath    : 'public/**/*.php',
+    syncPath    : 'resources/**/*.php',
     bootstrap   : {
         css     : 'node_modules/bootstrap/dist/css/bootstrap.min.css',
         js      : 'node_modules/bootstrap/dist/js/bootstrap.min.js',
@@ -57,9 +57,9 @@ function vendorImport(){
 
 function runCompile(){
     watch(files.sassPath, cssCompile);
-    watch(files.jsPath, jsCompile);
+    // watch(files.jsPath, jsCompile);
     browserSync.init({
-        proxy: "http://localhost/tugasakhirpbo/rentall/public/"
+        proxy: "http://127.0.0.1:8000"
     })
     watch(files.syncPath).on('change', browserSync.reload);
 }
