@@ -152,25 +152,6 @@
                             <li>
                                 <a href="{{ Route('users') }}" class="waves-effect  {{{ (Request::is('admin/users') ? 'active' : '') }}}"><i class="fa fa-users"></i> Users</a>
                             </li>
-
-                             {{-- <li>
-                                <a href="{{url('admin/gallery')}}" class="waves-effect  {{{ (Request::is('admin/gallery') ? 'active' : '') }}}"><i class="md md-image"></i><span> Gallery </span></a>
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect 
-                                {{ ( ((Request::is('admin/web'))||(Request::is('admin/users'))||(Request::is('admin/account')) ) ? 'active' : '') }} ">
-
-                                    <i class="md md-settings"></i><span> Setting </span><span class="pull-right"><i class="md   md-add"></i></span>
-                                </a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{url('admin/account')}}"><i class="md md-account-box"></i>Account</a></li>
-                                    <li><a href="{{url('admin/users')}}"><i class="md md-account-child"></i>Users</a></li>
-                                    <li><a href="{{url('admin/web')}}"><i class="md md-account-balance"></i>Web</a></li>
-                                </ul>
-                            </li> --}}
-
-                            
                         </ul>
                         <div class="clearfix"></div>
                     </div>

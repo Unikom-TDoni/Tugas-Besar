@@ -39,11 +39,11 @@
                         <tbody>
                             @foreach($cabang as $data)
                             
-                            <?php 
+                            @php
                                 $status     = ($data->is_aktif)?"AKTIF":"NON-AKTIF"; 
                                 $status_btn = ($data->is_aktif)?"info":"danger"; 
                                 $row_bg     = ($data->is_aktif)?"":"background: red;color: white;"; 
-                            ?>
+                            @endphp
                             
                             <tr class="gradeX" style="{{ $row_bg }}">
                                 <td>{{ $data->nama_cabang }}</td>

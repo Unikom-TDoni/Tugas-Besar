@@ -106,7 +106,7 @@
                                 <td><label class="label {{ $label_bg }}">{{ $status }}</label></td>
                                 <td class="actions">
                                     <a href="{{ url('admin/transaksi/detail/'.$data->kode_transaksi) }}" class="btn btn-icon btn-sm btn-info"><i class="fa fa-eye"></i> Detail</a>
-                               </td>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
