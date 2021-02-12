@@ -1,0 +1,34 @@
+.keyvalues{
+    background: $base-white;
+    padding-top: $sp-xxxslg;
+    padding-bottom: $sp-xxxslg;
+    padding-left: $sp-lg;
+    padding-right: $sp-lg;
+    border-top: 1px solid $base-grey;
+    border-bottom: 1px solid $base-grey;
+    display: flex;
+    align-items: center;
+    .value{
+        display: flex;
+        align-items: center;
+        .value-img{
+            margin-right: $sp-sm;
+            .illustration{
+                max-width: 80px;
+            }
+        }
+        .value-text{
+            .title{
+                margin-bottom: 0;
+            }
+            .desc{
+                margin-bottom: 0;
+                padding-right: $sp-sm;
+            }
+        }
+        &:nth-child(2){
+            margin-left: $sp-lg;
+            margin-right: $sp-lg;
+        }
+    }
+}
