@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 use File;
 
@@ -18,12 +15,14 @@ use App\Models\Pelanggan;
 use App\Models\User;
 use App\Models\Transaksi;
 use App\Models\Ulasan;
+use App\Models\BankAccount;
 
 class AdminController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     function index()
@@ -88,8 +87,8 @@ class AdminController extends Controller
         $data   = array(
             'nama_cabang'   => $request->nama,
             'telp'          => $request->telp,
-            'provinsi'      => $request->provinsi,
-            'kota'          => $request->kota,
+            'id_provinsi'   => $request->provinsi,
+            'id_kota'       => $request->kota,
             'alamat'        => $request->alamat
         );
 
@@ -173,10 +172,11 @@ class AdminController extends Controller
             'id_cabang'         => $request->cabang,
             'merk'              => $request->merk,
             'jenis'             => $request->jenis,
+            'warna'             => $request->warna,
+            'tahun'             => $request->tahun,
+            'nomor_plat'        => $request->nomor_plat,
             'harga_sewa'        => $request->harga,
             'denda'             => $request->denda,
-            'jumlah_kendaraan'  => $request->jumlah,
-            'jumlah_terpakai'   => '0',
             'gambar'            => $gambar
         );
 
@@ -200,6 +200,15 @@ class AdminController extends Controller
         $delete = $classKendaraan->getDetailData($request->id)->delete();
 
         return response()->json($delete);
+    }
+
+    function ubahAktivasiKendaraan(Request $request)
+    {
+        $classKendaraan = new Kendaraan();
+
+        $data = $classKendaraan->updateAktivasi($request->id);
+        
+        return response()->json($data);
     }
 
     function pelanggan()
@@ -309,7 +318,7 @@ class AdminController extends Controller
         $filter     = ($request->filter!='')?$request->filter:0;
 
         $transaksi  = $classTransaksi->getListData($tgl_awal, $tgl_akhir, $filter)->get();
-        $kendaraan  = $classKendaraan->getListData()->get();
+        $kendaraan  = $classKendaraan->getListData(true)->get();
               
         return view('admin/pages/transaksi', [
             'transaksi' => $transaksi,
@@ -322,9 +331,10 @@ class AdminController extends Controller
 
     function saveTransaksi(Request $request)
     {
-        $classKendaraan = new Kendaraan();
-        $classTransaksi = new Transaksi();
-        $classPelanggan = new Pelanggan();
+        $classKendaraan     = new Kendaraan();
+        $classTransaksi     = new Transaksi();
+        $classPelanggan     = new Pelanggan();
+        $classBankAccount   = new BankAccount();
         
         $data_kendaraan = $classKendaraan->getDetailData($request->kendaraan)->first();
         
@@ -332,17 +342,38 @@ class AdminController extends Controller
         $harga_sewa     = $data_kendaraan->harga_sewa * $request->durasi;
         $durasi_sewa    = $request->durasi-1;
 
-        $data   = array(
+        $data_pelanggan = $classPelanggan->getDetailData($request->telp)->first();
+        $id_pelanggan   = (!empty($data_pelanggan->id))?$data_pelanggan->id:NULL;
+
+        // CREATE BANK ACCOUNT
+        $id_bank_account = ($request->is_transfer)?$classBankAccount->getNextId():NULL;
+        if($request->is_transfer)
+        {
+            $data_bank  = array(
+                'nama_bank'         => $request->nama_bank,
+                'nama_rekening'     => $request->nama_rekening,
+                'nomor_rekening'    => $request->nomor_rekening
+            );
+
+            BankAccount::create($data_bank);
+        }
+
+        // UPDATE STATUS TERSEDIA KENDARAAN
+        $classKendaraan->updateStatusTersedia($request->kendaraan);
+        
+        $data  = array(
             'kode_transaksi'                => $kode_transaksi,
             'tanggal_transaksi'             => date("Y-m-d"),
+            'id_pelanggan'                  => $id_pelanggan,
             'telp'                          => $request->telp,
             'nama'                          => $request->nama,
             'nomor_ktp'                     => $request->ktp,
             'alamat'                        => $request->alamat,
             'id_kendaraan'                  => $request->kendaraan,
-            'nomor_plat'                    => $request->nomor_plat,
             'tanggal_mulai_peminjaman'      => $request->tanggal_pinjam,    
             'tanggal_akhir_peminjaman'      => date("Y-m-d", strtotime("+$durasi_sewa days", strtotime($request->tanggal_pinjam))),
+            'is_transfer'                   => $request->is_transfer,
+            'id_bank_account'               => $id_bank_account,
             'is_diantar'                    => $request->is_diantar,
             'waktu_antar'                   => ($request->is_diantar)?$request->tanggal_pinjam." ".$request->jam_antar:NULL,
             'alamat_antar'                  => $request->alamat_antar,
@@ -378,7 +409,12 @@ class AdminController extends Controller
 
         $data_transaksi = $classTransaksi->getDetailData($kode_transaksi)->first();
         $data_kendaraan = $classKendaraan->getDetailData($data_transaksi->id_kendaraan)->first();
-        $value          = ($status == "denda")?$data_kendaraan->denda:$value;
+        
+        if($status == "denda")
+        {
+            $hari_keterlambatan = abs(strtotime(date("Y-m-d")) - strtotime($data_transaksi->tanggal_akhir_peminjaman)) / (60*60*24);
+            $value              = $hari_keterlambatan * $data_kendaraan->denda;
+        }
 
         $update  = $classTransaksi->updateStatusTransaksi($kode_transaksi, $status, $value);
 

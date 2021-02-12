@@ -71,29 +71,23 @@
                         <tbody>
                             @foreach($transaksi as $data)
                             
-                            <?php 
-                                $label_bg = "label-default";
-                                
+                            @php 
                                 if($data->status_transaksi == 0)
                                 {
-                                    $status = "Menunggu Konfirmasi Transaksi";
+                                    $status     = "Transaksi Diproses";
+                                    $label_bg   = "label-info";
                                 }
                                 elseif ($data->status_transaksi == 1) 
                                 {
-                                    $status = ($data->status_pembayaran == 0)?"Menunggu Konfirmasi Pembayaran":"Sedang dalam peminjaman";
-                                    
-                                    if($data->status_pengembalian == 1)
-                                    {
-                                        $status     = "Transaksi Selesai";   
-                                        $label_bg   = "label-success";
-                                    }  
+                                    $status     = "Transaksi Selesai";   
+                                    $label_bg   = "label-success";
                                 }
                                 else
                                 {
                                     $status     = "Transaksi Batal";
                                     $label_bg   = "label-danger";
                                 }
-                            ?>
+                            @endphp
                             
                             <tr class="gradeX">
                                 <td>{{ date("d-m-Y", strtotime($data->tanggal_transaksi)) }}</td>
@@ -160,21 +154,15 @@
                         </div> 
                     </div>
                     <div class="row"> 
-                        <div class="col-md-6"> 
+                        <div class="col-md-12"> 
                             <div class="form-group"> 
                                 <label class="control-label">Kendaraan</label>
                                 <select  class="form-control" id="kendaraan" name="kendaraan" onchange="hitungHargaSewa();" required>
                                     <option value="">--Pilih Kendaraan--</option>
                                     @foreach($kendaraan as $data)
-                                        <option value="{{ $data->id_kendaraan }}">{{ $data->nama_kendaraan }}</option>
+                                        <option value="{{ $data->id_kendaraan }}">{{ $data->nama_kendaraan ." | ". $data->nomor_plat }}</option>
                                     @endforeach
                                 </select> 
-                            </div> 
-                        </div> 
-                        <div class="col-md-6"> 
-                            <div class="form-group"> 
-                                <label for="field-5" class="control-label">No. Plat</label> 
-                                <input type="text" class="form-control" id="nomor_plat" name="nomor_plat" required> 
                             </div> 
                         </div> 
                     </div> 
@@ -200,6 +188,42 @@
                             </div> 
                         </div> 
                     </div> 
+
+                    <div class="row"> 
+                        <div class="col-md-12"> 
+                            <div class="form-group"> 
+                                <label for="field-7" class="control-label">Jenis Pembayaran</label> 
+                                <select class="form-control" id="is_transfer" name="is_transfer" onchange="showInputTransfer(this.value);">
+                                    <option value="0">Tunai</option>
+                                    <option value="1">Transfer</option>
+                                </select>
+                            </div> 
+                        </div> 
+                    </div>
+                    <div id="input_transfer" style="display: none;width: 100%;">
+                        <div class="row"> 
+                            <div class="col-md-6"> 
+                                <div class="form-group"> 
+                                    <label for="field-7" class="control-label">Bank</label> 
+                                    <input type="text" class="form-control" id="nama_bank" name="nama_bank">
+                                </div> 
+                            </div> 
+                            <div class="col-md-6"> 
+                                <div class="form-group"> 
+                                    <label for="field-7" class="control-label">No. Rekening</label> 
+                                    <input type="text" class="form-control" id="nomor_rekening" name="nomor_rekening">
+                                </div> 
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12"> 
+                                <div class="form-group"> 
+                                    <label for="field-7" class="control-label">Nama Pemilik Rekening</label> 
+                                    <input type="text" class="form-control" id="nama_rekening" name="nama_rekening">
+                                </div> 
+                            </div> 
+                        </div>
+                    </div>
                     <div class="row"> 
                         <div class="col-md-12"> 
                             <div class="form-group"> 
@@ -216,7 +240,7 @@
                             <div class="col-md-12"> 
                                 <div class="form-group"> 
                                     <label for="field-7" class="control-label">Jam Antar</label> 
-                                    <input type="text" class="form-control" id="jam_antar" name="jam_antar" placeholder="10:00" maxlength="5">
+                                    <input type="text" class="form-control" id="jam_antar" name="jam_antar" placeholder="10:00" data-mask="99:99" maxlength="5">
                                 </div> 
                             </div> 
                         </div>
@@ -291,21 +315,63 @@
         }
     }
 
+    function showInputTransfer(is_transfer)
+    {
+        if(is_transfer == 0)
+        {
+            $("#input_transfer").css("display", "none");
+            $("#nama_bank").prop('required',false);
+            $("#nomor_rekening").prop('required',false);
+            $("#nama_rekening").prop('required',false);
+        }
+        else
+        {
+            $("#input_transfer").css("display", "inline-block");
+            $("#nama_bank").prop('required',true);
+            $("#nomor_rekening").prop('required',true);
+            $("#nama_rekening").prop('required',true);
+        }
+    }
+
     function showInputAntar(is_diantar)
     {
         if(is_diantar == 0)
         {
             $("#input_antar").css("display", "none");
+            $("#jam_antar").prop('required',false);
+            $("#alamat_antar").prop('required',false);
         }
         else
         {
             $("#input_antar").css("display", "inline-block");
+            $("#jam_antar").prop('required',true);
+            $("#alamat_antar").prop('required',true);
         }
     }
 
     function tambah()
     {
         $('#edit').modal('show');
+        setMinTglPinjam();
+    }
+
+    function setMinTglPinjam()
+    {
+        var dtToday = new Date();
+    
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        
+        if(month < 10)
+            month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
+        
+        var maxDate = year + '-' + month + '-' + day;
+
+        $('#tanggal_pinjam').attr('min', maxDate);
+        $('#tanggal_pinjam').val(maxDate);
     }
 </script>
 @endsection

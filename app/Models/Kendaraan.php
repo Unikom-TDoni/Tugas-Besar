@@ -17,11 +17,14 @@ class Kendaraan extends Model
         'id_cabang', 
         'merk', 
         'jenis', 
+        'warna',
+        'tahun',
+        'nomor_plat',
         'harga_sewa', 
-        'denda', 
-        'jumlah_kendaraan', 
-        'jumlah_terpakai', 
-        'gambar'
+        'denda',
+        'gambar',
+        'is_aktif',
+        'is_tersedia'
     ];
 
     public function cabang() 
@@ -41,13 +44,21 @@ class Kendaraan extends Model
         return $statement[0]->Auto_increment;
     }
 
-    public function getListData() 
+    public function getListData($filter_aktif = false) 
     {
         $query = DB::table('kendaraan')
                     ->leftJoin('cabang', 'kendaraan.id_cabang', '=', 'cabang.id_cabang')
-                    ->select('kendaraan.*', 'cabang.nama_cabang as cabang', DB::raw('jumlah_kendaraan - jumlah_terpakai as jumlah_tersedia'))
+                    ->select('kendaraan.*', 'cabang.nama_cabang as cabang')
                     ->orderBy('nama_kendaraan', 'asc');
         
+        if($filter_aktif)
+        {
+            $query = $query->where([
+                ['kendaraan.is_aktif', '=', '1'],
+                ['kendaraan.is_tersedia', '=', '1'],
+            ]);
+        }
+
         return $query;
     }
 
@@ -58,9 +69,16 @@ class Kendaraan extends Model
         return $query;
     }
 
-    public function updateKendaraanTerpakai($id_kendaraan, $operasi) 
+    public function updateAktivasi($id_kendaraan) 
     {
-        $query = $this->getDetailData($id_kendaraan)->update(["jumlah_terpakai" => DB::raw("jumlah_terpakai ".$operasi." 1")]);
+        $query = $this->getDetailData($id_kendaraan)->update(["is_aktif" => DB::raw("IF(is_aktif=1,0,1)")]);
+
+        return $query;
+    }
+
+    public function updateStatusTersedia($id_kendaraan) 
+    {
+        $query = $this->getDetailData($id_kendaraan)->update(["is_tersedia" => DB::raw("IF(is_tersedia=1,0,1)")]);
 
         return $query;
     }

@@ -27,8 +27,8 @@ class Transaksi extends Model
         'nomor_plat', 
         'tanggal_mulai_peminjaman', 
         'tanggal_akhir_peminjaman', 
-        'is_diantar', 
         'is_transfer',
+        'is_diantar', 
         'waktu_antar', 
         'alamat_antar', 
         'harga_sewa', 
@@ -84,7 +84,8 @@ class Transaksi extends Model
     {
         $query = DB::table('transaksi')
                     ->leftJoin('kendaraan', 'transaksi.id_kendaraan', '=', 'kendaraan.id_kendaraan')
-                    ->select('transaksi.*', 'kendaraan.nama_kendaraan as kendaraan')
+                    ->leftJoin('bank_account', 'transaksi.id_bank_account', '=', 'bank_account.id')
+                    ->select('transaksi.*', 'kendaraan.nama_kendaraan as kendaraan', 'bank_account.*')
                     ->where("kode_transaksi", $kode_transaksi);
 
         return $query;
@@ -116,22 +117,14 @@ class Transaksi extends Model
         $query  = $this->getDetailData($kode_transaksi);
         $data   = $query->first();
         
-        if($status == "nomor_plat")
+        if($status == "transaksi")
         {
-            // Update Kendaraan Terpakai
-            $update = $classKendaraan->updateKendaraanTerpakai($data->id_kendaraan, "+");
-
-            $query = $query->update(["nomor_plat" => $value, "status_transaksi" => 1]);
-        }
-        elseif($status == "transaksi")
-        {
-            if($data->status_transaksi == 1)
-            {
-                // Update Kendaraan Terpakai
-                $update = $classKendaraan->updateKendaraanTerpakai($data->id_kendaraan, "-");
-            }
-
             $query = $query->update(["status_transaksi" => $value]);
+            
+            if($value == 2)
+            {
+                $update = $classKendaraan->updateStatusTersedia($data->id_kendaraan); 
+            }
         }
         elseif($status == "pembayaran")
         {
@@ -139,10 +132,15 @@ class Transaksi extends Model
         }
         elseif($status == "pengembalian")
         {
-            // Update Kendaraan Terpakai
-            $update = $classKendaraan->updateKendaraanTerpakai($data->id_kendaraan, "-");
-
-            $query = $query->update(["status_pengembalian" => $value, "waktu_pengembalian" => NOW()]);
+            if($value == 2)
+            {
+                $update = $classKendaraan->updateStatusTersedia($data->id_kendaraan); 
+                $query  = $query->update(["status_pengembalian" => $value, "waktu_pengembalian" => NOW(), "status_transaksi" => 1]);
+            }
+            else
+            {
+                $query = $query->update(["status_pengembalian" => $value]);
+            }
         }
         elseif($status == "denda")
         {
