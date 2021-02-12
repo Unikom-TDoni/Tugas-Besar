@@ -1,0 +1,40 @@
+.review-card{
+    padding-top: $sp-sm;
+    padding-bottom: $sp-sm;
+    padding-left: $sp-lg;
+    padding-right: $sp-lg;
+    border-bottom: 1px solid $base-grey;
+    margin-bottom: $sp-xxxsm;
+    .avatar{
+        margin-top: $sp-xxxsm;
+        text-align: center;
+        .ava{
+            width: 3.6rem;
+            height: 3.6rem;
+            border-radius: 8.0rem;
+            background: $cta-blue;
+            color: $base-white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            .innisial{
+                display: inline-block;
+            }
+        }
+    }
+    .review-content{
+        padding-left: $sp-lg;
+        .content-user{
+            display: block;
+            margin-bottom: $sp-xxxsm;
+        }
+        .content-rating{
+            margin-bottom: $sp-xxxsm;
+            .icon-rating{
+                display: inline-block;
+                color: $base-iron;
+            }
+        }
+    }
+}

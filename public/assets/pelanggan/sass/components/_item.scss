@@ -1,3 +1,14 @@
+.items{
+    h2.h2{
+        margin-bottom: $sp-lg;
+    }
+    .load-more{
+        margin-top: 6.4rem;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
 .item-outer{
     position: relative;
 }
@@ -13,7 +24,7 @@
     z-index: 10;
     position: relative;
     transition: .1s ease-in-out;
-    .title, .title a, .meta-outer, .desc, .price-outer, .branch-outer{
+    .title, .title a, .meta, .desc, .price-outer, .branch{
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;   
@@ -52,7 +63,7 @@
         }
     }
     .price-outer{
-        margin-bottom: $sp-xxsm;
+        margin-bottom: $sp-xxxsm;
         .price{
             color: $cta-blue;
         }

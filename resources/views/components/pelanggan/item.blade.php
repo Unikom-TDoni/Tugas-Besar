@@ -16,9 +16,9 @@
             <span class="meta meta-vehicle-year f-meta-data">2018</span>
             <span class="meta meta-vehicle-color f-meta-data">Merah</span>
         </div>
-        <div class="desc-outer">
+        {{-- <div class="desc-outer">
             <p class="desc f-body">It appears with the code for the icon instead of the icon. I have followed the online helps but still not working</p>
-        </div>
+        </div> --}}
         <div class="price-outer">
             <span class="f-title-md price">IDR 175.000/Day</span>
         </div>

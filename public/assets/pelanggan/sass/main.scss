@@ -1,6 +1,5 @@
-@import 'base';
-@import 'navbar';
-@import 'item';
-@import 'keyvalues';
-@import 'faq';
-@import 'footer'
+//base
+
+//pages
+@import 'pages/homepage.scss';
+@import 'pages/detail.scss';
