@@ -1,3 +1,9 @@
+.faqss{
+    margin-top: 8.0rem;
+    h2.h2{
+        margin-bottom: $sp-lg;
+    }
+}
 .faqs{
     .faq{
         position: relative;
@@ -8,7 +14,7 @@
             padding-top: $sp-xxxsm;
             padding-bottom: $sp-xxxsm;
             padding-left: $sp-xlg;
-            background: $base-white;
+            background: transparent;
             width: 100%;
             text-align: left;
             border: none;
@@ -52,9 +58,6 @@
                 line-height: 3.2rem!important;
                 margin-bottom: 0;
             }
-        }
-        &:nth-child(1){
-            padding-top: 0;
         }
         &::after{
             content: "";

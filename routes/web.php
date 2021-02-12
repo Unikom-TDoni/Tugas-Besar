@@ -151,6 +151,9 @@ Route::group(['prefix'=>'test'], function(){
     Route::get('/', function () {
         return view('pelanggan/pages/home');
     });
+    Route::get('/detail', function () {
+        return view('pelanggan/pages/detail');
+    });
 });
 
 require __DIR__.'/auth.php';
