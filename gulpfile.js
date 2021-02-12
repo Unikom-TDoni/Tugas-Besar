@@ -19,10 +19,12 @@ const files = {
         dest : 'public/assets/pelanggan/vendor/bootstrap'
     },
     awesome     : {
-        css     : 'node_modules/font-awesome/css/font-awesome.min.css',
-        font    : 'node_modules/font-awesome/fonts/*',
+        css     : 'node_modules/@fortawesome/fontawesome-free/css/all.min.css',
+        cssfree : 'node_modules/@fortawesome/fontawesome-free/css/solid.min.css',
+        cssbrand : 'node_modules/@fortawesome/fontawesome-free/css/solid.min.css',
+        font    : 'node_modules/@fortawesome/fontawesome-free/webfonts/*',
         destCss     : 'public/assets/pelanggan/vendor/fontawesome/css',
-        destFont    : 'public/assets/pelanggan/vendor/fontawesome/fonts'
+        destFont    : 'public/assets/pelanggan/vendor/fontawesome/webfonts'
     }
 }
 
@@ -50,6 +52,8 @@ function vendorImport(){
 
     //import font awesome
     src(files.awesome.css)
+    .pipe(dest(files.awesome.destCss))
+    src(files.awesome.cssfree)
     .pipe(dest(files.awesome.destCss))
     src(files.awesome.font)
     .pipe(dest(files.awesome.destFont))
