@@ -15,5 +15,7 @@
 </head>
 <body>
     @yield('content')
+    <script src="{{URL::asset('assets/pelanggan')}}/vendor/bootstrap/jquery.min.js"></script>
+    <script src="{{URL::asset('assets/pelanggan')}}/vendor/bootstrap/bootstrap.min.js"></script>
 </body>
 </html>

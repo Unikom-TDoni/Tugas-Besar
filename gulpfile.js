@@ -13,6 +13,7 @@ const files = {
     cssPath     : 'public/assets/pelanggan/css',
     miniJsPath  : 'public/dist/js',
     syncPath    : 'resources/**/*.php',
+    jqueryPath  : 'node_modules/jquery/dist/jquery.min.js',
     bootstrap   : {
         css     : 'node_modules/bootstrap/dist/css/bootstrap.min.css',
         js      : 'node_modules/bootstrap/dist/js/bootstrap.min.js',
@@ -49,6 +50,9 @@ function vendorImport(){
     // import bootstrap
     src([files.bootstrap.css, files.bootstrap.js])
     .pipe(dest(files.bootstrap.dest))
+     // import bootstrap
+     src(files.jqueryPath)
+     .pipe(dest(files.bootstrap.dest))
 
     //import font awesome
     src(files.awesome.css)

@@ -39,6 +39,7 @@ $sp-lg: 2.4rem;
 $sp-xlg: 3.2rem;
 $sp-xxlg: 3.6rem;
 $sp-xxxlg: 4.0rem;
+$sp-xxxslg: 4.8rem;
 
 // Boder Radius
 $radius-sm: 0.4rem;
@@ -86,8 +87,8 @@ $radius-sm: 0.4rem;
     color: $font-placeholder;
 }
 %font-type-meta-data{
-    font-size: 1.2rem;
-    line-height: 1.6rem;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
     font-weight: 400;
     color: $font-meta-data;
 }
@@ -151,12 +152,25 @@ h4.h4, .h4{
     &.btn-full{
         width: 100%;
     }
+    &.btn-50{
+        width: 50%;
+    }
     &.btn-primary{
         background: $cta-orange;
         color: $base-white;
         border: 1px solid $cta-orange-hover;
         &:hover{
             background: $cta-orange-hover;
+        }
+    }
+    &.btn-secondary{
+        background: $base-white;
+        color: $cta-blue;
+        border: 1px solid $cta-blue;
+        &:hover{
+            background: $cta-secondary;
+            color: $cta-blue-hover;
+            border-color: $cta-blue-hover;
         }
     }
     &.btn-icon{
@@ -166,7 +180,7 @@ h4.h4, .h4{
     }
 }
 .container{
-    max-width: 1280px;
+    max-width: 1140px;
     padding-left: 0;
     padding-right: 0;
 }

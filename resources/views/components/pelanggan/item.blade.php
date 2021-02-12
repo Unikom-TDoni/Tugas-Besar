@@ -8,7 +8,7 @@
             <img src="https://sales.nambomotor.com/wp-content/uploads/2020/08/CT125_featured.png"/>
         </div>
         <div class="title-outer">
-            <h5 class="title f-title-md"><a class="f-title-md" href="#" title="title">Honda Beat Street</a></h5>
+            <h5 class="title f-title-sm"><a class="f-title-sm" href="#" title="title">Honda Beat Street</a></h5>
         </div>
         <div class="meta-outer">
             <span class="meta meta-vehicle-merk f-meta-data">Honda</span>
@@ -20,7 +20,7 @@
             <p class="desc f-body">It appears with the code for the icon instead of the icon. I have followed the online helps but still not working</p>
         </div>
         <div class="price-outer">
-            <span class="h4 price">IDR 175.000/Day</span>
+            <span class="f-title-md price">IDR 175.000/Day</span>
         </div>
         <div class="branch-outer">
             <div class="branch">
