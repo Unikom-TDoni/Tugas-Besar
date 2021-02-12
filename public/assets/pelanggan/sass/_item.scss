@@ -1,0 +1,82 @@
+.item-outer{
+    position: relative;
+}
+.item-card{
+    padding-top: $sp-md;
+    padding-right: $sp-md;
+    padding-bottom: $sp-md;
+    padding-left: $sp-md;
+    margin-bottom: $sp-lg;
+    background: $base-white;
+    border: 1px solid $base-iron;
+    border-radius: $radius-sm;
+    z-index: 10;
+    position: relative;
+    transition: .1s ease-in-out;
+    .title, .title a, .meta-outer, .desc, .price-outer, .branch-outer{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;   
+    }
+    .thumbnail{
+        margin-bottom: $sp-md;
+        img{
+            max-width: 100%;
+        }
+    }
+    .title-outer{
+        margin-bottom: $sp-xxxsm;
+        .title{
+            margin-bottom: 0;
+            a{
+                display: block;
+            }
+        }
+    }
+    .meta-outer{
+        display: flex;
+        align-items: center;
+        margin-bottom: $sp-xxxsm;
+        .meta{
+            display: inline-block;
+            margin-right: $sp-xxxsm;
+            &.meta-vehicle-year::after{
+                content: " - ";
+            }
+        }
+    }
+    .desc-outer{
+        margin-bottom: $sp-xxsm;
+        .desc{
+            margin-bottom: 0;
+        }
+    }
+    .price-outer{
+        margin-bottom: $sp-xxsm;
+        .price{
+            color: $cta-blue;
+        }
+    }
+    .branch-outer{
+        .branch{
+            .icon{
+                margin-right: $sp-xxxsm;
+                color: $font-meta-data;
+                font-size: 1.2rem;
+            }
+        }
+    }
+    .cta-outer{
+        margin-top: $sp-md;
+        display: none;
+    }
+    &:hover{
+        box-shadow: $depth-100;
+        position: absolute;
+        z-index: 100;
+        width: 100%;
+        & .cta-outer{
+            display: block;
+        }
+    }
+}
