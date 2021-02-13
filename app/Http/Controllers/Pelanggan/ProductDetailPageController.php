@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Pelanggan;
 
 use App\Services\ProductService;
 use App\Http\Controllers\Controller;
+use App\Models\Ulasan;
+use Illuminate\Support\Facades\DB;
 
 final class ProductDetailPageController extends Controller
 { 
@@ -16,7 +18,14 @@ final class ProductDetailPageController extends Controller
     
     public function index($id) 
     {
+        $listUlasan= DB::table('ulasan')->get();
         $detailInfo = $this->productService->getDetailInfo($id);
-        return view('pelanggan.product-detail', compact('detailInfo')); 
+        return view('pelanggan.product-detail', compact('detailInfo','listUlasan')); 
     }
+
+    // public function daftarUlasan(){
+    //     $ulasanInfo= Ulasan::all();
+    //     return view('pelanggan.product-detail',compact('ulasanInfo'));
+
+    // }
 }

@@ -13,3 +13,15 @@
       </a>
     <br>
 </tr>
+<br>
+Daftar Ulasan
+<br>
+@foreach($listUlasan as $ulasan)
+    <tr>    
+      <th>Nama : {{$ulasan->nama}}</th>
+      <th>Rating :{{$ulasan->rating}}
+      <th>Ulasan : {{$ulasan->ulasan}}</th>
+      <br>
+    </tr>
+@endforeach
+</tr>
