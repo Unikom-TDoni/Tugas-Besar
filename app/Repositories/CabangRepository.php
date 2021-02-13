@@ -13,12 +13,12 @@ final class CabangRepository extends BaseRepository
     }
 
     /**
-     * Select outline relation with kendaraan
+     * Select outline relation 
      * 
      * @param \Illuminate\Database\Query\Builder $query
      * @return \Illuminate\Database\Query\Builder
      */
-    public function selectKendaraanOutlineInfoRelation($query) 
+    public function selectOutlineInfoKendaraanRelation($query) 
     {
         return $query->select(['id_cabang', 'nama_cabang', 'id_kota']);
     }
@@ -29,9 +29,9 @@ final class CabangRepository extends BaseRepository
      * @param \Illuminate\Database\Query\Builder $query
      * @return \Illuminate\Database\Query\Builder
      */
-    public function selectKendaraanDetailInfoRelation($query) 
+    public function selectDetailInfoKendaraanRelation($query) 
     {
-        return $query->select(['id_cabang', 'nama_cabang', 'telp', 'alamat', 'id_kota', 'id_provinsi']);
+        return $query->select(['id_cabang', 'id_kota', 'id_provinsi', 'nama_cabang', 'alamat', 'telp']);
     }
 
     /**

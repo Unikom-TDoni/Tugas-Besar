@@ -24,19 +24,19 @@ final class ProfilePageController extends Controller
 
     public function index() 
     {
-        $userId = $this->authService->getActivePelangganId();
-        $profileData = $this->accountService->getProfileData($userId);
+        $idPelanggan = $this->authService->getActivePelangganId();
+        $profileData = $this->accountService->getProfileData($idPelanggan);
         return view('pelanggan.profile', compact('profileData'));
     }
 
     public function update(ProfileRequest $request, $id)
     {
-        $newData = $request->validated();
+        $validatedData = $request->validated();
 
         $this->fileService->store($id, $request->file('gambar'));
-        $newData['gambar'] = $this->fileService->getProcessedFileData();
+        $validatedData['gambar'] = $this->fileService->getProcessedFileData();
         
-        $this->accountService->updateProfileData($id, $newData);
+        $this->accountService->updateProfileData($id, $validatedData);
         return redirect()->back()->with("status", 'success update profile');
     }
 

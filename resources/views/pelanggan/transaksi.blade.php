@@ -6,7 +6,7 @@
     <!-- Validation Errors -->
     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-    <form action="{{route('pelanggan.transaksi.store')}}" method="post">
+    <form action="{{route('pelanggan.detail.store')}}" method="post">
         @csrf
         <input type="text" name="id_pelanggan" value="{{$dataTransaksi['pelanggan']->id}}" hidden readonly>
         <input type="text" name="id_kendaraan" value="{{$dataTransaksi['kendaraan']->id_kendaraan}}" hidden readonly>

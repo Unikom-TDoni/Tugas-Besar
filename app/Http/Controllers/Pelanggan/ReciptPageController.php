@@ -2,35 +2,39 @@
 
 namespace App\Http\Controllers\Pelanggan;
 
-use App\Http\Controllers\Controller;
 use App\Services\AuthService;
-use App\Services\BookingService;
+use App\Services\ReviewService;
 use App\Services\ReciptService;
+use App\Services\BookingService;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\pelanggan\ReviewRequest;
 
 final class ReciptPageController extends Controller
 {
     private $authService;
     private $reciptService;
+    private $reviewService;
     private $bookingService;
 
-    public function __construct(ReciptService $reciptService, AuthService $authService, BookingService $bookingService)
+    public function __construct(AuthService $authService, ReciptService $reciptService, ReviewService $reviewService, BookingService $bookingService)
     {
         $this->authService = $authService;
+        $this->reviewService = $reviewService;
         $this->reciptService = $reciptService;
         $this->bookingService = $bookingService;
     }
 
     public function index()
     {
-        $currentPelangganId = $this->authService->getActivePelangganId();
-        $outlineInfo = $this->reciptService->getOutlineInfo($currentPelangganId);
+        $idPelanggan = $this->authService->getActivePelangganId();
+        $outlineInfo = $this->reciptService->getOutlineInfo($idPelanggan);
         return view('pelanggan.recipt', compact('outlineInfo'));
     }
 
     public function show($kodeTransaksi) 
     {
-        $currentPelangganId = $this->authService->getActivePelangganId();
-        $detailInfo = $this->reciptService->getDetailInfo($kodeTransaksi, $currentPelangganId);
+        $idPelanggan = $this->authService->getActivePelangganId();
+        $detailInfo = $this->reciptService->getDetailInfo($kodeTransaksi, $idPelanggan);
         return view('pelanggan.recipt-detail', compact('detailInfo'));
     }
 
@@ -38,5 +42,11 @@ final class ReciptPageController extends Controller
     {
         $this->bookingService->confrimTransferPayment($kodeTransaksi);
         return redirect()->back();
+    }
+    
+    public function storeReview(ReviewRequest $request) 
+    {
+        $validatedData = $request->validated();
+        $this->reviewService->store($validatedData);
     }
 }

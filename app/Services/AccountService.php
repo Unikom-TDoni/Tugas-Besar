@@ -31,7 +31,7 @@ final class AccountService
      */
     public function getProfileData($id)
     {
-        return $this->pelangganRepository->getDataProfile($id);
+        return $this->pelangganRepository->getProfileData($id);
     }
     
     /**
@@ -56,7 +56,7 @@ final class AccountService
      */
     public function isProfileComplate($id) 
     {
-        $profileData = $this->pelangganRepository->getDataProfile($id)->toArray();
+        $profileData = $this->pelangganRepository->getProfileData($id)->toArray();
         return empty(
             array_filter(
                 $profileData, 

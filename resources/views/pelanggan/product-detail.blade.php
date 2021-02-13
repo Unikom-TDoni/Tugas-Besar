@@ -8,7 +8,7 @@
     <th>Merk : {{$detailInfo->merk}}</th>
     <th>Gambar : {{$detailInfo->gambar}}</th>
     <th>Cabang : {{$detailInfo->cabang->nama_cabang}}</th>
-    <a href="{{route("pelanggan.transaksi.index", $detailInfo->id_kendaraan)}}">
+    <a href="{{route("pelanggan.detail.show", $detailInfo->id_kendaraan)}}">
         <button>Pesan</button>
       </a>
     <br>

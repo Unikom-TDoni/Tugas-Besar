@@ -24,8 +24,8 @@ class BookingRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_kendaraan' => 'required',
             'id_pelanggan' => 'required',
+            'id_kendaraan' => 'required',
             'nama' => 'required|string',
             'telp' => 'required|numeric',
             'alamat' => 'required|string',

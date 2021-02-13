@@ -14,7 +14,7 @@ final class HomepageController extends Controller
     {
         $this->productService = $productService;
     }
-
+    
     public function index() 
     {
         $outlineInfo = $this->productService->getOutlineInfo();
@@ -25,6 +25,6 @@ final class HomepageController extends Controller
     {
         $filterData = array_filter($request->except('_token'));
         $outlineInfo = $this->productService->getOutlineInfo($filterData);
-        return view('pelanggan.home', compact('outlineInfo','filterData'));
+        return view('pelanggan.home', compact('outlineInfo', 'filterData'));
     }
 }

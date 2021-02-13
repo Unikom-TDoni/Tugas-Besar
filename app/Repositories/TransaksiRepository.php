@@ -43,11 +43,11 @@ final class TransaksiRepository extends BaseRepository
     /**
      * Get Detail Info Of Recipt
      * 
-     * @param string $kodeTransaksi
+     * @param PrimaryKey $kodeTransaksi
      * @param array @relation
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getDetailInfoRecipt(string $kodeTranskasi, array $relation)
+    public function getDetailInfoRecipt($kodeTranskasi, array $relation)
     {
         return $this->model
             ->with($relation)
@@ -55,7 +55,6 @@ final class TransaksiRepository extends BaseRepository
                 'kode_transaksi',
                 'id_kendaraan',
                 'id_pelanggan',
-                'nomor_plat', 
                 'is_transfer',
                 'is_diantar',
                 'total_bayar',
@@ -85,6 +84,21 @@ final class TransaksiRepository extends BaseRepository
     }
 
     /**
+     * Get transaksi code
+     * 
+     * @param PrimaryKey $idPelanggan
+     * @param PrimaryKey $idKendaraan
+     * 
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function getTransaksiCode($idPelanggan, $idKendaraan) 
+    {
+        return $this->model
+            ->select('kode_transaksi', 'id_pelanggan', 'id_kendaraan')
+            ->where(['id_pelanggan' => $idPelanggan, 'id_kendaraan' => $idKendaraan]);
+    }
+
+    /**
      * To Update status pembayaran
      * 
      * @param PrimaryKey $kodeTransaksi
@@ -93,6 +107,16 @@ final class TransaksiRepository extends BaseRepository
     public function updateStatusPembayaran($kodeTransaksi, $value)
     {
         $this->model->findOrFail($kodeTransaksi)->update(['status_pembayaran' => $value]);
+    }
+
+    /**
+    * To Get Table Name
+    * 
+    * @return string
+    */
+    public function getTableName() 
+    {
+        return 'transaksi';
     }
 
     /**

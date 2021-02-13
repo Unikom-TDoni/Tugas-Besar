@@ -29,8 +29,8 @@ final class ProductService
         $kota = $this->kotaRepository->getTableName();
         $cabang = $this->cabangRepository->getTableName();
         $relation = array(
-            $cabang => function($query) { return $this->cabangRepository->selectKendaraanOutlineInfoRelation($query); }, 
-            $cabang.'.'.$kota => function($query) { return $this->kotaRepository->selectCabangRelation($query); },
+            $cabang => function($query) { $this->cabangRepository->selectOutlineInfoKendaraanRelation($query); }, 
+            $cabang.'.'.$kota => function($query) { $this->kotaRepository->selectCabangRelation($query); },
         );
 
         $idKota = null;
@@ -39,7 +39,7 @@ final class ProductService
             unset($filter['id_kota']);
         }
 
-        return $this->kendaraanRepository->getOutlineInfoKendaraan(
+        return $this->kendaraanRepository->getOutlineInfo(
             $relation,
             function($query) use ($idKota) 
             { 
@@ -63,11 +63,11 @@ final class ProductService
         $kota = $this->kotaRepository->getTableName();
         $cabang = $this->cabangRepository->getTableName();
         $relation = array(
-            $cabang => function($query) { return $this->cabangRepository->selectKendaraanDetailInfoRelation($query); }, 
-            $cabang.'.'.$kota => function($query) { return $this->kotaRepository->selectCabangRelation($query); }
+            $cabang => function($query) { $this->cabangRepository->selectDetailInfoKendaraanRelation($query); }, 
+            $cabang.'.'.$kota => function($query) { $this->kotaRepository->selectCabangRelation($query); }
         );
 
-        return $this->kendaraanRepository->getDetailInfoKendaraan(
+        return $this->kendaraanRepository->getDetailInfo(
             $id, 
             $relation,
             function($query) { return $this->cabangRepository->filterActiveCabang($query); },

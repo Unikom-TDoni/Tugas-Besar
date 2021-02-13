@@ -28,7 +28,7 @@ final class PelangganRepository extends BaseRepository
      * @param PrimaryKey $id
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getDataProfile($id) 
+    public function getProfileData($id) 
     {
         return $this->model->findOrFail($id, ['id', 'nama', 'jenis_kelamin', 'tanggal_lahir', 'telp', 'alamat', 'gambar', 'nomor_ktp']);
     }
@@ -44,6 +44,17 @@ final class PelangganRepository extends BaseRepository
         return $this->model->findOrFail($id, ['id', 'nama', 'telp', 'alamat', 'nomor_ktp']);
     }
     
+    /**
+     * Get Data For Reveiw
+     * 
+     * @param PrimaryKey $id
+     * @return \illuminate\Database\Eloquent\Model
+     */
+    public function getReviewData($id) 
+    {
+        return $this->model->findOrFail($id, ['id', 'nama', 'telp']);
+    }
+
     /**
      * To Update Existing Data
      * 
@@ -61,7 +72,7 @@ final class PelangganRepository extends BaseRepository
     * @param \Illuminate\Database\Query\Builder $query
     * @return \Illuminate\Database\Query\Builder
     */
-    public function selectTransaksiRelationColumn($query) 
+    public function selectTransaksiRelation($query) 
     {
         return $query->select(['id', 'nama', 'telp', 'alamat', 'nomor_ktp']);
     }

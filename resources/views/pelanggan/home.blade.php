@@ -1,5 +1,4 @@
-<form action="{{route('pelanggan.homepage.filter')}}" method="POST">
-    @csrf
+<form action="{{route('pelanggan.homepage.filter')}}" method="GET">
     <select name="id_kota">
       <option value="0" selected>All</option>
       <option value=5103 {{($filterData['id_kota'] ?? 'default') == 5103 ? 'selected' : ''}}>Aceh</option>

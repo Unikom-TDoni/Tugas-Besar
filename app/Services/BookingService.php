@@ -38,8 +38,9 @@ final class BookingService
                 'nama_rekening'=> $validatedData['nama_rekening'],  
                 'nama_bank' => $validatedData['nama_bank'],
                 'nomor_rekening' => $validatedData['nomor_rekening']);
+            
             $validatedData['id_bank_account'] = $this->bankAccountRepository->create($bankData);
-            foreach($bankData as $key => $value) unset($validatedData[$key]);
+            $validatedData = array_diff_key($validatedData, $bankData);
         }
         $this->transaksiRepository->create($validatedData);
     }

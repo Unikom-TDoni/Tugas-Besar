@@ -24,3 +24,16 @@
     @endif
     <br>
 </tr>
+
+<button>Beri Ulasan</button>
+
+<br><br>
+<form method="POST" action="{{route("pelanggan.recipt.review.store")}}">
+    @csrf
+    <input name="id_pelanggan" value="{{$detailInfo->pelanggan->id}}" hidden readonly>
+    <input name="kode_transaksi" value="{{$detailInfo->kode_transaksi}}" hidden readonly>
+    <input name="id_kendaraan" value="{{$detailInfo->kendaraan->id_kendaraan}}" hidden readonly>
+    <textarea name="ulasan" cols="30" rows="10" placeholder="Ulasan"></textarea><br><br>
+    <input type="number" name="rating" placeholder="rating"><br><br>
+    <button type="submit">Comment</button><br>
+</form>

@@ -11,6 +11,11 @@ class Ulasan extends Model
     public $timestamps  = false;
     protected $table    = 'transaksi';
     
+    public function transaksi() 
+    {
+        return $this->belongsTo(Transaksi::class, 'kode_transaksi');
+    }
+    
     public function getListData($id_kendaraan) 
     {
         $query = DB::table('ulasan')->where('id_kendaraan', $id_kendaraan)->orderBy('waktu_ulasan', 'desc');

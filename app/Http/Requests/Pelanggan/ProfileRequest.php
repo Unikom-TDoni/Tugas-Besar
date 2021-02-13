@@ -31,7 +31,7 @@ class ProfileRequest extends FormRequest
             'nomor_ktp' => 'string',
             'tanggal_lahir' => 'date',
             'jenis_kelamin' => 'string', 
-            'telp' => ['string', 'max:12', Rule::unique('pelanggan')->ignore($this->id)],
+            'telp' => ['string', 'max:12', Rule::unique('pelanggan')->ignore($this->pelanggan)],
         ];
     }
 }

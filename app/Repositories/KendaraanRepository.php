@@ -21,18 +21,26 @@ final class KendaraanRepository extends BaseRepository
      */
     public function getFormBookingData($id)
     {
-        return $this->model->findOrFail($id, ['id_kendaraan', 'nama_kendaraan', 'harga_sewa', 'denda']);
+        return $this->model->findOrFail($id, [
+            'id_kendaraan', 
+            'nama_kendaraan', 
+            'harga_sewa',
+            'nomor_plat',
+            'denda',
+            'warna',
+            'tahun',
+        ]);
     }
 
     /**
      * Get outline info of kendaraan for the homepage
      * 
      * @param string $relation
-     * @param Closure $filterActiveCabang
+     * @param Closure $filterCabang
      * @param Closure $selectDataCabang
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getOutlineInfoKendaraan(array $relation, Closure $filterCabangRelation, array $filter = null)
+    public function getOutlineInfo(array $relation, Closure $filterCabangRelation, array $filter = null)
     {
         $query = $this->model
             ->with($relation)
@@ -42,7 +50,17 @@ final class KendaraanRepository extends BaseRepository
             foreach($filter as $key => $value)
                 $query = $query->where($key, $value);
 
-        return $query->get(['id_kendaraan', 'id_cabang', 'nama_kendaraan', 'harga_sewa', 'jenis', 'gambar']);
+        return $query->get([
+            'id_cabang', 
+            'id_kendaraan', 
+            'nama_kendaraan',
+            'harga_sewa',
+            'gambar',
+            'warna',
+            'jenis',
+            'tahun',
+            'merk' 
+        ]);
     }
 
     /**
@@ -54,12 +72,24 @@ final class KendaraanRepository extends BaseRepository
      * @param Closure $selectDataCabang
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getDetailInfoKendaraan($id, array $relation, Closure $filterCabangRelation) 
+    public function getDetailInfo($id, array $relation, Closure $filterCabangRelation) 
     {
         return $this->model
             ->with($relation)
             ->whereHas(array_key_first($relation), $filterCabangRelation)
-            ->findOrFail($id, ['id_kendaraan', 'id_cabang', 'merk', 'nama_kendaraan', 'harga_sewa', 'jenis', 'gambar']);
+            ->findOrFail($id, [
+                'id_cabang', 
+                'id_kendaraan', 
+                'nama_kendaraan', 
+                'harga_sewa', 
+                'nomor_plat',
+                'gambar',
+                'jenis', 
+                'merk' ,
+                'warna',
+                'tahun',
+                'denda'
+            ]);
     }
 
     /**
@@ -68,9 +98,19 @@ final class KendaraanRepository extends BaseRepository
      * @param \Illuminate\Database\Query\Builder $query
      * @return \Illuminate\Database\Query\Builder
      */
-    public function selectOutlineInfoTransaksiRelationColumn($query)
+    public function selectOutlineInfoTransaksiRelation($query)
     {
-        return $query->select(['id_kendaraan', 'id_cabang', 'nama_kendaraan', 'gambar']);
+        return $query->select([
+            'id_cabang', 
+            'id_kendaraan', 
+            'nama_kendaraan', 
+            'harga_sewa',
+            'gambar',
+            'jenis',
+            'warna',
+            'tahun',
+            'merk' 
+        ]);
     }
 
     /**
@@ -79,9 +119,21 @@ final class KendaraanRepository extends BaseRepository
      * @param \Illuminate\Database\Query\Builder $query
      * @return \Illuminate\Database\Query\Builder
      */
-    public function selectDetailInfoTransaksiRelationColumn($query)
+    public function selectDetailInfoTransaksiRelation($query)
     {
-        return $query->select(['id_kendaraan', 'id_cabang', 'nama_kendaraan' , 'jenis', 'harga_sewa', 'merk' ,'gambar']);
+        return $query->select([
+            'id_cabang', 
+            'id_kendaraan', 
+            'nama_kendaraan', 
+            'harga_sewa', 
+            'nomor_plat',
+            'gambar',
+            'jenis', 
+            'merk' ,
+            'warna',
+            'tahun',
+            'denda'
+        ]);
     }
 
     /**
