@@ -8,6 +8,8 @@ use App\Services\BookingService;
 use App\Services\ProductService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pelanggan\BookingRequest;
+use App\Models\Ulasan;
+use Illuminate\Support\Facades\DB;
 
 final class ProductDetailPageController extends Controller
 { 
@@ -36,6 +38,8 @@ final class ProductDetailPageController extends Controller
 
     public function show($id)
     {
+        $listUlasan= DB::table('ulasan')->get();
+
         $idPelanggan = $this->authService->getActivePelangganId();
         $dataTransaksi = $this->bookingService->getInitBookingFormData($idPelanggan, $id);
         return view('pelanggan.transaksi', compact('dataTransaksi'));
@@ -47,4 +51,10 @@ final class ProductDetailPageController extends Controller
         $this->bookingService->create($validatedData);
         return redirect()->route('pelanggan.recipt.index');
     }
+
+    // public function daftarUlasan(){
+    //     $ulasanInfo= Ulasan::all();
+    //     return view('pelanggan.product-detail',compact('ulasanInfo'));
+
+    // }
 }

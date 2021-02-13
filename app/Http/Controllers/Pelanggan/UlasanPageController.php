@@ -12,7 +12,7 @@ class UlasanPageController extends Controller
 {
     //
     public function ulasan(){
-        return view('pelanggan/ulasan');
+        return view('Pelanggan/ulasan');
     }
 
     public function storeUlasan(Request $request){
@@ -21,11 +21,14 @@ class UlasanPageController extends Controller
             'telp'=>$request->telp,
             'nama'=>$request->nama,
             'id_kendaraan'=>$request->id_kendaraan,
+            'id_pelanggan'=>$request->id_pelanggan,
             'kode_transaksi'=>$request->kode_transaksi,
             'rating'=>$request->rating,
             'ulasan'=>$request->ulasan
         ]);
-        return redirect('pelanggan/ulasan');
+        return redirect('ulasanPelanggan');
     }
+
+
 }
 

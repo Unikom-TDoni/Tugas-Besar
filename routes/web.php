@@ -130,9 +130,20 @@ Route::group(['as' => 'pelanggan.'], function ()
     Route::group(['middleware' => ['auth:pelanggan'], 'as' => 'recipt.'], function () 
     {
         Route::get('order', [ReciptPageController::class, 'index'])->name('index');
+<<<<<<< HEAD
         Route::get('order/{transaksi}', [ReciptPageController::class, 'show'])->name('show');
         Route::put('order/{transaksi}', [ReciptPageController::class, 'confrim'])->name('confrim');
         Route::post('order/review', [ReciptPageController::class, 'storeReview'])->name('review.store');
+=======
+        Route::get('order/{id}', [ReciptPageController::class, 'show'])->name('show');
+        Route::put('order/{id}', [ReciptPageController::class, 'confrim'])->name('confrim'); 
+
+    });
+
+    Route::group(['as'=> 'ulasan'], function(){
+        Route::get('/ulasanPelanggan', [UlasanPageController::class,'ulasan'])->name('ulasanPelanggan');
+        Route::post('/ulasanPelanggan/post', [UlasanPageController::class,'storeUlasan'])->name('storeUlasan');
+>>>>>>> c2990089b5db3f67102d5e3b480deefea199b4a1
     });
 });
 
