@@ -67,7 +67,7 @@ final class PelangganRepository extends BaseRepository
     }
 
     /**
-    * To Select Initial Info Form Pemesanan Transaksi Relation
+    * Select Initial Info Form Pemesanan Transaksi Relation
     * 
     * @param \Illuminate\Database\Query\Builder $query
     * @return \Illuminate\Database\Query\Builder
@@ -75,6 +75,17 @@ final class PelangganRepository extends BaseRepository
     public function selectTransaksiRelation($query) 
     {
         return $query->select(['id', 'nama', 'telp', 'alamat', 'nomor_ktp']);
+    }
+
+    /**
+    * Select Data Review Relation
+    * 
+    * @param \Illuminate\Database\Query\Builder $query
+    * @return \Illuminate\Database\Query\Builder
+    */
+    public function selectReviewRelation($query) 
+    {
+        return $query->select(['id', 'nama', 'gambar']);
     }
 
     /**

@@ -87,7 +87,8 @@ Route::group(['prefix' => 'user'], function ()
         Route::get('/', [HomepageController::class, 'index'])->name('homepage');
     });
 });
- 
+
+//Pelanggan
 Route::group(['as' => 'pelanggan.'], function () 
 {
     //Home Page Route
@@ -101,7 +102,7 @@ Route::group(['as' => 'pelanggan.'], function ()
     Route::group(['as' => 'detail.'], function () 
     {
         Route::get('detail/{kendaraan}', [ProductDetailPageController::class, 'index'])->name('index');
-        Route::get('detail/{kendaraan}/order', [ProductDetailPageController::class, 'show'])->name('show')->middleware('profile.complate');
+        Route::get('detail/{kendaraan}/order', [ProductDetailPageController::class, 'show'])->name('show')->middleware('profile.complate', 'auth:pelanggan');
         Route::post('detail/order', [ProductDetailPageController::class, 'store'])->name('store');
     });
 
@@ -120,7 +121,8 @@ Route::group(['as' => 'pelanggan.'], function ()
     });
 
     //Profile Page Route
-    Route::group(['middleware' => ['auth:pelanggan'], 'as' => 'profile.'], function () {
+    Route::group(['middleware' => ['auth:pelanggan'], 'as' => 'profile.'], function () 
+    {
         Route::get('profile', [ProfilePageController::class, 'index'])->name('index');
         Route::post('profile/logout', [ProfilePageController::class, 'logout'])->name('logout');
         Route::put('profile/{pelanggan}/update', [ProfilePageController::class, 'update'])->name('update');
@@ -130,20 +132,14 @@ Route::group(['as' => 'pelanggan.'], function ()
     Route::group(['middleware' => ['auth:pelanggan'], 'as' => 'recipt.'], function () 
     {
         Route::get('order', [ReciptPageController::class, 'index'])->name('index');
-<<<<<<< HEAD
         Route::get('order/{transaksi}', [ReciptPageController::class, 'show'])->name('show');
         Route::put('order/{transaksi}', [ReciptPageController::class, 'confrim'])->name('confrim');
         Route::post('order/review', [ReciptPageController::class, 'storeReview'])->name('review.store');
-=======
-        Route::get('order/{id}', [ReciptPageController::class, 'show'])->name('show');
-        Route::put('order/{id}', [ReciptPageController::class, 'confrim'])->name('confrim'); 
-
     });
 
     Route::group(['as'=> 'ulasan'], function(){
         Route::get('/ulasanPelanggan', [UlasanPageController::class,'ulasan'])->name('ulasanPelanggan');
         Route::post('/ulasanPelanggan/post', [UlasanPageController::class,'storeUlasan'])->name('storeUlasan');
->>>>>>> c2990089b5db3f67102d5e3b480deefea199b4a1
     });
 });
 

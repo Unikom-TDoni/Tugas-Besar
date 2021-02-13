@@ -5,31 +5,31 @@
         ])
     }}>
         <div class="thumbnail">
-            <img src="https://sales.nambomotor.com/wp-content/uploads/2020/08/CT125_featured.png"/>
+            <img src="{{asset('images/kendaraan/'.$outlineInfo->gambar)}}"/>
         </div>
         <div class="title-outer">
-            <h5 class="title f-title-sm"><a class="f-title-sm" href="#" title="title">Honda Beat Street</a></h5>
+            <h5 class="title f-title-sm"><a class="f-title-sm" href="#" title="title">{{$outlineInfo->nama_kendaraan}}</a></h5>
         </div>
         <div class="meta-outer">
-            <span class="meta meta-vehicle-merk f-meta-data">Honda</span>
-            <span class="meta meta-vehicle-type f-meta-data">Matic</span>
-            <span class="meta meta-vehicle-year f-meta-data">2018</span>
-            <span class="meta meta-vehicle-color f-meta-data">Merah</span>
+            <span class="meta meta-vehicle-merk f-meta-data">{{$outlineInfo->merk}}</span>
+            <span class="meta meta-vehicle-type f-meta-data">{{$outlineInfo->jenis}}</span>
+            <span class="meta meta-vehicle-year f-meta-data">{{$outlineInfo->tahun}}</span>
+            <span class="meta meta-vehicle-color f-meta-data">{{$outlineInfo->warna}}</span>
         </div>
         {{-- <div class="desc-outer">
             <p class="desc f-body">It appears with the code for the icon instead of the icon. I have followed the online helps but still not working</p>
         </div> --}}
         <div class="price-outer">
-            <span class="f-title-md price">IDR 175.000/Day</span>
+            <span class="f-title-md price">IDR {{$outlineInfo->harga_sewa}}/Day</span>
         </div>
         <div class="branch-outer">
             <div class="branch">
                 <i class="icon fas fa-map-marker-alt"></i>
-                <span class="f-meta-data">Geger Kalong - Bandung Utara</span>
+                <span class="f-meta-data">{{$outlineInfo->cabang->nama_cabang}} - {{$outlineInfo->cabang->kota->nama}}</span>
             </div>
         </div>
         <div class="cta-outer">
-            <a href="#" class="btn btn-md btn-primary btn-full btn-icon">
+            <a href="{{route("pelanggan.detail.index", $outlineInfo->id_kendaraan)}}" class="btn btn-md btn-primary btn-full btn-icon">
                 <i class="fas fa-handshake"></i> Rent Now
             </a>
         </div>

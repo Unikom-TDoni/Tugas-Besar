@@ -12,4 +12,9 @@ class Kota extends Model
     {
         return $this->hasMany(Cabang::class);
     }
+
+    public function provinsi() 
+    {
+        return $this->belongsTo(Provinsi::class);
+    }
 }

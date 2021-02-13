@@ -8,7 +8,7 @@
 <form method="POST" action="{{route('pelanggan.profile.update', $profileData->id)}}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    <img src="{{ asset($profileData->gambar)}}" name="old_gambar"><br><br>
+    <img src="{{asset('images/profile/'.$profileData->gambar)}}" name="old_gambar"><br><br>
     <input type="file" accept="image/*" name="gambar"><br><br>
     <input placeholder="Name" type="text" placeholder="Nama" name="nama" value="{{$profileData->nama}}"><br><br>
     <input placeholder="Alamat" type="text" name="alamat" value="{{$profileData->alamat}}"><br><br>

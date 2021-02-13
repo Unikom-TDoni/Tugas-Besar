@@ -18,7 +18,7 @@ final class FileService
      * Store file to public base
      * 
      * @param PrimaryKey @id
-     * @param mixed @file
+     * @param mixed|null @file
      */
     public function store($id, $file) 
     {
@@ -35,7 +35,7 @@ final class FileService
         
         $file->move($this->defaultFilePath, $fileName);
 
-        $this->lastProcessedFile = $this->defaultFilePath.$fileName;
+        $this->lastProcessedFile = $fileName;
     }
 
     /**

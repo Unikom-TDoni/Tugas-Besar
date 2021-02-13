@@ -2,23 +2,32 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 class Ulasan extends Model
 {
-    public $timestamps  = false;
-    protected $table    = 'transaksi';
+    public $timestamps = ["created_at"];
+    protected $table    = 'ulasan';
     
     public function transaksi() 
     {
         return $this->belongsTo(Transaksi::class, 'kode_transaksi');
     }
+
+    public function pelanggan() 
+    {
+        return $this->belongsTo(Pelanggan::class, 'id_pelanggan');
+    }
+
+    public function kendaraan() 
+    {
+        return $this->belongsTo(Pelanggan::class, 'id_kendaraan');
+    }
     
     public function getListData($id_kendaraan) 
     {
-        $query = DB::table('ulasan')->where('id_kendaraan', $id_kendaraan)->orderBy('waktu_ulasan', 'desc');
+        $query = DB::table('ulasan')->where('id_kendaraan', $id_kendaraan)->orderBy('created_at', 'desc');
         
         return $query;
     }

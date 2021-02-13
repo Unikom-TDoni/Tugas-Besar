@@ -36,6 +36,8 @@
 <form method="POST" action="{{route("pelanggan.recipt.review.store")}}">
     @csrf
     <input name="id_pelanggan" value="{{$detailInfo->pelanggan->id}}" hidden readonly>
+    <input name="nama" value="{{$detailInfo->pelanggan->nama}}" hidden readonly>
+    <input name="telp" value="{{$detailInfo->pelanggan->telp}}" hidden readonly>
     <input name="kode_transaksi" value="{{$detailInfo->kode_transaksi}}" hidden readonly>
     <input name="id_kendaraan" value="{{$detailInfo->kendaraan->id_kendaraan}}" hidden readonly>
     <textarea name="ulasan" cols="30" rows="10" placeholder="Ulasan"></textarea><br><br>

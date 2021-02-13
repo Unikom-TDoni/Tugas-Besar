@@ -52,7 +52,8 @@ class Transaksi extends Model
         return $this->belongsTo(BankAccount::class, 'id_bank_account');
     }
 
-    public function ulasan() {
+    public function ulasan() 
+    {
         return $this->hasMany(Ulasan::class);
     }
 

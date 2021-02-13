@@ -38,6 +38,11 @@ class Kendaraan extends Model
         return $this->hasMany(Transaksi::class);
     }
 
+    public function ulasan() 
+    {
+        return $this->hasMany(Ulasan::class);
+    }
+
     public function getNextId() 
     {
         $statement = DB::select("show table status like 'kendaraan'");

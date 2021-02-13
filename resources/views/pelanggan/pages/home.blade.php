@@ -8,13 +8,13 @@
         <div class="container">
             <h2 class="h2">Motor For Rent</h2>
             <div class="row">
-                @for ($i = 0; $i < 12; $i++)
+                @foreach($outlineInfo as $info)
                     <div class="col-3">
-                        <x-pelanggan.item/>
+                        <x-pelanggan.item :outlineInfo="$info"/>
                     </div>
-                @endfor
+                @endforeach
             </div>
-            <a href="#" class="load-more btn btn-md btn-secondary btn-50">Load More</a>
+            <a href="{{$outlineInfo->links()}}" class="load-more btn btn-md btn-secondary btn-50">Load More</a>
         </div>
     </section>
     <x-pelanggan.keyvalue/>

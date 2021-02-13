@@ -6,14 +6,16 @@ use Illuminate\View\Component;
 
 class item extends Component
 {
+    public $outlineInfo;
+    
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($outlineInfo)
     {
-        
+        $this->outlineInfo = $outlineInfo;
     }
 
     /**

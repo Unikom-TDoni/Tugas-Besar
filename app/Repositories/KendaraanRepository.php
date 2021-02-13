@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use Closure;
 use App\Models\Kendaraan;
 use App\Repositories\Base\BaseRepository;
 
@@ -35,26 +34,23 @@ final class KendaraanRepository extends BaseRepository
     /**
      * Get outline info of kendaraan for the homepage
      * 
-     * @param string $relation
-     * @param Closure $filterCabang
-     * @param Closure $selectDataCabang
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @param array $relation
+     * @param array $filterCabang
+     * @param array $filter
+     * @param int $paginate
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getOutlineInfo(array $relation, Closure $filterCabangRelation, array $filter = null)
+    public function getOutlineInfo(array $relation, array $filterRelation, array $filter = null, $paginate)
     {
-        $query = $this->model
-            ->with($relation)
-            ->whereHas(array_key_first($relation), $filterCabangRelation);
-        
-        if(isset($filter))
-            foreach($filter as $key => $value)
-                $query = $query->where($key, $value);
-
-        return $query->get([
-            'id_cabang', 
+        $query = $this->model->with($relation);
+        $query = $this->generateRelationFilterQuery($query, $filterRelation);
+        if(isset($filter)) $query = $this->generateFilterQuery($query, $filter);
+        return $query->paginate($paginate, [
+            'id_cabang',
             'id_kendaraan', 
             'nama_kendaraan',
             'harga_sewa',
+            'deskripsi',
             'gambar',
             'warna',
             'jenis',
@@ -67,22 +63,21 @@ final class KendaraanRepository extends BaseRepository
      * Get detail info kendaraan
      * 
      * @param PrimaryKey $id
-     * @param string $relation
-    *  @param Closure $filterCabangRelation
-     * @param Closure $selectDataCabang
+     * @param array $relation
+    *  @param array $whereHasRelation
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getDetailInfo($id, array $relation, Closure $filterCabangRelation) 
+    public function getDetailInfo($id, array $relation, array $filterRelation) 
     {
-        return $this->model
-            ->with($relation)
-            ->whereHas(array_key_first($relation), $filterCabangRelation)
-            ->findOrFail($id, [
+        $query = $this->model->with($relation);
+        $query = $this->generateRelationFilterQuery($query, $filterRelation);
+        return $query->findOrFail($id, [
                 'id_cabang', 
                 'id_kendaraan', 
                 'nama_kendaraan', 
                 'harga_sewa', 
                 'nomor_plat',
+                'deskripsi',
                 'gambar',
                 'jenis', 
                 'merk' ,
@@ -93,7 +88,37 @@ final class KendaraanRepository extends BaseRepository
     }
 
     /**
-     * To Select Outline Info For Transaksi Relation
+     * Get related info of kendaraan for the detail page
+     * 
+     * @param array $relation
+     * @param array $filterRelation
+     * @param array $relatedInfo
+     * @param int $limit
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getRelatedInfo(array $relation, array $filterRelation, array $relatedInfo, $limit) 
+    {
+        $query = $this->model->with($relation);
+        $query = $this->generateRelationFilterQuery($query, $filterRelation);
+        $query = $this->generateFilterRelatedQuery($query, $relatedInfo);
+        return $query
+            ->limit($limit)
+            ->get([
+                'id_cabang',
+                'id_kendaraan', 
+                'nama_kendaraan',
+                'harga_sewa',
+                'deskripsi',
+                'gambar',
+                'warna',
+                'jenis',
+                'tahun',
+                'merk' 
+            ]);
+    }
+
+    /**
+     * Select Outline Info Transaksi Relation
      * 
      * @param \Illuminate\Database\Query\Builder $query
      * @return \Illuminate\Database\Query\Builder
@@ -105,6 +130,7 @@ final class KendaraanRepository extends BaseRepository
             'id_kendaraan', 
             'nama_kendaraan', 
             'harga_sewa',
+            'deskripsi',
             'gambar',
             'jenis',
             'warna',
@@ -114,7 +140,7 @@ final class KendaraanRepository extends BaseRepository
     }
 
     /**
-     * To Select Detail Info For Transaksi Relation
+     * Select Detail Info Transaksi Relation
      * 
      * @param \Illuminate\Database\Query\Builder $query
      * @return \Illuminate\Database\Query\Builder
@@ -127,6 +153,7 @@ final class KendaraanRepository extends BaseRepository
             'nama_kendaraan', 
             'harga_sewa', 
             'nomor_plat',
+            'deskripsi',
             'gambar',
             'jenis', 
             'merk' ,
@@ -144,5 +171,46 @@ final class KendaraanRepository extends BaseRepository
     public function getTableName() 
     {
         return 'kendaraan';
+    }
+
+    /**
+     * Generate filter based on related info query
+     * 
+     * @param \Illuminate\Database\Query\Builder $query
+     * @param array $relatedInfo
+     * @return \Illuminate\Database\Query\Builder
+     */
+    private function generateFilterRelatedQuery($query, array $relatedInfo) 
+    {
+        foreach($relatedInfo as $key => $value)
+            $query = $query->orWhere($key, $value);
+        return $query;
+    }
+
+    /**
+     * Generate filter query
+     * 
+     * @param \Illuminate\Database\Query\Builder $query
+     * @param array $filter
+     * @return \Illuminate\Database\Query\Builder
+     */
+    private function generateFilterQuery($query, array $filter) 
+    {
+        foreach($filter as $key => $value)
+            $query = $query->where($key, $value);
+        return $query;
+    }
+
+    /**
+     * Generate relation filter query
+     * 
+     * @param \Illuminate\Database\Query\Builder $query
+     * @param array $filterRelation
+     * @return \Illuminate\Database\Query\Builder
+     */
+    private function generateRelationFilterQuery($query, array $filterRelation) {
+        foreach($filterRelation as $key => $value)
+            $query = $query->whereHas($key, $value);
+        return $query;
     }
 }

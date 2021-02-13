@@ -8,8 +8,8 @@ class Provinsi extends Model
 {
     protected $table = 'provinsi';
 
-    public function cabang() 
+    public function kota() 
     {
-        return $this->hasMany(Cabang::class);
+        return $this->hasMany(Kota::class);
     }
 }

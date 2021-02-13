@@ -12,6 +12,12 @@ final class BankAccountRepository extends BaseRepository
         parent::__construct($model);
     }
 
+    /**
+     * Create Bank Account
+     * 
+     * @param array $validateData
+     * @return PrimaryKey
+     */
     public function create(array $validateData) 
     {
         return $this->model->create($validateData)->id;

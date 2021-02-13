@@ -35,25 +35,17 @@ final class CabangRepository extends BaseRepository
     }
 
     /**
-     * Filter active cabang
+     * Filter cabang
      * 
      * @param \Illuminate\Database\Query\Builder $query
      * @return \Illuminate\Database\Query\Builder
      */
-    public function filterActiveCabang($query) 
+    public function filterCabang($query, array $filter = null) 
     {
-        return $query->where('is_aktif', 1);
-    }
-
-    /**
-     * Filter kota
-     * 
-     * @param \Illuminate\Database\Query\Builder $query
-     * @return \Illuminate\Database\Query\Builder
-     */
-    public function filterKota($query, $idKota) 
-    {
-        return $query->where('id_kota', $idKota);
+        $query = $query->where('is_aktif', 1);
+        if(isset($filter))
+            foreach($filter as $key => $value) $query = $query->where($key, $value);
+        return $query;
     }
 
     /**

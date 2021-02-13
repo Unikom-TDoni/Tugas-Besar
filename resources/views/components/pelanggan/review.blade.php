@@ -10,17 +10,17 @@
             </div>
         </div>
         <div class="col-10 review-content">
-            <span class="content-user f-title-sm">Abraham Rumayara</span>
+            <span class="content-user f-title-sm">{{$reviewInfo->pelanggan->nama}}</span>
             <div class="content-rating">
-                @for ($i = 0; $i < 5; $i++)
+                @for ($i = 0; $i < $reviewInfo->rating; $i++)
                     <span class="icon-rating"><i class="fas fa-star"></i></span>
                 @endfor
             </div>
             <p class="content-review f-body">
-                Bukalapak merupakan situs belanja online terpercaya di Indonesia yang menjual beragam produk yang dibutuhkan seluruh masyarakat Indonesia.
+                {{$reviewInfo->ulasan}}
             </p>
             <span class="content-meta-data">
-                <span class="meta-data-date f-meta-data">Wednesday, 20-02-2021</span>
+                <span class="meta-data-date f-meta-data">{{$reviewInfo->created_at}}</span>
             </span>
         </div>
     </div>

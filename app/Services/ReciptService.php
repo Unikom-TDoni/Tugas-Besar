@@ -39,14 +39,15 @@ final class ReciptService
     {
         $cabang = $this->cabangRepository->getTableName();
         $kendaraan = $this->kendaraanRepository->getTableName();
+        $pelanggan = $this->pelangganRepository->getTableName();
         $relation = array(
+            $pelanggan => function($query) { $this->pelangganRepository->selectTransaksiRelation($query); },
             $kendaraan => function($query) { $this->kendaraanRepository->selectOutlineInfoTransaksiRelation($query); }, 
             $kendaraan.'.'.$cabang => function($query) { $this->cabangRepository->selectOutlineInfoKendaraanRelation($query); }
         );
         
         $outlineInfo = $this->transaksiRepository->getOutlineInfoRecipt($idPelanggan, $relation);
-        foreach($outlineInfo as $item) 
-            $item = $this->generateRecipteStatus($item);
+        foreach($outlineInfo as $item) $item = $this->generateRecipteStatus($item);
 
         return $outlineInfo;
     }

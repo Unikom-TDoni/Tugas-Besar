@@ -7,38 +7,38 @@
             <div class="row">
                 <div class="col-8">
                     <div class="product-pic">
-                        <img src="https://sales.nambomotor.com/wp-content/uploads/2020/08/CT125_featured.png" alt="product pic">
+                        <img src="{{asset('images/kendaraan/'.$detailInfo->gambar)}}" alt="product pic">
                     </div>
                     <div class="product-desc">
                         <h3 class="h3">Product Description</h3>
-                        <p class="f-body desc">Bukalapak merupakan situs belanja online terpercaya di Indonesia yang menjual beragam produk yang dibutuhkan seluruh masyarakat Indonesia. Seiring berkembangnya teknologi, semakin banyak aktivitas yang dilakukan secara digital, lebih mudah dan praktis.</p>
+                        <p class="f-body desc">{{$detailInfo->deskripsi}}</p>
                         <div class="product-spec">
                             <h4 class="f-title-md">Spesification</h4>
                             <table class="spec">
                                 <tr class="spec-title">
                                   <td>Merk</td>
                                   <td>:</td>
-                                  <td>Honda</td>
+                                  <td>{{$detailInfo->merk}}</td>
                                 </tr>
                                 <tr class="spec-title">
                                   <td>Type</td>
                                   <td>:</td>
-                                  <td>Matic</td>
+                                  <td>{{$detailInfo->jenis}}</td>
                                 </tr>
                                 <tr class="spec-title">
                                     <td>Warna</td>
                                     <td>:</td>
-                                    <td>Merah</td>
+                                    <td>{{$detailInfo->warna}}</td>
                                 </tr>
                                 <tr class="spec-title">
                                     <td>Tahun</td>
                                     <td>:</td>
-                                    <td>2018</td>
+                                    <td>{{$detailInfo->tahun}}</td>
                                 </tr>
                                 <tr class="spec-title">
                                     <td>Plat</td>
                                     <td>:</td>
-                                    <td>D 2xxx ABC</td>
+                                    <td>{{$detailInfo->nomor_plat}}</td>
                                 </tr>
                                 <tr class="spec-title">
                                     <td>Jaminan Pinjaman</td>
@@ -48,16 +48,16 @@
                                 <tr class="spec-title">
                                     <td>Harga Denda Telat</td>
                                     <td>:</td>
-                                    <td>Rp. 190.000/day (Akumulatif per hari)</td>
+                                    <td>Rp. {{$detailInfo->harga_sewa}}/day (Akumulatif per hari)</td>
                                 </tr>
                             </table>
                         </div>
                         <div class="product-review" id="product-review">
                             <h4 class="f-title-md">Reviews</h4>
                             <div class="product-review-content">
-                                @for ($i = 0; $i < 2; $i++)
-                                    <x-pelanggan.review/>
-                                @endfor
+                                @foreach ($reviewInfo as $info)
+                                    <x-pelanggan.review :reviewInfo="$info"/>
+                                @endforeach
                             </div>
                         </div>
                     </div>      
@@ -66,12 +66,12 @@
                     <div class="product-cta">
                         <div class="product-card">
                             <div class="product-title f-title-md">
-                                Honda Beat Street
+                                {{$detailInfo->nama_kendaraan}}
                             </div>
                             <div class="product-meta-data f-meta-data">
-                                <span class="meta-data-type">Matic</span>
-                                <span class="meta-data-year">2018</span>
-                                <span class="meta-data-color">Merah</span>
+                                <span class="meta-data-type">{{$detailInfo->jenis}}</span>
+                                <span class="meta-data-year">{{$detailInfo->tahun}}</span>
+                                <span class="meta-data-color">{{$detailInfo->warna}}</span>
                             </div>
                             <div class="product-review">
                                 <div class="ratings">
@@ -82,14 +82,14 @@
                                 </div>
                             </div>
                             <div class="product-price">
-                                <span class="h2">IDR 175.000/Day</span>
+                                <span class="h2">IDR {{$detailInfo->harga_sewa}}/Day</span>
                             </div>
                             <div class="product-branch">
                                 <i class="icon fas fa-map-marker-alt"></i>
-                                <span class="f-meta-data">Geger Kalong - Bandung Utara</span>
+                                <span class="f-meta-data">{{$detailInfo->cabang->nama_cabang}} - {{$detailInfo->cabang->kota->nama}}</span>
                             </div>
                         </div>
-                        <a href="#" class="product-cta-btn btn btn-md btn-primary btn-full btn-icon">
+                        <a href="{{route("pelanggan.detail.show", $detailInfo->id_kendaraan)}}" class="product-cta-btn btn btn-md btn-primary btn-full btn-icon">
                             <i class="fas fa-handshake"></i> Rent Now
                         </a>
                         <a href="#" class="product-cta-btn btn btn-md btn-secondary btn-full btn-icon">
@@ -107,11 +107,11 @@
             <div class="row">
                 <div class="swiper-container relates-slider">
                     <div class="swiper-wrapper">
-                        @for ($i = 0; $i < 12; $i++)
+                        @foreach($outlineInfo as $info)
                             <div class="swiper-slide">
-                                <x-pelanggan.item/>
+                                <x-pelanggan.item :outlineInfo="$info"/>
                             </div>
-                        @endfor
+                        @endforeach
                     </div>
                     <div class="slide-next"></div>
                     <div class="slide-prev"></div>
