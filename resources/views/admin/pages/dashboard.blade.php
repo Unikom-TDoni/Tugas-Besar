@@ -80,29 +80,23 @@
                 <tbody>
                     @foreach($transaksi as $data)
                     
-                    <?php 
-                        $label_bg = "label-default";
-                        
+                    @php 
                         if($data->status_transaksi == 0)
                         {
-                            $status = "Menunggu Konfirmasi Transaksi";
+                            $status     = "Transaksi Diproses";
+                            $label_bg   = "label-info";
                         }
                         elseif ($data->status_transaksi == 1) 
                         {
-                            $status = ($data->status_pembayaran == 0)?"Menunggu Konfirmasi Pembayaran":"Sedang dalam peminjaman";
-                            
-                            if($data->status_pengembalian == 1)
-                            {
-                                $status     = "Transaksi Selesai";   
-                                $label_bg   = "label-success";
-                            }  
+                            $status     = "Transaksi Selesai";   
+                            $label_bg   = "label-success";
                         }
                         else
                         {
                             $status     = "Transaksi Batal";
                             $label_bg   = "label-danger";
                         }
-                    ?>
+                    @endphp
                     
                     <tr class="gradeX">
                         <td>{{ date("d-m-Y", strtotime($data->tanggal_transaksi)) }}</td>

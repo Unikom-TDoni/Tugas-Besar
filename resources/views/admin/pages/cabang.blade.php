@@ -7,7 +7,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <h4 class="pull-left page-title"><i class="md md-home"></i> Test Cabang</h4>
+                    <h4 class="pull-left page-title"><i class="md md-home"></i> Cabang</h4>
                     <ol class="breadcrumb pull-right">
                         <li><a href="{{ Route('dashboard') }}">Admin</a></li>
                         <li class="active">Cabang</li>
@@ -32,18 +32,18 @@
                                 <th>Alamat</th>
                                 <th>Kota</th>
                                 <th>Provinsi</th>
-                                <th>Status</th>
+                                <th>Aktifasi</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>                  
                         <tbody>
                             @foreach($cabang as $data)
                             
-                            <?php 
+                            @php
                                 $status     = ($data->is_aktif)?"AKTIF":"NON-AKTIF"; 
                                 $status_btn = ($data->is_aktif)?"info":"danger"; 
                                 $row_bg     = ($data->is_aktif)?"":"background: red;color: white;"; 
-                            ?>
+                            @endphp
                             
                             <tr class="gradeX" style="{{ $row_bg }}">
                                 <td>{{ $data->nama_cabang }}</td>
@@ -85,7 +85,7 @@
                         <div class="col-md-12"> 
                             <div class="form-group"> 
                                 <label class="control-label">Nama Cabang</label> 
-                                <input type="text" class="form-control" id="nama" name="nama" required> 
+                                <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Cabang" required> 
                             </div> 
                         </div> 
                     </div> 
@@ -93,7 +93,7 @@
                         <div class="col-md-12"> 
                             <div class="form-group"> 
                                 <label class="control-label">No. Telp</label> 
-                                <input type="text" class="form-control" id="telp" name="telp" required> 
+                                <input type="text" class="form-control" id="telp" name="telp" placeholder="No. Telp Cabang" required> 
                             </div> 
                         </div> 
                     </div> 
@@ -122,7 +122,7 @@
                         <div class="col-md-12"> 
                             <div class="form-group"> 
                                 <label for="field-7" class="control-label">Alamat</label> 
-                                <textarea class="form-control autogrow" id="alamat" name="alamat" rows="4" required></textarea>
+                                <textarea class="form-control autogrow" id="alamat" name="alamat" placeholder="Alamat Cabang" rows="4" required></textarea>
                             </div> 
                         </div> 
                     </div> 
@@ -185,12 +185,12 @@
             {
                 $.each(result.cabang,function(key,value)
                 {  
-                    getKota(value.provinsi, value.kota);
+                    getKota(value.id_provinsi, value.id_kota);
                     $("#id").val(id_cabang);
                     $("#nama").val(value.nama_cabang);
                     $("#telp").val(value.telp);
-                    $("#provinsi").val(value.provinsi);
-                    $("#kota").val(value.kota);
+                    $("#provinsi").val(value.id_provinsi);
+                    $("#kota").val(value.id_kota);
                     $("#alamat").val(value.alamat);
                 });
             }

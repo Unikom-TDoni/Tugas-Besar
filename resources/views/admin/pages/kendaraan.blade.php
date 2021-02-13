@@ -30,28 +30,54 @@
                                 <th>Nama Kendaraan</th>
                                 <th>Merk</th>
                                 <th>Jenis</th>
+                                <th>Nomor Plat</th>
                                 <th>Harga Sewa</th>
                                 <th>Denda</th>
                                 <th>Cabang</th>
-                                <th>Jumlah</th>
-                                <th>Tersedia</th>
-                                <th>Terpakai</th>
-                                <th>Aksi</th>
+                                <th>Status</th>
+                                <th>Aktifasi</th>
+                                <th width="10%">Aksi</th>
                             </tr>
                         </thead>                  
                         <tbody>
                             @foreach($kendaraan as $data)
                             
-                            <tr class="gradeX">
+                            @php
+                                $aktifasi       = ($data->is_aktif)?"AKTIF":"NON-AKTIF"; 
+                                $aktifasi_btn   = ($data->is_aktif)?"info":"danger";
+                                
+                                if(!$data->is_tersedia)
+                                {
+                                    $row_bg = "background: blue;color: white;"; 
+                                }
+                                elseif(!$data->is_aktif)
+                                {    
+                                    $row_bg = "background: red;color: white;"; 
+                                }
+                                else 
+                                {   
+                                    $row_bg = ""; 
+                                }
+                            @endphp
+
+                            <tr class="gradeX" style="{{ $row_bg }}">
                                 <td>{{ $data->nama_kendaraan }}</td>
                                 <td>{{ $data->merk }}</td>
                                 <td>{{ $data->jenis }}</td>
+                                <td>{{ $data->nomor_plat }}</td>
                                 <td>{{ "Rp ". number_format($data->harga_sewa, 0, ",", ".") }}</td>
                                 <td>{{ "Rp ".number_format($data->denda, 0, ",", ".") }}</td>
                                 <td>{{ $data->cabang }}</td>
-                                <td>{{ $data->jumlah_kendaraan }}</td>
-                                <td>{{ $data->jumlah_tersedia }}</td>
-                                <td>{{ $data->jumlah_terpakai }}</td>
+                                <td>
+                                    @if($data->is_tersedia)
+                                        <label class="label label-info">Tersedia</label>
+                                    @else   
+                                        <label class="label label-danger">Tidak Tersedia</label>
+                                    @endif
+                                </td>
+                                <td>    
+                                    <button class="btn btn-icon btn-sm btn-{{ $aktifasi_btn }}" onclick="ubahStatus({{ $data->id_kendaraan }})"> {{ $aktifasi }} </button>
+                                </td>
                                 <td class="actions">
                                     <button class="btn btn-icon btn-sm btn-success" onclick="edit({{ $data->id_kendaraan }})"> <i class="fa fa-edit"></i> </button> 
                                     <button class="btn btn-icon btn-sm btn-danger" onclick="hapus({{ $data->id_kendaraan }})"> <i class="fa fa-trash"></i> </button>
@@ -83,7 +109,7 @@
                         <div class="col-md-12"> 
                             <div class="form-group"> 
                                 <label class="control-label">Nama Kendaraan</label> 
-                                <input type="text" class="form-control" id="nama" name="nama" required> 
+                                <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Kendaraan" required> 
                             </div> 
                         </div> 
                     </div> 
@@ -91,7 +117,7 @@
                         <div class="col-md-6"> 
                             <div class="form-group"> 
                                 <label class="control-label">Merk</label>
-                                <input type="text" class="form-control" id="merk" name="merk" required> 
+                                <input type="text" class="form-control" id="merk" name="merk" placeholder="Merk" required> 
                             </div> 
                         </div>
                         <div class="col-md-6"> 
@@ -108,16 +134,44 @@
                         </div> 
                     </div> 
                     <div class="row">
+                        <div class="col-md-4"> 
+                            <div class="form-group"> 
+                                <label for="field-5" class="control-label">Warna</label> 
+                                <input type="text" class="form-control" id="warna" name="warna" placeholder="Warna" required> 
+                            </div> 
+                        </div>
+                        <div class="col-md-4"> 
+                            <div class="form-group"> 
+                                <label class="control-label">Tahun Pembuatan</label>
+                                <input type="text" class="form-control" id="tahun" name="tahun" placeholder="Tahun Pembuatan" data-mask="9999" required>
+                            </div> 
+                        </div>
+                        <div class="col-md-4"> 
+                            <div class="form-group"> 
+                                <label for="field-5" class="control-label">Nomor Plat</label> 
+                                <input type="text" class="form-control" id="nomor_plat" name="nomor_plat" placeholder="Nomor Plat" required> 
+                            </div> 
+                        </div> 
+                    </div>
+                    <div class="row"> 
+                        <div class="col-md-12"> 
+                            <div class="form-group"> 
+                                <label for="field-7" class="control-label">Deskripsi</label> 
+                                <textarea class="form-control" id="deskripsi" name="deskripsi" required></textarea>
+                            </div> 
+                        </div> 
+                    </div>
+                    <div class="row">
                         <div class="col-md-6"> 
                             <div class="form-group"> 
                                 <label for="field-5" class="control-label">Harga Sewa</label> 
-                                <input type="number" class="form-control" id="harga" name="harga" required> 
+                                <input type="number" class="form-control" id="harga" name="harga" placeholder="Harga Sewa" required> 
                             </div> 
                         </div>
                         <div class="col-md-6"> 
                             <div class="form-group"> 
                                 <label class="control-label">Denda Keterlambatan</label>
-                                <input type="number" class="form-control" id="denda" name="denda" required> 
+                                <input type="number" class="form-control" id="denda" name="denda" placeholder="Denda Keterlambatan" required> 
                             </div> 
                         </div> 
                     </div> 
@@ -133,15 +187,7 @@
                                 </select>
                             </div> 
                         </div> 
-                    </div> 
-                    <div class="row"> 
-                        <div class="col-md-12"> 
-                            <div class="form-group"> 
-                                <label for="field-7" class="control-label">Jumlah Kendaraan</label> 
-                                <input type="number" class="form-control" id="jumlah" name="jumlah" required> 
-                            </div> 
-                        </div> 
-                    </div> 
+                    </div>
                     <div class="row"> 
                         <div class="col-md-12"> 
                             <div class="form-group"> 
@@ -171,13 +217,15 @@
     function tambah()
     {
         $('#edit').modal('show');
+        $("#gambar").prop('required',true);
         resetValue();
     }
 
     function edit(id)
     {
         $('#edit').modal('show');
-
+        $("#gambar").prop('required',false);
+        
         $.ajax(
         {
             url:"{{ Route('kendaraan.data') }}",
@@ -195,10 +243,13 @@
                     $("#nama").val(value.nama_kendaraan);
                     $("#merk").val(value.merk);
                     $("#jenis").val(value.jenis);
+                    $("#warna").val(value.warna);
+                    $("#tahun").val(value.tahun);
+                    $("#nomor_plat").val(value.nomor_plat);
+                    $("#deskripsi").val(value.deskripsi);
                     $("#harga").val(value.harga_sewa);
                     $("#denda").val(value.denda);
                     $("#cabang").val(value.id_cabang);
-                    $("#jumlah").val(value.jumlah_kendaraan);
                     $("#old_gambar").val(value.gambar);
                     $("#gambar_src").attr("src", "{{ URL::asset('images/kendaraan') }}" + "/" + value.gambar);
                 });
@@ -225,10 +276,13 @@
         $("#nama").val("");
         $("#merk").val("");
         $("#jenis").val("");
+        $("#warna").val("");
+        $("#tahun").val("");
+        $("#nomor_plat").val("");
+        $("#deskripsi").val("");
         $("#harga").val("");
         $("#denda").val("");
         $("#cabang").val("");
-        $("#jumlah").val("");
         $("#gambar").val("");
         $("#gambar_old").val("");
         $("#gambar_src").attr("src", "");
@@ -259,6 +313,26 @@
                 }, function() {
                     location.reload();
                 });
+            }
+        });
+        
+        return false;
+    }
+
+    function ubahStatus(id)
+    {
+        $.ajax(
+        {
+            url: "{{ Route('kendaraan.aktivasi') }}",
+            type: 'POST',
+            data: 
+            {
+                id: id,
+                _token: '{{csrf_token()}}'
+            },
+            success: function (response)
+            {
+                location.reload();
             }
         });
         

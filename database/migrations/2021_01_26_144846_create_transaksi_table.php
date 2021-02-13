@@ -16,14 +16,13 @@ class CreateTransaksiTable extends Migration
         Schema::create('transaksi', function (Blueprint $table) {       
             $table->string('kode_transaksi', 50);
             $table->unsignedBigInteger('id_kendaraan');
-            $table->unsignedBigInteger('id_pelanggan');
-            $table->unsignedBigInteger('id_bank_account');
+            $table->unsignedBigInteger('id_pelanggan')->nullable();
+            $table->unsignedBigInteger('id_bank_account')->nullable();
             $table->date('tanggal_transaksi');
             $table->string('telp', 15);
             $table->string('nama', 100);
             $table->text('alamat');
-            $table->string('nomor_ktp', 50);
-            $table->string('nomor_plat', 10)->nullable();
+            $table->string('nomor_ktp', 50); 
             $table->date('tanggal_mulai_peminjaman');
             $table->date('tanggal_akhir_peminjaman');
             $table->tinyInteger('is_transfer')->default('0');

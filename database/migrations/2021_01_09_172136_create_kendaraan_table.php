@@ -19,11 +19,15 @@ class CreateKendaraanTable extends Migration
             $table->string('nama_kendaraan', 50);
             $table->string('merk', 50);
             $table->string('jenis', 10);
+            $table->string('warna', 50);
+            $table->year('tahun');
+            $table->string('nomor_plat', 20);
+            $table->text('deskripsi');
             $table->double('harga_sewa');
             $table->double('denda');
-            $table->integer('jumlah_kendaraan');
-            $table->integer('jumlah_terpakai')->default('0');
             $table->text('gambar')->nullable();
+            $table->tinyInteger('is_aktif')->default('1');
+            $table->tinyInteger('is_tersedia')->default('1');
             $table->foreign('id_cabang')->references('id_cabang')->on('cabang')->onDelete('cascade');
         });
     }

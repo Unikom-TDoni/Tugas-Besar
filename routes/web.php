@@ -46,6 +46,7 @@ Route::group(['prefix' => 'admin'], function ()
         Route::post('data', [AdminController::class, 'getDataKendaraan'])->name('kendaraan.data');
         Route::post('save', [AdminController::class, 'saveKendaraan'])->name('kendaraan.save');
         Route::post('delete', [AdminController::class, 'hapusKendaraan'])->name('kendaraan.delete');
+        Route::post('aktivasi', [AdminController::class, 'ubahAktivasiKendaraan'])->name('kendaraan.aktivasi');
     });
 
     Route::group(['prefix' => 'pelanggan'], function () 
@@ -145,6 +146,15 @@ Route::group(['as' => 'pelanggan.'], function ()
     Route::group(['as'=> 'ulasan'], function(){
         Route::get('/ulasanPelanggan', [UlasanPageController::class,'ulasan'])->name('ulasanPelanggan');
         Route::post('/ulasanPelanggan/post', [UlasanPageController::class,'storeUlasan'])->name('storeUlasan');
+    });
+});
+
+Route::group(['prefix'=>'test'], function(){
+    Route::get('/', function () {
+        return view('pelanggan/pages/home');
+    });
+    Route::get('/detail', function () {
+        return view('pelanggan/pages/detail');
     });
 });
 
