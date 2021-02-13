@@ -1,4 +1,5 @@
 const {dest, src, series, watch, parallel}   =   require('gulp');
+const { default: Swiper } = require('swiper');
       gulpSass      =   require('gulp-sass');
       gulpPostcss   =   require('gulp-postcss');
       gulpRename    =   require('gulp-rename');
@@ -13,6 +14,7 @@ const files = {
     cssPath     : 'public/assets/pelanggan/css',
     miniJsPath  : 'public/dist/js',
     syncPath    : 'resources/**/*.php',
+    jqueryPath  : 'node_modules/jquery/dist/jquery.min.js',
     bootstrap   : {
         css     : 'node_modules/bootstrap/dist/css/bootstrap.min.css',
         js      : 'node_modules/bootstrap/dist/js/bootstrap.min.js',
@@ -25,6 +27,11 @@ const files = {
         font    : 'node_modules/@fortawesome/fontawesome-free/webfonts/*',
         destCss     : 'public/assets/pelanggan/vendor/fontawesome/css',
         destFont    : 'public/assets/pelanggan/vendor/fontawesome/webfonts'
+    },
+    swiper      : {
+        css     : 'node_modules/swiper/swiper-bundle.min.css',
+        js      : 'node_modules/swiper/swiper-bundle.min.js',
+        dest    : 'public/assets/pelanggan/vendor/swiper',
     }
 }
 
@@ -49,6 +56,13 @@ function vendorImport(){
     // import bootstrap
     src([files.bootstrap.css, files.bootstrap.js])
     .pipe(dest(files.bootstrap.dest))
+     // import bootstrap
+     src(files.jqueryPath)
+     .pipe(dest(files.bootstrap.dest))
+
+     // import swiper
+     src([files.swiper.css, files.swiper.js])
+     .pipe(dest(files.swiper.dest))
 
     //import font awesome
     src(files.awesome.css)

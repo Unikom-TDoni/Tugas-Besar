@@ -4,7 +4,7 @@ namespace App\View\Components\pelanggan;
 
 use Illuminate\View\Component;
 
-class item extends Component
+class terms extends Component
 {
     /**
      * Create a new component instance.
@@ -13,7 +13,7 @@ class item extends Component
      */
     public function __construct()
     {
-        
+        //
     }
 
     /**
@@ -23,6 +23,6 @@ class item extends Component
      */
     public function render()
     {
-        return view('components.pelanggan.item');
+        return view('components.pelanggan.terms');
     }
 }

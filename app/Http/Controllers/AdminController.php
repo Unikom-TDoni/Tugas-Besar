@@ -175,6 +175,7 @@ class AdminController extends Controller
             'warna'             => $request->warna,
             'tahun'             => $request->tahun,
             'nomor_plat'        => $request->nomor_plat,
+            'deskripsi'         => $request->deskripsi,
             'harga_sewa'        => $request->harga,
             'denda'             => $request->denda,
             'gambar'            => $gambar

@@ -1,0 +1,18 @@
+// Import Base Style
+@import '../components/base';
+
+// Import components
+@import '../components/navbar';
+@import '../components/footer';
+@import '../components/item';
+@import '../components/keyvalues';
+@import '../components/faq';
+@import '../components/tos';
+
+.banner{
+    background: url('../img/banner.jpg') center center;
+    background-size: cover;
+    height: 160px;
+    width: 100%;
+    margin-bottom: 8.0rem;
+}
