@@ -20,6 +20,7 @@ class Kendaraan extends Model
         'warna',
         'tahun',
         'nomor_plat',
+        'deskripsi',
         'harga_sewa', 
         'denda',
         'gambar',

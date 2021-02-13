@@ -22,6 +22,7 @@ class CreateKendaraanTable extends Migration
             $table->string('warna', 50);
             $table->year('tahun');
             $table->string('nomor_plat', 20);
+            $table->text('deskripsi');
             $table->double('harga_sewa');
             $table->double('denda');
             $table->text('gambar')->nullable();

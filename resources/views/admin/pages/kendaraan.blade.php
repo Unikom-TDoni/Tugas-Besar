@@ -153,6 +153,14 @@
                             </div> 
                         </div> 
                     </div>
+                    <div class="row"> 
+                        <div class="col-md-12"> 
+                            <div class="form-group"> 
+                                <label for="field-7" class="control-label">Deskripsi</label> 
+                                <textarea class="form-control" id="deskripsi" name="deskripsi" required></textarea>
+                            </div> 
+                        </div> 
+                    </div>
                     <div class="row">
                         <div class="col-md-6"> 
                             <div class="form-group"> 
@@ -238,6 +246,7 @@
                     $("#warna").val(value.warna);
                     $("#tahun").val(value.tahun);
                     $("#nomor_plat").val(value.nomor_plat);
+                    $("#deskripsi").val(value.deskripsi);
                     $("#harga").val(value.harga_sewa);
                     $("#denda").val(value.denda);
                     $("#cabang").val(value.id_cabang);
@@ -270,6 +279,7 @@
         $("#warna").val("");
         $("#tahun").val("");
         $("#nomor_plat").val("");
+        $("#deskripsi").val("");
         $("#harga").val("");
         $("#denda").val("");
         $("#cabang").val("");
