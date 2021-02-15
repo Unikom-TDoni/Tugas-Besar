@@ -27,9 +27,9 @@
                 color: $cta-blue;
             }
             &:not(.collapsed)::after{
-                content: "\f0d8";
                 background: $cta-blue;
                 color: $base-white;
+                transform: rotate(180deg) translateY(53%);
             }
             &::after{
                 font-family: "Font Awesome 5 Free";
@@ -48,6 +48,8 @@
                 align-items: center;
                 justify-content: center;
                 transform: translateY(-53%);
+                transform-origin: center;
+                transition: transform .24s ease-in-out;
             }
         }
         .answer{
