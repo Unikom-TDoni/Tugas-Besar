@@ -173,6 +173,16 @@ h4.h4, .h4{
             border-color: $cta-blue-hover;
         }
     }
+    &.btn-blue{
+        background: $cta-blue;
+        color: $cta-secondary;
+        border: 1px solid $cta-blue;
+        &:hover{
+            background: $cta-blue-hover;
+            color: $cta-secondary;
+            border-color: $cta-blue;
+        }
+    }
     &.btn-icon{
         i{
             margin-right: $sp-xxsm;
@@ -183,4 +193,10 @@ h4.h4, .h4{
     max-width: 1140px;
     padding-left: 0;
     padding-right: 0;
+}
+a{
+    color: $cta-blue;
+    &:hover{
+        color: $cta-blue-hover
+    }
 }
