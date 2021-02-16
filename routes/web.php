@@ -150,6 +150,12 @@ Route::group(['prefix'=>'test'], function(){
     Route::get('/detail', function () {
         return view('pelanggan/pages/detail');
     });
+    Route::get('/login', function(){
+        return view('pelanggan/pages/login');
+    });
+    Route::get('/register', function(){
+        return view('pelanggan/pages/register');
+    });
 });
 
 require __DIR__.'/auth.php';
