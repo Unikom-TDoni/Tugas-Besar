@@ -6,10 +6,12 @@
         <h2 class="h2 title">Login</h2>
         <a href="#" title="help" class="help">Help<i class="fas fa-question-circle"></i></a>
     </div>
-    <form action="#" class="login-form" method="POST">
+    <form action="{{route('pelanggan.login.store')}}" class="login-form" method="POST">
+        <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+        @csrf
         <div class="form-input emai f-body">
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" placeholder="Enter your email"/>
+            <input type="email" name="email" id="email" placeholder="Enter your email" value="{{old('email')}}"/>
         </div>
         <div class="form-input password f-body">
             <label for="password">Password</label>
@@ -20,10 +22,10 @@
                 <input type="checkbox" name="rememberme" id="rememberme"> Remember Me
             </label>
         </div>
-        <a class="btn btn-md btn-full btn-blue" type="submit">Login</a>
+        <button class="btn btn-md btn-full btn-blue" type="submit">Login</button>
     </form>
     <div class="login-info">
-        <span class="register-text">Doesn’t has any account? <a href="#" title="register">Register here</a></span>
+        <span class="register-text">Doesn’t has any account? <a href="{{route('pelanggan.register.index')}}" title="register">Register here</a></span>
         <p class="term f-meta-data">
             Use the application according to policy rules. Any kinds of violations will be subject to sanctions.
         </p>

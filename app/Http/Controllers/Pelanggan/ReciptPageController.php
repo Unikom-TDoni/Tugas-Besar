@@ -48,5 +48,6 @@ final class ReciptPageController extends Controller
     {
         $validatedData = $request->validated();
         $this->reviewService->store($validatedData);
+        return redirect()->back()->with('status', 'Success To Add Review');
     }
 }

@@ -24,9 +24,21 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:pelanggan',
             'password' => 'required|confirmed|string|min:8',
+            'tos' => 'accepted'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'tos.accepted' => 'Required to agree our term and condition',
         ];
     }
 }

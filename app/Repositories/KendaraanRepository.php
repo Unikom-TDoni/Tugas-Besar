@@ -25,9 +25,11 @@ final class KendaraanRepository extends BaseRepository
             'nama_kendaraan', 
             'harga_sewa',
             'nomor_plat',
-            'denda',
+            'gambar',
             'warna',
+            'jenis',
             'tahun',
+            'merk',
         ]);
     }
 
@@ -208,7 +210,8 @@ final class KendaraanRepository extends BaseRepository
      * @param array $filterRelation
      * @return \Illuminate\Database\Query\Builder
      */
-    private function generateRelationFilterQuery($query, array $filterRelation) {
+    private function generateRelationFilterQuery($query, array $filterRelation) 
+    {
         foreach($filterRelation as $key => $value)
             $query = $query->whereHas($key, $value);
         return $query;

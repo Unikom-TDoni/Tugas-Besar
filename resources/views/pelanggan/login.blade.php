@@ -11,6 +11,6 @@
     <button type="submit">Login</button>
 </form>
 
-<a href="{{route("pelanggan.register.index")}}">
+<a href="{{route('pelanggan.register.index')}}">
     <button>Register</button>
 </a>

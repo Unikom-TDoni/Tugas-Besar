@@ -16,7 +16,7 @@ class CreatePelangganTable extends Migration
         Schema::create('pelanggan', function (Blueprint $table) {            
             $table->id();
             $table->string('telp', 15)->unique()->nullable();
-            $table->string('nama', 100);
+            $table->string('nama', 100)->nullable();
             $table->date('tanggal_lahir')->nullable();
             $table->string('jenis_kelamin', 10)->nullable();
             $table->text('alamat')->nullable();

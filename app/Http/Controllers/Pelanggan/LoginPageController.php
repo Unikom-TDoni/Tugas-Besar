@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pelanggan;
 
 use App\Services\AuthService;
+use Illuminate\Support\MessageBag;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\RateLimiter;
 use App\Http\Requests\Pelanggan\LoginRequest;
@@ -18,7 +19,7 @@ final class LoginPageController extends Controller
 
     public function index() 
     {
-        return view('pelanggan.login');
+        return view('pelanggan.pages.login');
     }
 
     public function store(LoginRequest $request) 
@@ -37,6 +38,7 @@ final class LoginPageController extends Controller
 
     public function onLoginFail() 
     {
-        return redirect()->route('pelanggan.login.index');
+        $errors = new MessageBag(['password' => ['Email and/or password invalid.']]);
+        return redirect()->back()->withErrors($errors);
     }
 }

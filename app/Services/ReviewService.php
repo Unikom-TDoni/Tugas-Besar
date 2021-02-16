@@ -16,17 +16,27 @@ final class ReviewService
         $this->pelangganRepository = $pelangganRepository;
     }
     
+    /**
+     * Store review
+     * 
+     * @param array $validatedData
+     */
     public function store($validatedData) 
     {
         $this->reviewRepository->store($validatedData);
     }
 
+    /**
+     * @param PrimaryKey $idKendaraan
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function getListInfo($idKendaraan) 
     {
         $pelanggan = $this->pelangganRepository->getTableName();
         $relation = [
             $pelanggan => function($query) { $this->pelangganRepository->selectReviewRelation($query); }
         ];
+        
         return $this->reviewRepository->getActiveReview($idKendaraan, $relation);
     }
 }

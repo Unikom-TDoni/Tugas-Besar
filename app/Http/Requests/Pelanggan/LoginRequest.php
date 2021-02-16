@@ -23,7 +23,7 @@ class LoginRequest extends FormRequest
     */
     protected function prepareForValidation()
     {
-        $this->merge(['remember' => $this->has('remember')]);
+        $this->merge(['rememberme' => $this->has('rememberme')]);
     }
     
     /**
@@ -36,7 +36,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => 'required|email|max:255',
             'password' => 'required|string',
-            'remember' => 'required|boolean'
+            'rememberme' => 'required|boolean'
         ];
     }
 }

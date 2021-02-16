@@ -136,11 +136,6 @@ Route::group(['as' => 'pelanggan.'], function ()
         Route::put('order/{transaksi}', [ReciptPageController::class, 'confrim'])->name('confrim');
         Route::post('order/review', [ReciptPageController::class, 'storeReview'])->name('review.store');
     });
-
-    Route::group(['as'=> 'ulasan'], function(){
-        Route::get('/ulasanPelanggan', [UlasanPageController::class,'ulasan'])->name('ulasanPelanggan');
-        Route::post('/ulasanPelanggan/post', [UlasanPageController::class,'storeUlasan'])->name('storeUlasan');
-    });
 });
 
 Route::group(['prefix'=>'test'], function(){

@@ -17,12 +17,13 @@ final class RegisterPageController extends Controller
 
     public function index() 
     {
-        return view('pelanggan.register');
+        return view('pelanggan.pages.register');
     }
 
     public function store(RegisterRequest $request)
     {
-        $this->accountService->register($request->validated());
+        $validatedData = $request->validated();
+        $this->accountService->register($validatedData);
         return redirect()->route('pelanggan.login.index');
     }
 }
