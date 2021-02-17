@@ -98,6 +98,10 @@ $radius-sm: 0.4rem;
     font-weight: 500;
 }
 
+.f-button-md{
+    @extend %font-type-button-md;
+}
+
 html{
     font-size: 62.5%;
 }
@@ -199,4 +203,7 @@ a{
     &:hover{
         color: $cta-blue-hover
     }
+}
+img{
+    max-width: 100%;
 }

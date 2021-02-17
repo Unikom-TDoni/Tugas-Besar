@@ -1,3 +1,6 @@
+
+
+
 @foreach($outlineInfo as $info)
     <tr>    
       <th>Kode Transaksi : {{$info->kode_transaksi}}</th> 
