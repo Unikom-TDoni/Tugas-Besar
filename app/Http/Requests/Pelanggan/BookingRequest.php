@@ -33,7 +33,7 @@ class BookingRequest extends FormRequest
             'tanggal_mulai_peminjaman' => 'required|date',
             'tanggal_akhir_peminjaman' => 'required|date',
             'harga_sewa' => 'required|numeric',
-            'denda' => 'required|numeric',
+            'denda' => 'numeric',
             'is_transfer' => 'required|between:0,1',
             'is_diantar' => 'required|between:0,1',
             'nama_bank' => 'required_if:is_transfer,1',

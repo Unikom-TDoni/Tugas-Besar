@@ -14,7 +14,7 @@
     {{-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"> --}}
     <link rel="stylesheet" href="{{URL::asset('assets/pelanggan')}}/css/main.min.css">
 </head>
-<body>
+<body @yield('bodyattr')>
     @yield('content')
     <script src="{{URL::asset('assets/pelanggan')}}/vendor/bootstrap/jquery.min.js"></script>
     <script src="{{URL::asset('assets/pelanggan')}}/vendor/bootstrap/bootstrap.min.js"></script>
