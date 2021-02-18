@@ -16,7 +16,7 @@
                     <button class="btn btn-secondary btn-collapse" data-toggle="collapse" data-target="#reciptbody{{$i}}" aria-expanded="false" aria-controls="reciptbody{{$i}}"></button>
                     <div class="recipt-item-title">
                       <div class="recipt-item-image">
-                          <img src="https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//101/MTA-5193587/yamaha_yamaha_xsr_155_sepeda_motor_-vin_2019-_otr_jabodetabek-_full04_b7pbqliq.jpg" alt=""/>
+                          <img src="{{asset('images/kendaraan/'.$info->kendaraan->gambar)}}" alt=""/>
                       </div>
                       <div class="recipt-item-text">
                         <div class="f-title-sm item-text-title">{{$info->kendaraan->nama_kendaraan}} (#{{$info->kode_transaksi}})</div>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="recipt-item-cta">
                         <a href="#" class="btn btn-md btn-icon btn-primary confirm-btn"><i class="fas fa-handshake"></i> Confirm Payment</a>
-                        <span class="f-meta-data">Created at: 21 Juni 2021</span>
+                        <span class="f-meta-data">{{$info->tanggal_transaksi}}</span>
                     </div>
                   </div>
                   <div class="recipt-body collapse" id="reciptbody{{$i}}" data-parent="#recipt-order">
