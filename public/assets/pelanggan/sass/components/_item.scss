@@ -31,8 +31,14 @@
     }
     .thumbnail{
         margin-bottom: $sp-md;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $base-grey;
+        height: 120px;
         img{
             max-width: 100%;
+            height: auto;
         }
     }
     .title-outer{

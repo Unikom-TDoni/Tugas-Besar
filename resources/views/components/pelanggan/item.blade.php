@@ -5,7 +5,9 @@
         ])
     }}>
         <div class="thumbnail">
-            <img src="{{asset('images/kendaraan/'.$outlineInfo->gambar)}}"/>
+            <div class="thumbnail-inner">
+                <img src="{{asset('images/kendaraan/'.$outlineInfo->gambar)}}"/>
+            </div>
         </div>
         <div class="title-outer">
             <h5 class="title f-title-sm"><a class="f-title-sm" href="#" title="title">{{$outlineInfo->nama_kendaraan}}</a></h5>
