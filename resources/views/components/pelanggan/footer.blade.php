@@ -6,7 +6,7 @@
                     <div class="footer-logo">
                         <img class="logo" src="{{URL::asset('assets/pelanggan')}}/img/logo.svg" alt="float">
                         <div class="desc f-body">
-                            <span class="desc-address">Jl. Raya pamanukan, Bandung, Jawa Barat.</span>
+                            <span class="desc-address">Jl. DipatiUkur no.112 Lebak Gede, Kecamatan Coblong, Kota Bandung, Jawa Barat</span>
                             <span class="desc-email">
                                 <a href="mailto:#" title="Customer Support">Support@rentall.com</a>
                             </span>
