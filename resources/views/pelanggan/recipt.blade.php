@@ -31,7 +31,7 @@
                     </div>
                     <div class="recipt-item-cta">
                         <a href="#" class="btn btn-md btn-icon btn-primary confirm-btn"><i class="fas fa-handshake"></i> Confirm Payment</a>
-                        <span class="f-meta-data">Created at: {{$info->tanggal_transaksi}}</span>
+                        <span class="f-meta-data">{{$info->tanggal_transaksi}}</span>
                     </div>
                   </div>
                   <div class="recipt-body collapse" id="reciptbody{{$i}}" data-parent="#recipt-order">
