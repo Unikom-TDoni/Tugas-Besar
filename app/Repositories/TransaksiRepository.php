@@ -20,7 +20,7 @@ final class TransaksiRepository extends BaseRepository
      * @param array @relation
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getOutlineInfoRecipt($idPelanggan, array $relation) 
+    public function getListInfoRecipt($idPelanggan, array $relation) 
     {
         return $this->model
             ->with($relation)
@@ -28,44 +28,22 @@ final class TransaksiRepository extends BaseRepository
             ->orderby('tanggal_transaksi')
             ->get([
                 'kode_transaksi',
+                'id_pelanggan',
                 'id_kendaraan',
                 'is_transfer',
                 'is_diantar',
                 'waktu_antar',
+                'alamat_antar',
+                'total_bayar',
                 'status_transaksi', 
                 'status_pembayaran', 
+                'tanggal_transaksi',
                 'status_pengembalian',
                 'tanggal_mulai_peminjaman', 
                 'tanggal_akhir_peminjaman',
             ]);
     }
 
-    /**
-     * Get Detail Info Of Recipt
-     * 
-     * @param PrimaryKey $kodeTransaksi
-     * @param array @relation
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function getDetailInfoRecipt($kodeTranskasi, array $relation)
-    {
-        return $this->model
-            ->with($relation)
-            ->find($kodeTranskasi, [
-                'kode_transaksi',
-                'id_kendaraan',
-                'id_pelanggan',
-                'is_transfer',
-                'is_diantar',
-                'total_bayar',
-                'status_transaksi', 
-                'status_pembayaran', 
-                'status_pengembalian',
-                'tanggal_mulai_peminjaman', 
-                'tanggal_akhir_peminjaman',
-            ]);
-    }
-    
     /**
      * To create new data
      * 

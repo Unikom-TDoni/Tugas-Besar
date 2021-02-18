@@ -36,9 +36,6 @@ class BookingRequest extends FormRequest
             'denda' => 'numeric',
             'is_transfer' => 'required|between:0,1',
             'is_diantar' => 'required|between:0,1',
-            'nama_bank' => 'required_if:is_transfer,1',
-            'nama_rekening' => 'required_if:is_transfer,1',
-            'nomor_rekening' => 'required_if:is_transfer,1',
             'alamat_antar' => 'required_if:is_diantar,1',
             'waktu_antar' => 'required_if:is_diantar,1',
         ];

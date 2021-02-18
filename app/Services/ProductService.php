@@ -86,7 +86,7 @@ final class ProductService
         $cabang = $this->cabangRepository->getTableName();
         $relation = [
             $cabang => function($query) { $this->cabangRepository->selectOutlineInfoKendaraanRelation($query); }, 
-            $cabang.'.'.$kota => function($query) { $this->kotaRepository->selectCabangRelation($query); },
+            $cabang.'.'.$kota => function($query) { $this->kotaRepository->selectCabangRelation($query); }
         ];
 
         $filterRelation = [

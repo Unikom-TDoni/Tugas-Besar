@@ -1,6 +1,5 @@
 @extends('pelanggan.layouts.layout')
 @section('title_page', 'Order')
-@section('bodyattr', 'onload="setMinDateMulaiPinjam(); adjustDateAkhirPinjam();"')
 @section('content')
   <x-pelanggan.navbar/>
     <section class="checkout-order">
@@ -45,7 +44,7 @@
                                     <div class="input-field-row">
                                         <label for="">Payment Method</label>
                                         <div class="selection-input">
-                                            <select name="is_transfer" id="tipe_pembayaran" onchange="chooseTipePembayaran()">
+                                            <select name="is_transfer" id="tipe_pembayaran">
                                                 <option value=0 {{old('is_transfer') == 0 ? 'selected' : ''}}>Bayar di Tempat</option>
                                                 <option value=1 {{old('is_transfer') == 1 ? 'selected' : ''}}>Bank Transfer</option>
                                             </select>
@@ -66,11 +65,11 @@
                                     <div class="input-field-row date-range">
                                         <div class="date-start">
                                             <label for="">Rentall Date</label>
-                                            <input type="date" name="tanggal_mulai_peminjaman" id="tanggal_mulai_peminjaman" onchange="adjustDateAkhirPinjam(this)" value="{{old('tanggal_mulai_peminjaman')}}">
+                                            <input type="date" name="tanggal_mulai_peminjaman" id="tanggal_mulai_peminjaman" onchange="onStartDateBookingChange()" value="{{old('tanggal_mulai_peminjaman')}}">
                                         </div>
                                         <div class="date-end">
                                             <label for="">Rentall End</label>
-                                            <input type="date" name="tanggal_akhir_peminjaman" id="tanggal_akhir_peminjaman" value="{{old('tanggal_akhir_peminjaman')}}">
+                                            <input type="date" name="tanggal_akhir_peminjaman" id="tanggal_akhir_peminjaman" onchange="onEndDateBookingChange()" value="{{old('tanggal_akhir_peminjaman')}}">
                                         </div>
                                     </div>
                                     <div class="input-field-row">
@@ -117,11 +116,11 @@
                                 </div>
                                 <div class="recipt-info-row">
                                     <span class="f-meta-data">Rentall Date</span>
-                                    <span class="f-button-md">Wednesday, 13-10-2021</span>
+                                    <span class="f-button-md" id="recipt_info_depart"></span>
                                 </div>
                                 <div class="recipt-info-row">
                                     <span class="f-meta-data">Return Date</span>
-                                    <span class="f-button-md">Thursday , 14-10-2021</span>
+                                    <span class="f-button-md" id="recipt_info_return"></span>
                                 </div>
                                 <div class="recipt-info-row summary">
                                     <div class="summary-line">
@@ -130,19 +129,19 @@
                                     </div>
                                     <div class="summary-line">
                                         <span class="f-body">Days</span>
-                                        <span class="f-body">2 Days</span>
+                                        <span class="f-body" id="borrow_day"></span>
                                     </div>
                                     <div class="summary-line total">
                                         <span class="f-body">Total Price</span>
-                                        <span class="f-title-sm total-price" price="({{$dataTransaksi['kendaraan']->harga_sewa}}x2)">IDR 380.000</span>
-                                        <input type="number" name="harga_sewa" value="{{$dataTransaksi['kendaraan']->harga_sewa}}" hidden readonly>
+                                        <span class="f-title-sm total-price" price="({{$dataTransaksi['kendaraan']->harga_sewa}}x2)" id="total_price_info"></span>
+                                        <input type="number" name="harga_sewa" id="harga_sewa" value="{{$dataTransaksi['kendaraan']->harga_sewa}}" hidden readonly>
                                         <input type="number" name="denda" value="0" hidden readonly>
                                         {{-- <input type="number" name="denda" value="{{$dataTransaksi['kendaraan']->denda}}" hidden readonly> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <button href="#" class="btn btn-icon btn-full btn-md btn-primary" type="submit">Rent (IDR.380.000)</button>
+                        <button class="btn btn-icon btn-full btn-md btn-primary" type="submit" id="btn_submit"></button>
                     </div>
                 </div>
             </form>
@@ -150,8 +149,5 @@
     </section>
     <x-pelanggan.terms/> 
     <x-pelanggan.footer/>   
-    <script src="{{asset('assets/pelanggan/js/formTransaksi.js')}}"></script>
+    <script src="{{asset('assets/pelanggan/js/formTransaksi.js')}}" onload="initDate();"></script>
 @endsection
-
-
-

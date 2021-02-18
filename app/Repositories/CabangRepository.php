@@ -20,7 +20,7 @@ final class CabangRepository extends BaseRepository
      */
     public function selectOutlineInfoKendaraanRelation($query) 
     {
-        return $query->select(['id_cabang', 'nama_cabang', 'id_kota']);
+        return $query->select(['id_cabang', 'id_kota', 'nama_cabang']);
     }
 
     /**

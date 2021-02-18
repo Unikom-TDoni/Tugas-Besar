@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\CabangRepository;
 use App\Repositories\KendaraanRepository;
 use App\Repositories\PelangganRepository;
 use App\Repositories\TransaksiRepository;
@@ -9,6 +10,7 @@ use App\Repositories\BankAccountRepository;
 
 final class BookingService 
 {
+    private $cabangRepository;
     private $transaksiRepository;
     private $pelangganRepository;
     private $kendaraanRepository;
@@ -17,13 +19,27 @@ final class BookingService
     public function __construct(TransaksiRepository $transaksiRepository, 
         PelangganRepository $pelangganRepository, 
         KendaraanRepository $kendaraanRepository, 
-        BankAccountRepository $bankAccountRepository)
+        BankAccountRepository $bankAccountRepository,
+        CabangRepository $cabangRepository)
     {
+        $this->cabangRepository = $cabangRepository;
         $this->transaksiRepository = $transaksiRepository;
         $this->pelangganRepository = $pelangganRepository;
         $this->kendaraanRepository = $kendaraanRepository;
         $this->bankAccountRepository = $bankAccountRepository;
     }
+
+
+    // if($validatedData['is_transfer'] == 1) 
+    // {
+    //         $bankData = array(
+    //             'nama_rekening'=> $validatedData['nama_rekening'],  
+    //             'nama_bank' => $validatedData['nama_bank'],
+    //             'nomor_rekening' => $validatedData['nomor_rekening']);
+            
+    //         $validatedData['id_bank_account'] = $this->bankAccountRepository->create($bankData);
+    //         $validatedData = array_diff_key($validatedData, $bankData);
+    // }
 
     /**
      * Create booking request
@@ -32,16 +48,6 @@ final class BookingService
      */
     public function create(array $validatedData)
     {
-        if($validatedData['is_transfer'] == 1) 
-        {
-            $bankData = array(
-                'nama_rekening'=> $validatedData['nama_rekening'],  
-                'nama_bank' => $validatedData['nama_bank'],
-                'nomor_rekening' => $validatedData['nomor_rekening']);
-            
-            $validatedData['id_bank_account'] = $this->bankAccountRepository->create($bankData);
-            $validatedData = array_diff_key($validatedData, $bankData);
-        }
         $this->transaksiRepository->create($validatedData);
     }
     
@@ -66,8 +72,13 @@ final class BookingService
      */
     public function getInitBookingFormData($idPelanggan, $idKendaraan) 
     {
+        $cabang = $this->cabangRepository->getTableName();
+        $relation = [
+            $cabang => function($query) { $this->cabangRepository->selectOutlineInfoKendaraanRelation($query); }
+        ];
+
         $pelanggan = $this->pelangganRepository->getFormBookingData($idPelanggan);
-        $kendaraan = $this->kendaraanRepository->getFormBookingData($idKendaraan);
+        $kendaraan = $this->kendaraanRepository->getFormBookingData($idKendaraan, $relation);
         return compact('pelanggan', 'kendaraan');
     }
 }

@@ -18,19 +18,20 @@ final class KendaraanRepository extends BaseRepository
      * @param PrimaryKey $id
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getFormBookingData($id)
+    public function getFormBookingData($id, array $relation)
     {
-        return $this->model->findOrFail($id, [
-            'id_kendaraan', 
-            'nama_kendaraan', 
-            'harga_sewa',
-            'nomor_plat',
-            'gambar',
-            'warna',
-            'jenis',
-            'tahun',
-            'merk',
-        ]);
+        return $this->model->with($relation)
+            ->findOrFail($id, [
+                'id_kendaraan', 
+                'nama_kendaraan', 
+                'harga_sewa',
+                'nomor_plat',
+                'gambar',
+                'warna',
+                'jenis',
+                'tahun',
+                'merk',
+            ]);
     }
 
     /**
@@ -131,6 +132,7 @@ final class KendaraanRepository extends BaseRepository
             'id_cabang', 
             'id_kendaraan', 
             'nama_kendaraan', 
+            'nomor_plat',
             'harga_sewa',
             'deskripsi',
             'gambar',

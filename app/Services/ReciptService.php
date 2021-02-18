@@ -4,77 +4,54 @@ namespace App\Services;
 
 use App\Repositories\KotaRepository;
 use App\Repositories\CabangRepository;
+use App\Repositories\ProvinsiRepository;
 use App\Repositories\TransaksiRepository;
-use App\Repositories\PelangganRepository;
 use App\Repositories\KendaraanRepository;
 
 final class ReciptService 
 {
     private $kotaRepository;
     private $cabangRepository;
+    private $provinsiRepository;
     private $transaksiRepository;
-    private $pelangganRepository;
     private $kendaraanRepository;
 
-    public function __construct(TransaksiRepository $transaksiRepository, 
-        PelangganRepository $pelangganRepository, 
-        KendaraanRepository $kendaraanRepository,
+    public function __construct(KotaRepository $kotaRepository,
         CabangRepository $cabangReposiotry,
-        KotaRepository $kotaRepository)
+        ProvinsiRepository $provinsiRepository,
+        TransaksiRepository $transaksiRepository, 
+        KendaraanRepository $kendaraanRepository)
     {
         $this->kotaRepository = $kotaRepository;
         $this->cabangRepository = $cabangReposiotry;
+        $this->provinsiRepository = $provinsiRepository;
         $this->transaksiRepository = $transaksiRepository;
-        $this->pelangganRepository = $pelangganRepository;
         $this->kendaraanRepository = $kendaraanRepository;
     }
 
     /**
-     * Get outline info recipt
+     * Get list info recipt
      * 
      * @param PrimaryKey @idPelanggan
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getOutlineInfo($idPelanggan) 
-    {
-        $cabang = $this->cabangRepository->getTableName();
-        $kendaraan = $this->kendaraanRepository->getTableName();
-        $pelanggan = $this->pelangganRepository->getTableName();
-        $relation = array(
-            $pelanggan => function($query) { $this->pelangganRepository->selectTransaksiRelation($query); },
-            $kendaraan => function($query) { $this->kendaraanRepository->selectOutlineInfoTransaksiRelation($query); }, 
-            $kendaraan.'.'.$cabang => function($query) { $this->cabangRepository->selectOutlineInfoKendaraanRelation($query); }
-        );
-        
-        $outlineInfo = $this->transaksiRepository->getOutlineInfoRecipt($idPelanggan, $relation);
-        foreach($outlineInfo as $item) $item = $this->generateRecipteStatus($item);
-
-        return $outlineInfo;
-    }
-    
-    /**
-     * Get detail info recipt
-     * 
-     * @param PrimaryeKey $kodeTransaski
-     * @param PrimaryKey $idPelanggan
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function getDetailInfo($kodeTransaski, $idPelanggan)
+    public function getListInfo($idPelanggan) 
     {
         $kota = $this->kotaRepository->getTableName();
         $cabang = $this->cabangRepository->getTableName();
+        $provinsi = $this->provinsiRepository->getTableName();
         $kendaraan = $this->kendaraanRepository->getTableName();
-        $pelanggan = $this->pelangganRepository->getTableName();
         $relation = array(
-            $pelanggan => function($query) { $this->pelangganRepository->selectTransaksiRelation($query); },
-            $kendaraan => function($query) { $this->kendaraanRepository->selectDetailInfoTransaksiRelation($query); },
+            $kendaraan => function($query) { $this->kendaraanRepository->selectOutlineInfoTransaksiRelation($query); }, 
             $kendaraan.'.'.$cabang => function($query) { $this->cabangRepository->selectDetailInfoKendaraanRelation($query); },
-            $kendaraan.'.'.$cabang.'.'.$kota => function ($query) { $this->kotaRepository->selectCabangRelation($query); }
+            $kendaraan.'.'.$cabang.'.'.$kota => function ($query) { $this->kotaRepository->selectCabangRelation($query); },
+            $kendaraan.'.'.$cabang.'.'.$kota.'.'.$provinsi => function($query) { $this->provinsiRepository->selectKotaRelation($query); }
         );
-        $detailInfo = $this->transaksiRepository->getDetailInfoRecipt($kodeTransaski, $relation);
-        $detailInfoWithRecipt = $this->generateRecipteStatus($detailInfo);
         
-        return $detailInfo->id_pelanggan == $idPelanggan ? $detailInfoWithRecipt : abort(404);
+        $outlineInfo = $this->transaksiRepository->getListInfoRecipt($idPelanggan, $relation);
+        foreach($outlineInfo as $item) $item = $this->generateRecipteStatus($item);
+        
+        return $outlineInfo;
     }
     
     /**
@@ -87,7 +64,7 @@ final class ReciptService
     {
         $status = $this->translateStatusTransaksi($modelTransaksi->status_transaksi);
 
-        if($status == "Transaksi Dalam Proses") {
+        if($status == "Dalam Proses") {
             $status = $this->translateStatusBayar($modelTransaksi->status_pembayaran, $modelTransaksi->is_transfer);
             if($status == "Pembayaran Terkonfirmasi") 
                 $status = $this->translateStatusPengembalian($modelTransaksi->status_pengembalian, $modelTransaksi->is_diantar);
@@ -110,11 +87,11 @@ final class ReciptService
         switch($statusTransaksi)
         {
             case 0:
-               return 'Transaksi Dalam Proses';
+               return 'Dalam Proses';
             case 1:
-                return 'Transaksi Selesai';
+                return 'Selesai';
             case 2:
-                return 'Transaksi Dibatalkan';
+                return 'Dibatalkan';
         }
     }
 

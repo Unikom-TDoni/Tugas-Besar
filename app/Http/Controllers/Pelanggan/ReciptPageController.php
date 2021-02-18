@@ -27,15 +27,8 @@ final class ReciptPageController extends Controller
     public function index()
     {
         $idPelanggan = $this->authService->getActivePelangganId();
-        $outlineInfo = $this->reciptService->getOutlineInfo($idPelanggan);
+        $outlineInfo = $this->reciptService->getListInfo($idPelanggan);
         return view('pelanggan.recipt', compact('outlineInfo'));
-    }
-
-    public function show($kodeTransaksi) 
-    {
-        $idPelanggan = $this->authService->getActivePelangganId();
-        $detailInfo = $this->reciptService->getDetailInfo($kodeTransaksi, $idPelanggan);
-        return view('pelanggan.recipt-detail', compact('detailInfo'));
     }
 
     public function confrim($kodeTransaksi)

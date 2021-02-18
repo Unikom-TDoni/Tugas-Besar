@@ -43,6 +43,16 @@ class Kendaraan extends Model
         return $this->hasMany(Ulasan::class);
     }
 
+    public function getHargaSewaAttribute($value)
+    {
+        return number_format($value,0,'.','.');
+    }
+
+    public function getDendaAttribute($value)
+    {
+        return number_format($value,0,'.','.');
+    }
+
     public function getNextId() 
     {
         $statement = DB::select("show table status like 'kendaraan'");

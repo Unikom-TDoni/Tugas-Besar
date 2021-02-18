@@ -20,7 +20,7 @@ final class KotaRepository extends BaseRepository
      */
     public function selectCabangRelation($query) 
     {
-        return $query->select(['id', 'nama']);
+        return $query->select(['id', 'nama', 'id_provinsi']);
     }
 
     /**

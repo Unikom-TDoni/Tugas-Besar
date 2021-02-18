@@ -57,6 +57,26 @@ class Transaksi extends Model
         return $this->hasMany(Ulasan::class);
     }
 
+    public function getTanggalTransaksiAttribute($value) 
+    {
+        return date("d F Y", strtotime($value));
+    }
+
+    public function getTanggalMulaiPeminjamanAttribute($value) 
+    {
+        return date("D d F Y", strtotime($value));
+    }
+
+    public function getTanggalAkhirPeminjamanAttribute($value) 
+    {
+        return date("D d F Y", strtotime($value));
+    }
+
+    public function getTotalBayarAttribute($value)
+    {
+        return number_format($value,0,'.','.');
+    }
+
     public function getListData($tgl_awal, $tgl_akhir, $filter) 
     {
         $query = DB::table('transaksi')

@@ -75,10 +75,10 @@
                             </div>
                             <div class="product-review">
                                 <div class="ratings">
-                                    @for ($i = 0; $i < 5; $i++)
+                                    @for ($i = 0; $i < $reviewInfo->avg('rating'); $i++)
                                         <span class="icon-rating"><i class="fas fa-star"></i></span>
                                     @endfor
-                                    <a href="#product-review" title="2 Reviews">2 Reviews</a>
+                                    <a href="#product-review" title="2 Reviews">{{count($reviewInfo)}} Reviews</a>
                                 </div>
                             </div>
                             <div class="product-price">
