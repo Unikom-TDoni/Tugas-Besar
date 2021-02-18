@@ -50,7 +50,7 @@
                                 <td>{{ $data->kode_transaksi }}</td>
                                 <td>{{ $data->rating."/5" }}</td>
                                 <td>{{ substr($data->ulasan, 0, 20) }}..</td>
-                                <td>{{ date("d-m-Y H:i", strtotime($data->waktu_ulasan)) }}</td>
+                                <td>{{ date("d-m-Y H:i", strtotime($data->created_at)) }}</td>
                                 <td>    
                                     <button class="btn btn-icon btn-sm btn-{{ $status_btn }}" onclick="ubahStatus({{ $data->id }})"> {{ $status }} </button>
                                 </td>
