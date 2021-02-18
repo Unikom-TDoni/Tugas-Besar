@@ -15,6 +15,32 @@ $font-body: #44485F;
 $font-meta-data: #7C7F8D;
 $font-placeholder: #979AA5;
 
+// accsen color
+$blue-80:#0F3C71;
+$blue-60:#1B6ED0;
+$blue-50:#458FE7;
+$blue-40:#81B1EA;
+$blue-20:#D8E7F8;
+
+$red-80:#6E2121;
+$red-60:#BC3838;
+$red-50:#CE5A5A;
+$red-40:#D99191;
+$red-20:#F3DDDD;
+
+$yellow-80:#836611;
+$yellow-60:#DDAD1D;
+$yellow-50:#E7BE45;
+$yellow-40:#F1DDA2;
+$yellow-20:#F9F2DC;
+
+$green-80:#144831;
+$green-60:#2A9866;
+$green-50:#35C081;
+$green-40:#6BD1A3;
+$green-20:#B9E9D4;
+
+
 // Depth Colors
 $depth-10-color: RGBA(30, 30, 36, 0.10);
 $depth-100-color: RGBA(30, 30, 36, 0.14);
@@ -192,6 +218,14 @@ h4.h4, .h4{
             margin-right: $sp-xxsm;
         }
     }
+    &.confirm-btn{
+        font-size: 1.2rem;
+        line-height: 1.6rem;
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+        padding-left: 2.0rem;
+        padding-right: 2.0rem;
+    }
 }
 .container{
     max-width: 1140px;
@@ -206,4 +240,32 @@ a{
 }
 img{
     max-width: 100%;
+}
+
+.badge{
+    font-size: 1.0rem;
+    line-height: 1.6rem;
+    font-weight: 500;
+    padding-left: $sp-xsm;
+    padding-right: $sp-xsm;
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+    display: inline-block;
+    border-radius: 10rem;
+    &.success{
+        color: $green-80;
+        background: $green-20;
+    }
+    &.warning{
+        color: $yellow-80;
+        background: $yellow-20;
+    }
+    &.info{
+        color: $blue-80;
+        background: $blue-20;
+    }
+    &.error{
+        color: $red-80;
+        background: $red-20;
+    }
 }
