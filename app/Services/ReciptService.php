@@ -71,7 +71,6 @@ final class ReciptService
             $kendaraan.'.'.$cabang => function($query) { $this->cabangRepository->selectDetailInfoKendaraanRelation($query); },
             $kendaraan.'.'.$cabang.'.'.$kota => function ($query) { $this->kotaRepository->selectCabangRelation($query); }
         );
-
         $detailInfo = $this->transaksiRepository->getDetailInfoRecipt($kodeTransaski, $relation);
         $detailInfoWithRecipt = $this->generateRecipteStatus($detailInfo);
         
