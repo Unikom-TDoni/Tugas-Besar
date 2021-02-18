@@ -3,8 +3,9 @@
 @section('content')
   <x-pelanggan.navbar/>
   
+  {{--Payment Confirmation--}}
   @foreach($outlineInfo as $info)
-  <div class="modal fade" id="modalconfirmation{{$info->kode_transaksi}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="modalconfirmation{{$info->kode_transaksi}}" tabindex="-1" aria-labelledby="modalconfirmation" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -37,7 +38,48 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary" onclick="this.disabled=true; this.form.submit();">Save changes</button>
           </div>
-      </form>
+        </form>
+      </div>
+    </div>
+  </div>
+  @endforeach
+
+  {{--Write review--}}
+  @foreach($outlineInfo as $info)
+  <div class="modal fade" id="revieworder{{$info->kode_transaksi}}" tabindex="-1" aria-labelledby="revieworder" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="f-title-md">Write Review</span>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <form action="{{route('pelanggan.recipt.confrim', $info->kode_transaksi)}}" method="POST">
+          @csrf
+          @method('PUT')
+          <div class="modal-body">
+              <div class="item-card-rating">
+                <div class="input-field">
+                  <div class="rating-order-input">
+                    <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+                    <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+                    <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+                    <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+                    <span><input type="radio" name="rating" id="str1" value="1" checked><label for="str1"></label></span>
+                </div>
+                </div>
+                <div class="input-field">
+                  <label for="Nomor Rekening">Review</label>
+                  <textarea name="" id="" placeholder="Write your review here"></textarea>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -71,9 +113,12 @@
                     </div>
                     <div class="recipt-item-cta">
                         @if ($info->status_recipt[0]=="Selesai")
-                          <a href="#" class="btn btn-md btn-icon btn-secondary confirm-btn"><i class="fas fa-edit"></i> Write a Review</a>  
-                        @else
+                          <button href="#" class="btn btn-md btn-icon btn-secondary confirm-btn" data-toggle="modal" data-target="#revieworder{{$info->kode_transaksi}}" open-modal="modal-review"><i class="fas fa-edit"></i> Write a Review</button>  
+                        @elseif($info->status_recipt[0]=="Dibatalkan")
+                        @elseif($info->status_recipt[0]=="Menunggu Transfer")
                           <button class="btn btn-md btn-icon btn-primary confirm-btn" data-toggle="modal" data-target="#modalconfirmation{{$info->kode_transaksi}}" open-modal="modal-confrimation"><i class="fas fa-handshake"></i> Confirm Payment</button>
+                        @else
+                          <a href="#" class="btn btn-md btn-icon btn-secondary confirm-btn"><i class="fas fa-directions"></i> Get Direction to Rentall</a>  
                         @endif
                         {{-- <span class="f-meta-data">{{$info->tanggal_transaksi}}</span> --}}
                     </div>
@@ -107,12 +152,20 @@
                         <div class="col-6 item-info-col">
                           <div class="item-info item-rental-method">
                             <span class="f-meta-data item-info-title">Rental Method</span>
-                            <span class="f-button-md item-info-desc">Diantar</span>
+                            <span class="f-button-md item-info-desc">
+                              @if($info->is_diantar == 1)
+                                Diantar
+                                @else
+                                Ambil di Tempat
+                              @endif
+                            </span>
                           </div>
-                          <div class="item-info item-rental-method">
-                            <span class="f-meta-data item-info-title">Antar Time</span>
-                            <span class="f-button-md item-info-desc">{{$info->waktu_antar}}</span>
-                          </div>
+                          @if($info->is_diantar == 1)
+                            <div class="item-info item-rental-method">
+                              <span class="f-meta-data item-info-title">Antar Time</span>
+                              <span class="f-button-md item-info-desc">{{$info->waktu_antar}}</span>
+                            </div>
+                          @endif
                         </div>
                         <div class="col-6 item-info-col">
                           <div class="item-info item-rental-date">

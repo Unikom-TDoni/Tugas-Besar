@@ -107,7 +107,7 @@ final class ReciptService
         switch($statusBayar)
         {
             case 0:
-                return $isTransfer == 0 ? ["Menunggu Pembayaran", 'warning'] : ["Menunggu Transfer", 'warning'];
+                return $isTransfer == 0 ? ["Menunggu Pembayaran di Tempat", 'warning'] : ["Menunggu Transfer", 'warning'];
             case 1:
                 return ["Menunggu Konfirmasi Pembayaran", 'warning'];
             case 2:
