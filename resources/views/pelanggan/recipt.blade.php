@@ -13,11 +13,12 @@
             <i class="fas fa-times"></i>
           </button>
         </div>
-        <form action="{{route('pelanggan.recipt.confrim', $info->kode_transaksi)}}" method="PUT">
+        <form action="{{route('pelanggan.recipt.confrim', $info->kode_transaksi)}}" method="POST">
+          @csrf
+          @method('PUT')
           <div class="modal-body">
               <div class="item-card-confrimation">
                 <div class="input-field">
-                  {{-- <input type="hidden" name="kode_transaksi" value="{{$info->kode_transaksi}}" readonly> --}}
                   <label for="Nama Bank">Nama bank</label>
                   <input placeholder="Nama Bank" type="text" name="nama_bank" value="{{old('nama_bank')}}">
                 </div>
@@ -27,7 +28,7 @@
                 </div>
                 <div class="input-field">
                   <label for="pemegang rekening">Atas Nama</label>
-                  <input placeholder="Atas Nama" type="text" name="nama_rekening" value="{{old('atas_nama')}}">
+                  <input placeholder="Atas Nama" type="text" name="nama_rekening" value="{{old('nama_rekening')}}">
                 </div>
               </div>
           </div>

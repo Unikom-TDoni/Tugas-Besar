@@ -64,9 +64,9 @@ final class ReciptService
     {
         $status = $this->translateStatusTransaksi($modelTransaksi->status_transaksi);
 
-        if($status == "Dalam Proses") {
+        if($status[0] == "Dalam Proses") {
             $status = $this->translateStatusBayar($modelTransaksi->status_pembayaran, $modelTransaksi->is_transfer);
-            if($status == "Pembayaran Terkonfirmasi") 
+            if($status[0] == "Pembayaran Terkonfirmasi") 
                 $status = $this->translateStatusPengembalian($modelTransaksi->status_pengembalian, $modelTransaksi->is_diantar);
         }
 

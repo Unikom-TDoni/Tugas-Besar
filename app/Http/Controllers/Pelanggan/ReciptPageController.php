@@ -7,6 +7,7 @@ use App\Services\ReviewService;
 use App\Services\ReciptService;
 use App\Services\BookingService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Pelanggan\BankAccountRequest;
 use App\Http\Requests\pelanggan\ReviewRequest;
 
 final class ReciptPageController extends Controller
@@ -31,8 +32,10 @@ final class ReciptPageController extends Controller
         return view('pelanggan.recipt', compact('outlineInfo'));
     }
 
-    public function confrim($kodeTransaksi)
+    public function confrim(BankAccountRequest $request, $kodeTransaksi)
     {
+        $validatedData = $request->validated();
+        $this->bookingService->updateBookingBankAccount($kodeTransaksi, $validatedData);
         $this->bookingService->confrimTransferPayment($kodeTransaksi);
         return redirect()->back();
     }

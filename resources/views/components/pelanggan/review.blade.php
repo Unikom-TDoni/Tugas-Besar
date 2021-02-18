@@ -12,8 +12,12 @@
         <div class="col-10 review-content">
             <span class="content-user f-title-sm">{{$reviewInfo->pelanggan->nama}}</span>
             <div class="content-rating">
-                @for ($i = 0; $i < $reviewInfo->rating; $i++)
-                    <span class="icon-rating"><i class="fas fa-star"></i></span>
+                @for ($i = 0; $i < 5; $i++)
+                    @if($reviewInfo->rating > $i)
+                        <i class="fas fa-star" style="color: #E7BE45;"></i>
+                    @else
+                        <i class="fas fa-star"></i>
+                    @endif
                 @endfor
             </div>
             <p class="content-review f-body">

@@ -5,7 +5,7 @@ function chooseTipePengambilan()
     document.getElementById("data_antar").style.display = blockValue;
 }
 
-function initDate() 
+function initForm() 
 {
     let mulaiDatePinjamElement = document.getElementById("tanggal_mulai_peminjaman");
 
@@ -14,13 +14,13 @@ function initDate()
     let maxDateAkhir = getMaximumTangalAkhirPesan(minDateMulai);
     let day = changeAmmountDay(minDateMulai, minDateAkhir);
 
-
     mulaiDatePinjamElement.value = minDateMulai;   
     mulaiDatePinjamElement.setAttribute('min', minDateMulai);
 
     cahangeTotalPrize(day);
     changeReciptInfo(minDateMulai, minDateAkhir);
     changeAkhirDateValue(minDateAkhir, maxDateAkhir);
+    chooseTipePengambilan();
 }
 
 function onStartDateBookingChange() 

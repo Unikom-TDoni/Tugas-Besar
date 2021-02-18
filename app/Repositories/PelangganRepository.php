@@ -30,7 +30,7 @@ final class PelangganRepository extends BaseRepository
      */
     public function getProfileData($id) 
     {
-        return $this->model->findOrFail($id, ['id', 'nama', 'jenis_kelamin', 'tanggal_lahir', 'telp', 'alamat', 'gambar', 'nomor_ktp']);
+        return $this->model->findOrFail($id, ['id', 'email', 'nama', 'jenis_kelamin', 'tanggal_lahir', 'telp', 'alamat', 'gambar', 'nomor_ktp']);
     }
 
     /**

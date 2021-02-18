@@ -48,7 +48,7 @@
                                 <tr class="spec-title">
                                     <td>Harga Denda Telat</td>
                                     <td>:</td>
-                                    <td>Rp. {{$detailInfo->harga_sewa}}/day (Akumulatif per hari)</td>
+                                    <td>Rp. {{$detailInfo->denda}}/day (Akumulatif per hari)</td>
                                 </tr>
                             </table>
                         </div>
@@ -75,9 +75,15 @@
                             </div>
                             <div class="product-review">
                                 <div class="ratings">
-                                    @for ($i = 0; $i < $reviewInfo->avg('rating'); $i++)
-                                        <span class="icon-rating"><i class="fas fa-star"></i></span>
-                                    @endfor
+                                    <span class="icon-rating">
+                                        @for ($i = 0; $i < 5; $i++)
+                                            @if($reviewInfo->avg('rating') > $i)
+                                                <i class="fas fa-star" style="color: #E7BE45;"></i>
+                                            @else
+                                                <i class="fas fa-star"></i>
+                                            @endif
+                                        @endfor
+                                    </span>
                                     <a href="#product-review" title="2 Reviews">{{count($reviewInfo)}} Reviews</a>
                                 </div>
                             </div>

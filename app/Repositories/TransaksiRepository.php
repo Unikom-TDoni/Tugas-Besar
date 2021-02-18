@@ -25,7 +25,7 @@ final class TransaksiRepository extends BaseRepository
         return $this->model
             ->with($relation)
             ->where('id_pelanggan', $idPelanggan)
-            ->orderby('tanggal_transaksi')
+            ->orderBy('kode_transaksi', 'desc')
             ->get([
                 'kode_transaksi',
                 'id_pelanggan',
@@ -59,6 +59,17 @@ final class TransaksiRepository extends BaseRepository
             $validatedData['harga_sewa']
         );
         $this->model->create($validatedData);
+    }
+
+    /**
+     * To update data
+     * 
+     * @param PrimaryKey $kodeTransaksi
+     * @param array $validatedData
+     */
+    public function update($kodeTransaksi, array $validatedData) 
+    {
+        $this->model->findOrFail($kodeTransaksi)->update($validatedData);
     }
 
     /**
