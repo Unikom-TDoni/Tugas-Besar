@@ -48,6 +48,7 @@ final class KendaraanRepository extends BaseRepository
         $query = $this->model->with($relation);
         $query = $this->generateRelationFilterQuery($query, $filterRelation);
         if(isset($filter)) $query = $this->generateFilterQuery($query, $filter);
+        $query = $this->model->where(['is_tersedia' => 1, 'is_aktif' => 1]);
         return $query->orderBy('id_kendaraan', 'desc')->paginate($paginate, [
             'id_cabang',
             'id_kendaraan', 
