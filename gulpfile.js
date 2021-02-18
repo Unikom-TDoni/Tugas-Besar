@@ -17,7 +17,7 @@ const files = {
     jqueryPath  : 'node_modules/jquery/dist/jquery.min.js',
     bootstrap   : {
         css     : 'node_modules/bootstrap/dist/css/bootstrap.min.css',
-        js      : 'node_modules/bootstrap/dist/js/bootstrap.min.js',
+        js      : 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
         dest : 'public/assets/pelanggan/vendor/bootstrap'
     },
     awesome     : {
@@ -32,6 +32,9 @@ const files = {
         css     : 'node_modules/swiper/swiper-bundle.min.css',
         js      : 'node_modules/swiper/swiper-bundle.min.js',
         dest    : 'public/assets/pelanggan/vendor/swiper',
+    },
+    popper      : {
+        js      : 'node_modules/@popperjs/core/dist/cjs/popper.js'
     }
 }
 
@@ -54,7 +57,7 @@ function jsCompile(){
 
 function vendorImport(){
     // import bootstrap
-    src([files.bootstrap.css, files.bootstrap.js])
+    src([files.bootstrap.css, files.bootstrap.js, files.popper.js])
     .pipe(dest(files.bootstrap.dest))
      // import bootstrap
      src(files.jqueryPath)
