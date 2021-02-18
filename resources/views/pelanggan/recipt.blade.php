@@ -3,6 +3,44 @@
 @section('content')
   <x-pelanggan.navbar/>
   
+  @foreach($outlineInfo as $info)
+  <div class="modal fade" id="modalconfirmation{{$info->kode_transaksi}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="f-title-md">Confirmation Payment</span>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <form action="{{route('pelanggan.recipt.confrim', $info->kode_transaksi)}}" method="PUT">
+          <div class="modal-body">
+              <div class="item-card-confrimation">
+                <div class="input-field">
+                  {{-- <input type="hidden" name="kode_transaksi" value="{{$info->kode_transaksi}}" readonly> --}}
+                  <label for="Nama Bank">Nama bank</label>
+                  <input placeholder="Nama Bank" type="text" name="nama_bank" value="{{old('nama_bank')}}">
+                </div>
+                <div class="input-field">
+                  <label for="Nomor Rekening">Nomor Rekening</label>
+                  <input placeholder="No Rekening" type="number" name="nomor_rekening" value="{{old('nomor_rekening')}}">
+                </div>
+                <div class="input-field">
+                  <label for="pemegang rekening">Atas Nama</label>
+                  <input placeholder="Atas Nama" type="text" name="nama_rekening" value="{{old('atas_nama')}}">
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+  @endforeach
+
   <section class="recipt-orders">
     <div class="container">
       <h2 class="h2 recipt-order-title">My Order</h2>
@@ -33,7 +71,7 @@
                         @if ($info->status_recipt[0]=="Selesai")
                           <a href="#" class="btn btn-md btn-icon btn-secondary confirm-btn"><i class="fas fa-edit"></i> Write a Review</a>  
                         @else
-                          <a href="#" class="btn btn-md btn-icon btn-primary confirm-btn"><i class="fas fa-handshake"></i> Confirm Payment</a>
+                          <button class="btn btn-md btn-icon btn-primary confirm-btn" data-toggle="modal" data-target="#modalconfirmation{{$info->kode_transaksi}}" open-modal="modal-confrimation"><i class="fas fa-handshake"></i> Confirm Payment</button>
                         @endif
                         {{-- <span class="f-meta-data">{{$info->tanggal_transaksi}}</span> --}}
                     </div>
@@ -106,7 +144,7 @@
         </div>
       </div>
     </div>
-  </section>    
+  </section>
   <x-pelanggan.terms/> 
   <x-pelanggan.footer/>   
 @endsection
