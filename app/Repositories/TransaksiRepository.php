@@ -11,6 +11,7 @@ final class TransaksiRepository extends BaseRepository
     public function __construct(Transaksi $model) 
     {
         parent::__construct($model);
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     /**
@@ -51,7 +52,7 @@ final class TransaksiRepository extends BaseRepository
      */
     public function create(array $validatedData)
     {
-        $validatedData['tanggal_transaksi'] = now();
+        $validatedData['tanggal_transaksi'] = date("Y-m-d");;
         $validatedData['kode_transaksi'] = $this->model->generateKodeTransaksi();
         $validatedData['total_bayar'] = $this->calculateTotalHarga(
             $validatedData['tanggal_mulai_peminjaman'],
@@ -121,6 +122,6 @@ final class TransaksiRepository extends BaseRepository
         $earlierDate  = new DateTime($tanggalAwalPemesanan);
         $laterDate = new DateTime($tanggalAkhirPemesanan);
         $ammountDayBorrow = $laterDate->diff($earlierDate)->format("%a");
-        return (double)$hargaKendaraan * $ammountDayBorrow;
+        return (int)$hargaKendaraan * $ammountDayBorrow;
     }
 }

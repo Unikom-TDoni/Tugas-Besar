@@ -135,8 +135,7 @@
                                         <span class="f-body">Total Price</span>
                                         <span class="f-title-sm total-price" price="({{$dataTransaksi['kendaraan']->harga_sewa}}x2)" id="total_price_info"></span>
                                         <input type="number" name="harga_sewa" id="harga_sewa" value="{{$dataTransaksi['kendaraan']->harga_sewa}}" hidden readonly>
-                                        <input type="number" name="denda" value="0" hidden readonly>
-                                        {{-- <input type="number" name="denda" value="{{$dataTransaksi['kendaraan']->denda}}" hidden readonly> --}}
+                                        <input type="number" name="denda" value="{{$dataTransaksi['kendaraan']->denda}}" hidden readonly>
                                     </div>
                                 </div>
                             </div>

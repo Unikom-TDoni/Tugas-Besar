@@ -24,9 +24,9 @@ class BankAccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_bank' => 'required',
-            'nomor_rekening' => 'required',
-            'nama_rekening' => 'required'
+            'nama_bank' => 'required|string',
+            'nomor_rekening' => 'required|numeric',
+            'nama_rekening' => 'required|string'
         ];
     }
 }

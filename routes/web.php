@@ -21,7 +21,7 @@ use App\Http\Controllers\Pelanggan\RegisterPageController;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return redirect()->route('pelanggan.homepage.index');
 });
 
 Route::group(['prefix' => 'admin'], function () 

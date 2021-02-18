@@ -29,7 +29,6 @@ final class BookingService
         $this->bankAccountRepository = $bankAccountRepository;
     }
 
-
     /**
      * Create booking request
      * 
