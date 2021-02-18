@@ -22,7 +22,7 @@
                 <input type="checkbox" name="rememberme" id="rememberme"> Remember Me
             </label>
         </div>
-        <button class="btn btn-md btn-full btn-blue" type="submit">Login</button>
+        <button class="btn btn-md btn-full btn-blue" type="submit" onclick="this.disabled=true; this.form.submit();">Login</button>
     </form>
     <div class="login-info">
         <span class="register-text">Doesn’t has any account? <a href="{{route('pelanggan.register.index')}}" title="register">Register here</a></span>

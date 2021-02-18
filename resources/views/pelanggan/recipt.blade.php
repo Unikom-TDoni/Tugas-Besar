@@ -18,6 +18,7 @@
           @method('PUT')
           <div class="modal-body">
               <div class="item-card-confrimation">
+                <x-auth-validation-errors class="mb-4" :errors="$errors" />
                 <div class="input-field">
                   <label for="Nama Bank">Nama bank</label>
                   <input placeholder="Nama Bank" type="text" name="nama_bank" value="{{old('nama_bank')}}">
@@ -34,7 +35,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary" onclick="this.disabled=true; this.form.submit();">Save changes</button>
           </div>
       </form>
       </div>

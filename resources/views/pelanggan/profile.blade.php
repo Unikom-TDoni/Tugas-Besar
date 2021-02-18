@@ -67,7 +67,7 @@
                                 <textarea placeholder="Input your address" name="alamat">{{$profileData->alamat}}</textarea>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-md btn-full btn-primary">Save Changes</button>
+                        <button type="submit" class="btn btn-md btn-full btn-primary" onclick="this.disabled=true; this.form.submit();">Save Changes</button>
                     </form>
                 </div>
             </div>

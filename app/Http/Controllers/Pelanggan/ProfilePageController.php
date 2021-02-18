@@ -29,14 +29,14 @@ final class ProfilePageController extends Controller
         return view('pelanggan.profile', compact('profileData'));
     }
 
-    public function update(ProfileRequest $request, $id)
+    public function update(ProfileRequest $request, $idPelanggan)
     {
         $validatedData = $request->validated();
 
-        $this->fileService->store($id, $request->file('gambar'));
+        $this->fileService->store($idPelanggan, $request->file('gambar'));
         $validatedData['gambar'] = $this->fileService->getProcessedFileData();
         
-        $this->accountService->updateProfileData($id, $validatedData);
+        $this->accountService->updateProfileData($idPelanggan, $validatedData);
         return redirect()->back()->with("status", 'success update profile');
     }
 

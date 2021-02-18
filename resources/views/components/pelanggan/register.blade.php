@@ -26,7 +26,7 @@
                 <input type="checkbox" name="tos" id="tos-check"> I agree to <a href="#" title="Terms and Condition">Terms and Condition</a>
             </label>
         </div>
-        <button class="btn btn-md btn-full btn-blue" type="submit">Register</button>
+        <button class="btn btn-md btn-full btn-blue" type="submit" onclick="this.disabled=true; this.form.submit();">Register</button>
     </form>
     <div class="register-info">
         <span class="register-text">Has an account? <a href="{{route('pelanggan.login.index')}}" title="register">Login here</a></span>
