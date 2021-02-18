@@ -14,16 +14,14 @@ final class ReviewRepository extends BaseRepository
     }
     
     /**
-     * Are it's valid to write review
+     * Select Transaksi Relation
      * 
-     * @param PrimaryKey $kodeTransaksi
-     * @return boolean
+     * @param \Illuminate\Database\Query\Builder $query
+     * @return \Illuminate\Database\Query\Builder
      */
-    public function isValidToWrite($kodeTransaksi) 
+    public function selectTransaksiRelation($query)
     {
-        return $this->model
-            ->where('kode_transaksi', $kodeTransaksi)
-            ->exist();
+        return $query->select('id', 'kode_transaksi');
     }
 
     /**
@@ -57,5 +55,15 @@ final class ReviewRepository extends BaseRepository
             'nama'=>$validatedData['nama'],
             'telp'=>$validatedData['telp'],
         ]);
+    }
+
+    /**
+     * Get Table Name
+     * 
+     * @return string
+     */
+    public function getTableName() 
+    {
+        return 'ulasan';
     }
 }

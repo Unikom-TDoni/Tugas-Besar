@@ -54,7 +54,7 @@ class Transaksi extends Model
 
     public function ulasan() 
     {
-        return $this->hasMany(Ulasan::class);
+        return $this->hasOne(Ulasan::class, 'kode_transaksi', 'kode_transaksi');
     }
 
     public function getTanggalTransaksiAttribute($value) 

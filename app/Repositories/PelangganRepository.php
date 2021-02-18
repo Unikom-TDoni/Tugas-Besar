@@ -74,7 +74,7 @@ final class PelangganRepository extends BaseRepository
     */
     public function selectTransaksiRelation($query) 
     {
-        return $query->select(['id', 'nama', 'telp', 'alamat', 'nomor_ktp']);
+        return $query->select(['id', 'nama', 'telp']);
     }
 
     /**

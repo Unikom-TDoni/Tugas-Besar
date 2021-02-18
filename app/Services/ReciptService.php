@@ -7,26 +7,34 @@ use App\Repositories\CabangRepository;
 use App\Repositories\ProvinsiRepository;
 use App\Repositories\TransaksiRepository;
 use App\Repositories\KendaraanRepository;
+use App\Repositories\PelangganRepository;
+use App\Repositories\ReviewRepository;
 
 final class ReciptService 
 {
     private $kotaRepository;
     private $cabangRepository;
+    private $reviewRepository;
     private $provinsiRepository;
     private $transaksiRepository;
     private $kendaraanRepository;
+    private $pelanggganRepository;
 
     public function __construct(KotaRepository $kotaRepository,
+        ReviewRepository $reviewRepository,    
         CabangRepository $cabangReposiotry,
         ProvinsiRepository $provinsiRepository,
         TransaksiRepository $transaksiRepository, 
-        KendaraanRepository $kendaraanRepository)
+        KendaraanRepository $kendaraanRepository,
+        PelangganRepository $pelangganRepository)
     {
         $this->kotaRepository = $kotaRepository;
+        $this->reviewRepository = $reviewRepository;
         $this->cabangRepository = $cabangReposiotry;
         $this->provinsiRepository = $provinsiRepository;
         $this->transaksiRepository = $transaksiRepository;
         $this->kendaraanRepository = $kendaraanRepository;
+        $this->pelanggganRepository = $pelangganRepository;
     }
 
     /**
@@ -38,10 +46,14 @@ final class ReciptService
     public function getListInfo($idPelanggan) 
     {
         $kota = $this->kotaRepository->getTableName();
+        $review = $this->reviewRepository->getTableName();
         $cabang = $this->cabangRepository->getTableName();
         $provinsi = $this->provinsiRepository->getTableName();
         $kendaraan = $this->kendaraanRepository->getTableName();
+        $pelanggan = $this->pelanggganRepository->getTableName();
         $relation = array(
+            $review => function($query) { $this->reviewRepository->selectTransaksiRelation($query); },
+            $pelanggan => function($query) {$this->pelanggganRepository->selectTransaksiRelation($query); },
             $kendaraan => function($query) { $this->kendaraanRepository->selectOutlineInfoTransaksiRelation($query); }, 
             $kendaraan.'.'.$cabang => function($query) { $this->cabangRepository->selectDetailInfoKendaraanRelation($query); },
             $kendaraan.'.'.$cabang.'.'.$kota => function ($query) { $this->kotaRepository->selectCabangRelation($query); },
@@ -49,11 +61,30 @@ final class ReciptService
         );
         
         $outlineInfo = $this->transaksiRepository->getListInfoRecipt($idPelanggan, $relation);
-        foreach($outlineInfo as $item) $item = $this->generateRecipteStatus($item);
-        
+        foreach($outlineInfo as $item) {
+            $item = $this->generateRecipteStatus($item);
+            $item = $this->generateDifferenceOfDay($item);
+        }
+
         return $outlineInfo;
     }
     
+
+    /**
+     * Generate difference of day
+     * 
+     * @param \Illuminate\Database\Eloquent\Model $modelTransaksi
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    private function generateDifferenceOfDay($modelTransaksi)
+    {
+        $startDate = date_create($modelTransaksi->tanggal_mulai_peminjaman);
+        $endDate = date_create($modelTransaksi->tanggal_akhir_peminjaman);
+        $diffDay = date_diff($startDate, $endDate);
+        $modelTransaksi->setAttribute('difference_of_day', $diffDay->format("%a"));
+        return $modelTransaksi;
+    }
+
     /**
      * Generate recipt status
      * 

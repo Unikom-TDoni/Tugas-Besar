@@ -55,11 +55,16 @@
             <i class="fas fa-times"></i>
           </button>
         </div>
-        <form action="{{route('pelanggan.recipt.confrim', $info->kode_transaksi)}}" method="POST">
+        <form action="{{route('pelanggan.recipt.review.store')}}" method="POST">
+          <input type="text" name="nama" value="{{$info->pelanggan->nama}}" readonly hidden>
+          <input type="number" name="id_pelanggan" value="{{$info->pelanggan->id}}" readonly hidden>
+          <input type="number" name="telp" value="{{$info->pelanggan->telp}}" readonly hidden>
+          <input type="text" name="kode_transaksi" value="{{$info->kode_transaksi}}" readonly hidden>
+          <input type="number" name="id_kendaraan" value="{{$info->kendaraan->id_kendaraan}}" readonly hidden>
           @csrf
-          @method('PUT')
           <div class="modal-body">
               <div class="item-card-rating">
+                <x-auth-validation-errors class="mb-4" :errors="$errors" />
                 <div class="input-field">
                   <div class="rating-order-input">
                     <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
@@ -70,8 +75,8 @@
                 </div>
                 </div>
                 <div class="input-field">
-                  <label for="Nomor Rekening">Review</label>
-                  <textarea name="" id="" placeholder="Write your review here"></textarea>
+                  <label for="ulasan">Review</label>
+                  <textarea name="ulasan" id="ulasan" placeholder="Write your review here"></textarea>
                 </div>
               </div>
           </div>
@@ -112,13 +117,12 @@
                       </div>
                     </div>
                     <div class="recipt-item-cta">
-                        @if ($info->status_recipt[0]=="Selesai")
+                        @if ($info->status_recipt[0]=="Selesai" && empty($info->ulasan))
                           <button href="#" class="btn btn-md btn-icon btn-secondary confirm-btn" data-toggle="modal" data-target="#revieworder{{$info->kode_transaksi}}" open-modal="modal-review"><i class="fas fa-edit"></i> Write a Review</button>  
-                        @elseif($info->status_recipt[0]=="Dibatalkan")
                         @elseif($info->status_recipt[0]=="Menunggu Transfer")
                           <button class="btn btn-md btn-icon btn-primary confirm-btn" data-toggle="modal" data-target="#modalconfirmation{{$info->kode_transaksi}}" open-modal="modal-confrimation"><i class="fas fa-handshake"></i> Confirm Payment</button>
-                        @else
-                          <a href="#" class="btn btn-md btn-icon btn-secondary confirm-btn"><i class="fas fa-directions"></i> Get Direction to Rentall</a>  
+                        @elseif($info->status_recipt[0]=="Menunggu Pembayaran di Tempat" || $info->status_recipt[0]=="Menunggu Diambil")
+                          <a href="http://maps.google.com/?q={{$info->kendaraan->cabang->alamat}}" class="btn btn-md btn-icon btn-secondary confirm-btn"><i class="fas fa-directions"></i> Get Direction to Rentall</a>  
                         @endif
                         {{-- <span class="f-meta-data">{{$info->tanggal_transaksi}}</span> --}}
                     </div>
@@ -178,7 +182,7 @@
                           </div>
                           <div class="item-info  item-rental-total-day">
                             <span class="f-meta-data item-info-title">Total Days</span>
-                            <span class="f-button-md item-info-desc">2 Days</span>
+                            <span class="f-button-md item-info-desc">{{$info->difference_of_day}} Days</span>
                           </div>
                         </div>
                       </div>
@@ -201,5 +205,5 @@
     </div>
   </section>
   <x-pelanggan.terms/> 
-  <x-pelanggan.footer/>   
+  <x-pelanggan.footer/>
 @endsection
