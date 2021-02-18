@@ -16,7 +16,7 @@
             width: 100%;
             padding-top: $sp-sm;
             padding-bottom: $sp-sm;
-            padding-left: 5.6rem;
+            padding-left: 6.4rem;
             padding-right: $sp-sm;
             display: flex;
             align-items: center;
@@ -49,10 +49,10 @@
             }
             .recipt-item-title{
                 display: flex;
+                align-items: center;
                 width: 75%;
                 .recipt-item-image{
                     width: 7.2rem;
-                    height: 7.2rem;
                     margin-right: $sp-sm;
                 }
                 .recipt-item-text{

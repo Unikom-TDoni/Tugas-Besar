@@ -142,7 +142,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button href="#" class="btn btn-icon btn-full btn-md btn-primary" type="submit">Rent (IDR.380.000)</button>
+                        <button class="btn btn-icon btn-full btn-md btn-primary" type="submit">Rent (IDR.380.000)</button>
                     </div>
                 </div>
             </form>
