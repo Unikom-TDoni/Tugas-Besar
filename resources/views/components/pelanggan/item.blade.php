@@ -5,8 +5,7 @@
         ])
     }}>
         <div class="thumbnail">
-            <div class="thumbnail-inner">
-                <img src="{{asset('images/kendaraan/'.$outlineInfo->gambar)}}"/>
+            <div class="thumbnail-inner" style="background: url('{{asset('images/kendaraan/'.$outlineInfo->gambar)}}') center center; background-size: cover;">
             </div>
         </div>
         <div class="title-outer">
