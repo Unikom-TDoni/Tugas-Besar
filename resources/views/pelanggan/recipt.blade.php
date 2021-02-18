@@ -3,9 +3,48 @@
 @section('content')
   <x-pelanggan.navbar/>
   
+  @foreach($outlineInfo as $info)
+  <div class="modal fade" id="modalconfirmation{{$info->kode_transaksi}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="f-title-md">Confirmation Payment</span>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <form action="{{route('pelanggan.recipt.confrim', $info->kode_transaksi)}}" method="POST">
+          @csrf
+          @method('PUT')
+          <div class="modal-body">
+              <div class="item-card-confrimation">
+                <div class="input-field">
+                  <label for="Nama Bank">Nama bank</label>
+                  <input placeholder="Nama Bank" type="text" name="nama_bank" value="{{old('nama_bank')}}">
+                </div>
+                <div class="input-field">
+                  <label for="Nomor Rekening">Nomor Rekening</label>
+                  <input placeholder="No Rekening" type="number" name="nomor_rekening" value="{{old('nomor_rekening')}}">
+                </div>
+                <div class="input-field">
+                  <label for="pemegang rekening">Atas Nama</label>
+                  <input placeholder="Atas Nama" type="text" name="nama_rekening" value="{{old('nama_rekening')}}">
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+  @endforeach
+
   <section class="recipt-orders">
     <div class="container">
-      <h2 class="h2 recipt-order-title">Rentall List</h2>
+      <h2 class="h2 recipt-order-title">My Order</h2>
       <div class="row no-gutters">
         <div class="recipt-order" id="recipt-order">
             @php $i=1 @endphp
@@ -25,13 +64,17 @@
                         </div>
                         <div class="f-title-sm item-text-price">
                           <span class="item-price">Harga: {{$info->total_bayar}}</span>
-                          <span class="badge warning">{{$info->status_recipt}}</span>
+                          <span class="badge {{$info->status_recipt[1]}}">{{$info->status_recipt[0]}}</span>
                         </div>
                       </div>
                     </div>
                     <div class="recipt-item-cta">
-                        <a href="#" class="btn btn-md btn-icon btn-primary confirm-btn"><i class="fas fa-handshake"></i> Confirm Payment</a>
-                        <span class="f-meta-data">{{$info->tanggal_transaksi}}</span>
+                        @if ($info->status_recipt[0]=="Selesai")
+                          <a href="#" class="btn btn-md btn-icon btn-secondary confirm-btn"><i class="fas fa-edit"></i> Write a Review</a>  
+                        @else
+                          <button class="btn btn-md btn-icon btn-primary confirm-btn" data-toggle="modal" data-target="#modalconfirmation{{$info->kode_transaksi}}" open-modal="modal-confrimation"><i class="fas fa-handshake"></i> Confirm Payment</button>
+                        @endif
+                        {{-- <span class="f-meta-data">{{$info->tanggal_transaksi}}</span> --}}
                     </div>
                   </div>
                   <div class="recipt-body collapse" id="reciptbody{{$i}}" data-parent="#recipt-order">
@@ -47,15 +90,17 @@
                             <span class="f-meta-data phone">{{$info->kendaraan->cabang->telp}}</span>
                           </div>
                         </div>
-                        <div class="col-6 bank-info">
-                          <div class="bank-image">
-                            <img src="https://cdn.worldvectorlogo.com/logos/bca-bank-central-asia.svg" alt="BCA">
+                        @if($info->is_transfer == 1)
+                          <div class="col-6 bank-info">
+                            <div class="bank-image">
+                              <img src="https://cdn.worldvectorlogo.com/logos/bca-bank-central-asia.svg" alt="BCA">
+                            </div>
+                            <div class="meta-data">
+                              <span class="f-title-sm bank-no">No. Rek 2433454352</span>
+                              <span class="f-body bank-holder">Bank Holder. Pt Pertamina</span>
+                            </div>
                           </div>
-                          <div class="meta-data">
-                            <span class="f-title-sm bank-no">No. Rek 2433454352</span>
-                            <span class="f-body bank-holder">Bank Holder. Pt Pertamina</span>
-                          </div>
-                        </div>
+                        @endif
                       </div>
                       <div class="row item-info-row">
                         <div class="col-6 item-info-col">
@@ -83,14 +128,16 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row item-info-row">
-                        <div class="col-12 item-info-col">
-                          <div class="item-info item-rental-method">
-                            <span class="f-meta-data item-info-title">Diantar Ke</span>
-                            <span class="f-button-md item-info-desc">{{$info->alamat_antar}}</span>
+                      @if($info->is_diantar == 1)
+                        <div class="row item-info-row">
+                          <div class="col-12 item-info-col">
+                            <div class="item-info item-rental-method">
+                              <span class="f-meta-data item-info-title">Diantar Ke</span>
+                              <span class="f-button-md item-info-desc">{{$info->alamat_antar}}</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      @endif
                     </div>
                   </div>
               </div>
@@ -98,7 +145,7 @@
         </div>
       </div>
     </div>
-  </section>    
+  </section>
   <x-pelanggan.terms/> 
   <x-pelanggan.footer/>   
 @endsection

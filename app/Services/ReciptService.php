@@ -64,9 +64,9 @@ final class ReciptService
     {
         $status = $this->translateStatusTransaksi($modelTransaksi->status_transaksi);
 
-        if($status == "Dalam Proses") {
+        if($status[0] == "Dalam Proses") {
             $status = $this->translateStatusBayar($modelTransaksi->status_pembayaran, $modelTransaksi->is_transfer);
-            if($status == "Pembayaran Terkonfirmasi") 
+            if($status[0] == "Pembayaran Terkonfirmasi") 
                 $status = $this->translateStatusPengembalian($modelTransaksi->status_pengembalian, $modelTransaksi->is_diantar);
         }
 
@@ -87,11 +87,11 @@ final class ReciptService
         switch($statusTransaksi)
         {
             case 0:
-               return 'Dalam Proses';
+               return ['Dalam Proses', 'info'];
             case 1:
-                return 'Selesai';
+                return ['Selesai', 'success'];
             case 2:
-                return 'Dibatalkan';
+                return ['Dibatalkan', 'error'];
         }
     }
 
@@ -107,11 +107,11 @@ final class ReciptService
         switch($statusBayar)
         {
             case 0:
-                return $isTransfer == 0 ? "Menunggu Pembayaran" : "Menunggu Transfer";
+                return $isTransfer == 0 ? ["Menunggu Pembayaran", 'warning'] : ["Menunggu Transfer", 'warning'];
             case 1:
-                return "Menunggu Konfirmasi Pembayaran";
+                return ["Menunggu Konfirmasi Pembayaran", 'warning'];
             case 2:
-                return "Pembayaran Terkonfirmasi";
+                return ["Pembayaran Terkonfirmasi", 'success'];
         }
     }
 
@@ -127,11 +127,11 @@ final class ReciptService
         switch($statusPengembalian) 
         {
             case 0:
-                return $isDiantar == 0 ? "Menunggu Diambil" : "Menunggu Diantar";
+                return $isDiantar == 0 ? ["Menunggu Diambil", 'info'] : ["Menunggu Diantar", 'info'];
             case 1:
-                return "Menunggu Pengembalian";
+                return ["Menunggu Pengembalian", 'info'];
             case 2:
-                return "Sudah Dikembalikan";
+                return ["Sudah Dikembalikan", 'success'];
         }
     }
 }

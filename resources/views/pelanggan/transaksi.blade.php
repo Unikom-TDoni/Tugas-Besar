@@ -75,9 +75,9 @@
                                     <div class="input-field-row">
                                         <label for="">Rentall Method</label>
                                         <div class="selection-input">
-                                            <select name="is_diantar" id="tipe_pengambilan" onchange="chooseTipePengambilan()" style="display: block;" selected="{{old('is_diantar')}}">
-                                                <option value=0>Ambil Di Tempat</option>
-                                                <option value=1>Di Antar</option>
+                                            <select name="is_diantar" id="tipe_pengambilan" onchange="chooseTipePengambilan()" style="display: block;">
+                                                <option value=0 {{old('is_diantar') == 0 ? 'selected' : ''}}>Ambil Di Tempat</option>
+                                                <option value=1 {{old('is_diantar') == 1 ? 'selected' : ''}}>Di Antar</option>
                                             </select>
                                         </div>
                                     </div>
@@ -141,7 +141,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-icon btn-full btn-md btn-primary" type="submit" id="btn_submit"></button>
+                        <button class="btn btn-icon btn-full btn-md btn-primary" type="submit" id="btn_submit" onclick="this.disabled=true; this.form.submit();"></button>
                     </div>
                 </div>
             </form>
@@ -149,5 +149,5 @@
     </section>
     <x-pelanggan.terms/> 
     <x-pelanggan.footer/>   
-    <script src="{{asset('assets/pelanggan/js/formTransaksi.js')}}" onload="initDate();"></script>
+    <script src="{{asset('assets/pelanggan/js/formTransaksi.js')}}" onload="initForm();"></script>
 @endsection

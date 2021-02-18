@@ -30,17 +30,6 @@ final class BookingService
     }
 
 
-    // if($validatedData['is_transfer'] == 1) 
-    // {
-    //         $bankData = array(
-    //             'nama_rekening'=> $validatedData['nama_rekening'],  
-    //             'nama_bank' => $validatedData['nama_bank'],
-    //             'nomor_rekening' => $validatedData['nomor_rekening']);
-            
-    //         $validatedData['id_bank_account'] = $this->bankAccountRepository->create($bankData);
-    //         $validatedData = array_diff_key($validatedData, $bankData);
-    // }
-
     /**
      * Create booking request
      * 
@@ -51,6 +40,19 @@ final class BookingService
         $this->transaksiRepository->create($validatedData);
     }
     
+    /**
+     * Update booking bank account
+     * 
+     * @param PrimaryKey $kodeTransaksi
+     * @param array $validatedData
+     */
+    public function updateBookingBankAccount($kodeTransaksi, array $validatedData) 
+    {
+        $idBankAccount = $this->bankAccountRepository->create($validatedData);
+        $updatedData = ['id_bank_account' => $idBankAccount];
+        $this->transaksiRepository->update($kodeTransaksi, $updatedData);
+    }
+
     /**
      * To confrim transfer payment
      * 

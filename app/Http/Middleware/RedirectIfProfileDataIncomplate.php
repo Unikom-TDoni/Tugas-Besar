@@ -30,6 +30,6 @@ class RedirectIfProfileDataIncomplate
         $currentUserId = $this->authService->getActivePelangganId();
         return $this->accountService->isProfileComplate($currentUserId) ?
             $next($request) : 
-            redirect()->back()->with('status', 'silahkan isi terlebih dahulu profile anda');
+            redirect()->route('pelanggan.profile.index')->with('status', 'Please Complete Your Profile Data First');
     }
 }
