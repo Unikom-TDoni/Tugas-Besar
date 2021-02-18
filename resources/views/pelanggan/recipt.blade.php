@@ -5,7 +5,7 @@
   
   <section class="recipt-orders">
     <div class="container">
-      <h2 class="h2 recipt-order-title">Rentall List</h2>
+      <h2 class="h2 recipt-order-title">My Order</h2>
       <div class="row no-gutters">
         <div class="recipt-order" id="recipt-order">
             @php $i=1 @endphp
@@ -25,13 +25,17 @@
                         </div>
                         <div class="f-title-sm item-text-price">
                           <span class="item-price">Harga: {{$info->total_bayar}}</span>
-                          <span class="badge warning">{{$info->status_recipt}}</span>
+                          <span class="badge {{$info->status_recipt[1]}}">{{$info->status_recipt[0]}}</span>
                         </div>
                       </div>
                     </div>
                     <div class="recipt-item-cta">
-                        <a href="#" class="btn btn-md btn-icon btn-primary confirm-btn"><i class="fas fa-handshake"></i> Confirm Payment</a>
-                        <span class="f-meta-data">{{$info->tanggal_transaksi}}</span>
+                        @if ($info->status_recipt[0]=="Selesai")
+                          <a href="#" class="btn btn-md btn-icon btn-secondary confirm-btn"><i class="fas fa-edit"></i> Write a Review</a>  
+                        @else
+                          <a href="#" class="btn btn-md btn-icon btn-primary confirm-btn"><i class="fas fa-handshake"></i> Confirm Payment</a>
+                        @endif
+                        {{-- <span class="f-meta-data">{{$info->tanggal_transaksi}}</span> --}}
                     </div>
                   </div>
                   <div class="recipt-body collapse" id="reciptbody{{$i}}" data-parent="#recipt-order">
@@ -47,15 +51,17 @@
                             <span class="f-meta-data phone">{{$info->kendaraan->cabang->telp}}</span>
                           </div>
                         </div>
-                        <div class="col-6 bank-info">
-                          <div class="bank-image">
-                            <img src="https://cdn.worldvectorlogo.com/logos/bca-bank-central-asia.svg" alt="BCA">
+                        @if($info->is_transfer == 1)
+                          <div class="col-6 bank-info">
+                            <div class="bank-image">
+                              <img src="https://cdn.worldvectorlogo.com/logos/bca-bank-central-asia.svg" alt="BCA">
+                            </div>
+                            <div class="meta-data">
+                              <span class="f-title-sm bank-no">No. Rek 2433454352</span>
+                              <span class="f-body bank-holder">Bank Holder. Pt Pertamina</span>
+                            </div>
                           </div>
-                          <div class="meta-data">
-                            <span class="f-title-sm bank-no">No. Rek 2433454352</span>
-                            <span class="f-body bank-holder">Bank Holder. Pt Pertamina</span>
-                          </div>
-                        </div>
+                        @endif
                       </div>
                       <div class="row item-info-row">
                         <div class="col-6 item-info-col">
@@ -83,14 +89,16 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row item-info-row">
-                        <div class="col-12 item-info-col">
-                          <div class="item-info item-rental-method">
-                            <span class="f-meta-data item-info-title">Diantar Ke</span>
-                            <span class="f-button-md item-info-desc">{{$info->alamat_antar}}</span>
+                      @if($info->is_diantar == 1)
+                        <div class="row item-info-row">
+                          <div class="col-12 item-info-col">
+                            <div class="item-info item-rental-method">
+                              <span class="f-meta-data item-info-title">Diantar Ke</span>
+                              <span class="f-button-md item-info-desc">{{$info->alamat_antar}}</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      @endif
                     </div>
                   </div>
               </div>
