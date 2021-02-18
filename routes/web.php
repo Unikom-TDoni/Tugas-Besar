@@ -138,19 +138,4 @@ Route::group(['as' => 'pelanggan.'], function ()
     });
 });
 
-Route::group(['prefix'=>'test'], function(){
-    Route::get('/', function () {
-        return view('pelanggan/pages/home');
-    });
-    Route::get('/detail', function () {
-        return view('pelanggan/pages/detail');
-    });
-    Route::get('/login', function(){
-        return view('pelanggan/pages/login');
-    });
-    Route::get('/register', function(){
-        return view('pelanggan/pages/register');
-    });
-});
-
 require __DIR__.'/auth.php';

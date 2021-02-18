@@ -269,3 +269,10 @@ img{
         background: $red-20;
     }
 }
+.dropdown{
+    .dropdown-item{
+        display: block;
+        font-size: 1.4rem;
+        min-width: 16.0rem;
+    }
+}

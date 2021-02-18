@@ -13,11 +13,19 @@
                         @endguest
                         @auth('pelanggan')
                             <li>
-                                {{-- <form method="POST" action="{{route('pelanggan.profile.logout')}}">
-                                    @csrf
-                                    <button class=" btn btn-secondary nav-item" title="register" type="submit">Log Out</button>
-                                </form> --}}
-                                <a class=" btn btn-secondary nav-item" href="{{route('pelanggan.profile.index')}}" title="login">Profile</a>
+                                <a class=" btn btn-secondary nav-item" href="{{route('pelanggan.recipt.index')}}" title="login">My Order</a></li>  
+                            </li>
+                            <li>
+                                <div class="dropdown">
+                                    <a class="btn btn-secondary nav-item dropdown-toggle" title="login" id="profileButtonDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button"><i class="fas fa-user"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileButtonDropdown">
+                                        <a class="dropdown-item" href="{{route('pelanggan.profile.index')}}" title="profile">Profile</a>
+                                        <form method="POST" action="{{route('pelanggan.profile.logout')}}">
+                                           @csrf
+                                           <button class="dropdown-item" type="submit">Logout</button>
+                                       </form>
+                                      </div>
+                                </div>
                             </li>
                         @endauth
                     </ul>

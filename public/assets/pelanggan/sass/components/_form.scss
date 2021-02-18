@@ -7,6 +7,7 @@ input[type="email"],
 input[type="password"],
 input[type="date"],
 input[type="time"],
+input[type="number"],
 select, textarea{
     color: $font-body;
     width: 100%;
@@ -57,4 +58,17 @@ input[type="date"]{
   }
 .form-check{
     padding-left: 0;
+}
+
+.form-group{
+  margin-bottom: $sp-xlg;
+  .form-group-title{
+    margin-bottom: $sp-sm;
+  }
+  .form-input{
+    margin-bottom: $sp-lg;
+    label{
+      margin-bottom: $sp-xxxsm;
+    }
+  }
 }
