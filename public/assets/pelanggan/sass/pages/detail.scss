@@ -187,6 +187,9 @@
 }
 
 @media (max-width: 991.98px) {
+    .product-cta-body{
+        display: block;
+    }
     .product-cta{
         display: none;
     }
