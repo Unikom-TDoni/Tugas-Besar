@@ -5,9 +5,49 @@
     <section class="product-details">
         <div class="container">
             <div class="row">
-                <div class="col-8">
+                <div class="col-md-12 col-lg-8">
                     <div class="product-pic">
                         <img src="{{asset('images/kendaraan/'.$detailInfo->gambar)}}" alt="product pic">
+                    </div>
+                    <div class="product-cta-body">
+                        <div class="product-card">
+                            <div class="product-title f-title-md">
+                                {{$detailInfo->nama_kendaraan}}
+                            </div>
+                            <div class="product-meta-data f-meta-data">
+                                <span class="meta-data-type">{{$detailInfo->jenis}}</span>
+                                <span class="meta-data-year">{{$detailInfo->tahun}}</span>
+                                <span class="meta-data-color">{{$detailInfo->warna}}</span>
+                            </div>
+                            <div class="product-review">
+                                <div class="ratings">
+                                    <span class="icon-rating">
+                                        @for ($i = 0; $i < 5; $i++)
+                                            @if($reviewInfo->avg('rating') > $i)
+                                                <i class="fas fa-star" style="color: #E7BE45;"></i>
+                                            @else
+                                                <i class="fas fa-star"></i>
+                                            @endif
+                                        @endfor
+                                    </span>
+                                    <a href="#product-review" title="2 Reviews">{{count($reviewInfo)}} Reviews</a>
+                                </div>
+                            </div>
+                            <div class="product-price">
+                                <span class="h3">IDR {{$detailInfo->harga_sewa}}/Day</span>
+                            </div>
+                            <div class="product-branch">
+                                <i class="icon fas fa-map-marker-alt"></i>
+                                <span class="f-meta-data">{{$detailInfo->cabang->nama_cabang}} - {{$detailInfo->cabang->kota->nama}}</span>
+                            </div>
+                        </div>
+                        <a href="{{route("pelanggan.detail.show", $detailInfo->id_kendaraan)}}" class="product-cta-btn btn btn-md btn-primary btn-full btn-icon">
+                            <i class="fas fa-handshake"></i> Rent Now
+                        </a>
+                        <a href="#" class="product-cta-btn btn btn-md btn-secondary btn-full btn-icon">
+                            <i class="fas fa-directions"></i> Get Direction to RentAll
+                        </a>
+                        <p class="info f-meta-data">**Semua Peminjam wajib memiliki SIM C atau lisensi mengemudi dari negara asal.</p>
                     </div>
                     <div class="product-desc">
                         <h3 class="h3">Product Description</h3>

@@ -32,9 +32,6 @@ const files = {
         css     : 'node_modules/swiper/swiper-bundle.min.css',
         js      : 'node_modules/swiper/swiper-bundle.min.js',
         dest    : 'public/assets/pelanggan/vendor/swiper',
-    },
-    popper      : {
-        js      : 'node_modules/@popperjs/core/dist/cjs/popper.js'
     }
 }
 
@@ -57,7 +54,7 @@ function jsCompile(){
 
 function vendorImport(){
     // import bootstrap
-    src([files.bootstrap.css, files.bootstrap.js, files.popper.js])
+    src([files.bootstrap.css, files.bootstrap.js])
     .pipe(dest(files.bootstrap.dest))
      // import bootstrap
      src(files.jqueryPath)

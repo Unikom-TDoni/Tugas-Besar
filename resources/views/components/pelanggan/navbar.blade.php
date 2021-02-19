@@ -1,10 +1,10 @@
 <header class="header">
     <div class="container">
         <div class="row d-flex align-items-center">
-            <div class="col-3 logo">
+            <div class="col-4 logo">
                 <a href="{{route('pelanggan.homepage.index')}}" title="Rentall"><img class="logo" src="{{URL::asset('assets/pelanggan')}}/img/logo.svg" alt="float"></a> 
             </div>
-            <div class="col-5 offset-4 menu">
+            <div class="col-8 col-sm-4 offset-sm-4 menu">
                 <nav class="nav">
                     <ul class="nav-inner">
                         @guest('pelanggan')

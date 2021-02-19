@@ -9,7 +9,7 @@
             <h2 class="h2">Motor For Rent</h2>
             <div class="row">
                 @foreach($outlineInfo as $info)
-                    <div class="col-3">
+                    <div class="col-md-4 col-lg-3 col-xl-3">
                         <x-pelanggan.item :outlineInfo="$info"/>
                     </div>
                 @endforeach

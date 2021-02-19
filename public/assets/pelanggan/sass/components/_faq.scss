@@ -3,6 +3,10 @@
     h2.h2{
         margin-bottom: $sp-lg;
     }
+    .faq-illustration{
+        text-align: right; 
+        width:480px
+    }
 }
 .faqs{
     .faq{
@@ -69,6 +73,37 @@
             position: absolute;
             bottom: 0;
             left: 0;
+        }
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .faqss{
+        padding-left: 2.4rem;
+        padding-right: 2.4rem;
+        .faq-illustration{
+            padding-left: 2.4rem;
+            padding-right: 2.4rem;
+        }
+    }
+    .faqs{
+        .faq{
+            .question{
+                padding-right: 3.6rem;
+            }
+        }
+    }
+}
+@media (max-width: 991.98px) {
+    .faq-row-reverse{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .faqss{
+        .faq-illustration{
+            text-align: center;
+            margin: 0 auto 2.4rem;
+            width: 400px;
         }
     }
 }

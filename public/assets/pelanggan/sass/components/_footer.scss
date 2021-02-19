@@ -61,3 +61,22 @@
         margin-top: 12rem;
     }
 }
+
+@media (max-width: 1199.98px) {
+    .footer{
+        padding-left: 2.4rem;
+        padding-right: 2.4rem;
+        .footer-logo{
+            margin-bottom: 2.4rem;
+        }
+        .footer-link{
+            margin-bottom: 2.4rem;
+            &:last-child{
+                text-align: left;
+            }
+        }
+        .copyright-outer{
+            margin-top: 3.2rem;
+        }
+    }
+}

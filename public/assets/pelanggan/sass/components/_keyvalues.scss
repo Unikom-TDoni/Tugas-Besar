@@ -35,3 +35,35 @@
         }
     }
 }
+
+@media (max-width: 1199.98px) {
+    .keyvalue{
+        .value{
+            display: block;
+            .value-img{
+                margin-bottom: 1.6rem;
+            }
+            &:nth-child(2){
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+    }
+}
+@media (max-width: 767.98px) {
+    .keyvalue{
+        flex-direction: column;
+        .keyvalue-item{
+            margin-bottom: 3.2rem;
+        }
+    }
+    
+}
+@media (max-width: 575.98px) {
+    .keyvalue{
+        flex-direction: column;
+        .keyvalue-item{
+            margin-bottom: 3.2rem;
+        }
+    }
+}

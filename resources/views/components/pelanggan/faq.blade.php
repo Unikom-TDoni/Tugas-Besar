@@ -1,8 +1,8 @@
 <section class="faqss">
   <div class="container">
       <h2 class="h2">FAQ</h2>
-      <div class="row">
-          <div class="col-6">
+      <div class="row faq-row-reverse">
+          <div class="col-12 col-sm-12 col-md-6">
             <div class="accordion faqs" id="faqs">
                 <div class="faq">
                     <button class="question f-title-md" question-count="1" type="button" data-toggle="collapse" data-target="#answer1" aria-expanded="true" aria-controls="answer1">Bagaimana cara merental?</button>
@@ -96,7 +96,7 @@
                 </div>
             </div>
           </div>
-          <div class="col-6" style="text-align: right; width:480px">
+          <div class="col-12 col-sm-12 col-md-6 faq-illustration">
             <img src="{{URL::asset('assets/pelanggan')}}/img/faq.svg" alt="">
           </div>
       </div>

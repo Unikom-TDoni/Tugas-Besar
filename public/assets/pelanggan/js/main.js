@@ -12,6 +12,21 @@ var swiper = new Swiper('.swiper-container', {
     nextEl: '.slide-next',
     prevEl: '.slide-prev',
     },
+    breakpoints: {
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 20
+      },
+      480: {
+        slidesPerView: 3,
+        spaceBetween: 24
+      },
+      780: {
+        slidesPerView: 5,
+        spaceBetween: 24
+      }
+
+    }
 });
 $('#modalconfirmation').on('shown.bs.modal', function () {
     $("button[open-modal=modal-confirmation]").trigger('focus')
