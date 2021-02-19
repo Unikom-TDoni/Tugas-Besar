@@ -130,7 +130,7 @@
                   <div class="recipt-body collapse" id="reciptbody{{$i}}" data-parent="#recipt-order">
                     <div class="recipt-info">
                       <div class="row branch-info-row">
-                        <div class="col-6 branch-info">
+                        <div class="col-12 col-sm-6 branch-info">
                           <div class="branch-info branch-name f-title-md">
                             <p>{{$info->kendaraan->cabang->nama_cabang}}</p>
                           </div>
@@ -141,7 +141,7 @@
                           </div>
                         </div>
                         @if($info->is_transfer == 1)
-                          <div class="col-6 bank-info">
+                          <div class="col-12 col-sm-6 bank-info">
                             <div class="bank-image">
                               <img src="https://cdn.worldvectorlogo.com/logos/bca-bank-central-asia.svg" alt="BCA">
                             </div>
@@ -153,7 +153,7 @@
                         @endif
                       </div>
                       <div class="row item-info-row">
-                        <div class="col-6 item-info-col">
+                        <div class="col-12 col-sm-4 col-lg-6 item-info-col">
                           <div class="item-info item-rental-method">
                             <span class="f-meta-data item-info-title">Rental Method</span>
                             <span class="f-button-md item-info-desc">
@@ -171,7 +171,7 @@
                             </div>
                           @endif
                         </div>
-                        <div class="col-6 item-info-col">
+                        <div class="col-12 col-sm-8 col-lg-6 item-info-col">
                           <div class="item-info item-rental-date">
                             <span class="f-meta-data item-info-title">Rentall Date</span>
                             <span class="f-button-md item-info-desc">{{$info->tanggal_mulai_peminjaman}}</span>

@@ -9,7 +9,7 @@
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
             <form action="{{route('pelanggan.detail.store')}}" method="post" class="row form-checkout">
                 @csrf
-                <div class="col-8">
+                <div class="col-md-12 col-lg-8">
                     <div class="detail-checkout">
                         <div class="detail-checkout-title">
                             <h3 class="h3">Checkout Rentall</h3>
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-12 col-lg-4">
                     <div class="recipt-checkout">
                         <div class="recipt">
                             <div class="recipt-title">

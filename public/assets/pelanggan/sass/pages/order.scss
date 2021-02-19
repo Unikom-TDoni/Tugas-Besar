@@ -156,3 +156,35 @@
         }
     }
 }
+
+@media (max-width: 1199.98px) {
+    .checkout-order{
+        padding-left: 2.4rem;
+        padding-right: 2.4rem;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .detail-checkout{
+        margin-bottom: 2.4rem;
+    }
+}
+@media (max-width: 767.98px) {
+    .checkout-order{
+        .detail-checkout{
+            .detail-checkout-info{
+                .detail-checkout-row{
+                    flex-direction: column;
+                    .input-title{
+                        margin-bottom: 1.6rem;
+                        width: 100%;
+                    }
+                    .input-field {
+                        width: 100%;
+                    }
+                }
+            } 
+        }
+
+    }
+}

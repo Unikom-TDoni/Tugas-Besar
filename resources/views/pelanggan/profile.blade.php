@@ -7,7 +7,7 @@
     <section class="profile">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-6">
+                <div class="col-sm-10 col-md-6">
                     <x-auth-session-status class="mb-4" :status="session('status')" />
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <form method="POST" action="{{route('pelanggan.profile.update', $profileData->id)}}" enctype="multipart/form-data">

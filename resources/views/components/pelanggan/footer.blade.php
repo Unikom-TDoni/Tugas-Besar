@@ -2,7 +2,7 @@
     <div class="container">
         <footer class="footer">
             <div class="row align-items-center">
-                <div class="footer-content col-4">
+                <div class="footer-content col-lg-12 col-xl-4">
                     <div class="footer-logo">
                         <img class="logo" src="{{URL::asset('assets/pelanggan')}}/img/logo.svg" alt="float">
                         <div class="desc f-body">
@@ -18,7 +18,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="footer-content offset-2 col-2">
+                <div class="footer-content col-sm-6 col-lg-4 offset-xl-2 col-xl-2">
                     <div class="footer-link">
                         <div class="title">
                             <h4 class="h4">Support</h4>
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="footer-content col-2">
+                <div class="footer-content col-sm-6 col-lg-4 col-xl-2">
                     <div class="footer-link">
                         <div class="title">
                             <h4 class="h4">Other</h4>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="footer-content col-2">
+                <div class="footer-content col-sm-12 col-lg-4 col-xl-2">
                     <div class="footer-link">
                         <div class="title">
                             <h4 class="h4">Download</h4>

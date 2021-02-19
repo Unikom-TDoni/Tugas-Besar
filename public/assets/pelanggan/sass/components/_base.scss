@@ -286,6 +286,11 @@ img{
     }
 }
 
+.item-card-rating{
+    width: 100%;
+    padding: 0 2.4rem 1.6rem;
+}
+
 .rating-order-input {
     display: flex;
     flex-direction: row-reverse;
@@ -332,4 +337,10 @@ img{
 .rating-order-input span.checked label::after,
 .rating-order-input span.checked ~ span label::after {
     color:$yellow-50;
+}
+
+@media (max-width: 991.98px) {
+    .f-title-md{
+        font-size: 1.8rem;
+    }
 }
