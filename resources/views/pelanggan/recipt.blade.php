@@ -121,7 +121,7 @@
                           <button href="#" class="btn btn-md btn-icon btn-secondary confirm-btn" data-toggle="modal" data-target="#revieworder{{$info->kode_transaksi}}" open-modal="modal-review"><i class="fas fa-edit"></i> Write a Review</button>  
                         @elseif($info->status_recipt[0]=="Menunggu Transfer")
                           <button class="btn btn-md btn-icon btn-primary confirm-btn" data-toggle="modal" data-target="#modalconfirmation{{$info->kode_transaksi}}" open-modal="modal-confrimation"><i class="fas fa-handshake"></i> Confirm Payment</button>
-                        @elseif($info->status_recipt[0]=="Menunggu Pembayaran di Tempat" || $info->status_recipt[0]=="Menunggu Diambil")
+                        @elseif($info->status_recipt[0]=="Menunggu Pembayaran di Tempat" || $info->status_recipt[0]=="Menunggu Diambil" || $info->status_recipt[0]=="Menunggu Pengembalian")
                           <a href="http://maps.google.com/?q={{$info->kendaraan->cabang->alamat}}" class="btn btn-md btn-icon btn-secondary confirm-btn"><i class="fas fa-directions"></i> Get Direction to Rentall</a>  
                         @endif
                         {{-- <span class="f-meta-data">{{$info->tanggal_transaksi}}</span> --}}
