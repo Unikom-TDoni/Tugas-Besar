@@ -81,6 +81,7 @@ class AdminController extends Controller
 
         return response()->json($data);
     }
+    
     function saveCabang(Request $request)
     {
         $id     = array('id_cabang' => $request->id);
