@@ -23,6 +23,17 @@ final class PelangganRepository extends BaseRepository
     }
 
     /**
+     * To Update Existing Data
+     * 
+     * @param PrimaryKey $id
+     * @param array $attribute
+     */
+    public  function update($id, array $attribute)
+    {  
+        $this->model->findOrFail($id)->update($attribute);
+    }
+
+    /**
      * Get Profile Data
      * 
      * @param PrimaryKey $id
@@ -53,17 +64,6 @@ final class PelangganRepository extends BaseRepository
     public function getReviewData($id) 
     {
         return $this->model->findOrFail($id, ['id', 'nama', 'telp']);
-    }
-
-    /**
-     * To Update Existing Data
-     * 
-     * @param PrimaryKey $id
-     * @param array $validatedData
-     */
-    public  function update($id, array $validatedData)
-    {  
-        $this->model->findOrFail($id)->update($validatedData);
     }
 
     /**

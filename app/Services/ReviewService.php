@@ -17,13 +17,13 @@ final class ReviewService
     }
     
     /**
-     * Store review
+     * Create review
      * 
      * @param array $validatedData
      */
-    public function store($validatedData) 
+    public function create($validatedData) 
     {
-        $this->reviewRepository->store($validatedData);
+        $this->reviewRepository->create($validatedData);
     }
 
     /**

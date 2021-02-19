@@ -43,7 +43,7 @@ final class ReciptPageController extends Controller
     public function storeReview(ReviewRequest $request) 
     {
         $validatedData = $request->validated();
-        $this->reviewService->store($validatedData);
+        $this->reviewService->create($validatedData);
         return redirect()->back()->with('status', 'Success To Add Review');
     }
 }

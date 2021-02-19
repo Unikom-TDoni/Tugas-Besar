@@ -14,6 +14,24 @@ final class ReviewRepository extends BaseRepository
     }
     
     /**
+     * Create Review
+     * 
+     * @param array $validatedData
+     */
+    public function create(array $validatedData) 
+    {
+        DB::table('ulasan')->insert([
+            'kode_transaksi'=>$validatedData['kode_transaksi'],
+            'id_kendaraan'=>$validatedData['id_kendaraan'],
+            'id_pelanggan'=>$validatedData['id_pelanggan'],
+            'rating'=>$validatedData['rating'],
+            'ulasan'=>$validatedData['ulasan'],
+            'nama'=>$validatedData['nama'],
+            'telp'=>$validatedData['telp'],
+        ]);
+    }
+
+    /**
      * Select Transaksi Relation
      * 
      * @param \Illuminate\Database\Query\Builder $query
@@ -37,24 +55,6 @@ final class ReviewRepository extends BaseRepository
             ->with($relation)
             ->where(['id_kendaraan' => $idKendaraan, 'status' => 1])
             ->get(['id', 'id_pelanggan', 'ulasan', 'rating', 'created_at']);
-    }
-    
-    /**
-     * Store Review
-     * 
-     * @param array $validatedData
-     */
-    public function store(array $validatedData) 
-    {
-        DB::table('ulasan')->insert([
-            'kode_transaksi'=>$validatedData['kode_transaksi'],
-            'id_kendaraan'=>$validatedData['id_kendaraan'],
-            'id_pelanggan'=>$validatedData['id_pelanggan'],
-            'rating'=>$validatedData['rating'],
-            'ulasan'=>$validatedData['ulasan'],
-            'nama'=>$validatedData['nama'],
-            'telp'=>$validatedData['telp'],
-        ]);
     }
 
     /**

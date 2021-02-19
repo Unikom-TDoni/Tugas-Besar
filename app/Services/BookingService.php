@@ -7,7 +7,6 @@ use App\Repositories\KendaraanRepository;
 use App\Repositories\PelangganRepository;
 use App\Repositories\TransaksiRepository;
 use App\Repositories\BankAccountRepository;
-use App\Models\Kendaraan;
 
 final class BookingService 
 {
@@ -37,10 +36,8 @@ final class BookingService
      */
     public function create(array $validatedData)
     {
-        $classKendaraan = new Kendaraan();
-        
-        $classKendaraan->updateStatusTersedia($validatedData['id_kendaraan']);
         $this->transaksiRepository->create($validatedData);
+        $this->kendaraanRepository->updateStatusTersedia($validatedData['id_kendaraan']);
     }
     
     /**

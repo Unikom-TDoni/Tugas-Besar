@@ -13,6 +13,17 @@ final class KendaraanRepository extends BaseRepository
     }
 
     /**
+     * Update status tersedia
+     * 
+     * @param PrimaryKey $id
+     */
+    public function updateStatusTersedia($id) 
+    {
+        $isTersedia = $this->model->findOrFail($id, ['is_tersedia'])->is_tersedia == 1 ? 0 : 1;
+        $this->model->findOrFail($id)->update(["is_tersedia" => $isTersedia]);
+    }
+
+    /**
      * Get Form Booking Initial Data
      * 
      * @param PrimaryKey $id
