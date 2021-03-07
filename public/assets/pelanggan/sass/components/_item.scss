@@ -1,0 +1,110 @@
+.items{
+    h2.h2{
+        margin-bottom: $sp-lg;
+    }
+    .load-more{
+        margin-top: 6.4rem;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+.item-outer{
+    position: relative;
+}
+.item-card{
+    padding-top: $sp-md;
+    padding-right: $sp-md;
+    padding-bottom: $sp-md;
+    padding-left: $sp-md;
+    margin-bottom: $sp-lg;
+    background: $base-white;
+    border: 1px solid $base-iron;
+    border-radius: $radius-sm;
+    z-index: 10;
+    position: relative;
+    transition: .1s ease-in-out;
+    .title, .title a, .meta, .desc, .price-outer, .branch{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;   
+    }
+    .thumbnail{
+        margin-bottom: $sp-md;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $base-grey;
+        height: 120px;
+        .thumbnail-inner{
+            height: 120px;
+            width: 100%;
+        }
+        img{
+            max-width: 100%;
+            height: auto;
+        }
+    }
+    .title-outer{
+        margin-bottom: $sp-xxxsm;
+        .title{
+            margin-bottom: 0;
+            a{
+                display: block;
+            }
+        }
+    }
+    .meta-outer{
+        display: flex;
+        align-items: center;
+        margin-bottom: $sp-xxxsm;
+        .meta{
+            display: inline-block;
+            margin-right: $sp-xxxsm;
+            &.meta-vehicle-year::after{
+                content: " - ";
+            }
+        }
+    }
+    .desc-outer{
+        margin-bottom: $sp-xxsm;
+        .desc{
+            margin-bottom: 0;
+        }
+    }
+    .price-outer{
+        margin-bottom: $sp-xxxsm;
+        .price{
+            color: $cta-blue;
+        }
+    }
+    .branch-outer{
+        .branch{
+            .icon{
+                margin-right: $sp-xxxsm;
+                color: $font-meta-data;
+                font-size: 1.2rem;
+            }
+        }
+    }
+    .cta-outer{
+        margin-top: $sp-md;
+        display: none;
+    }
+    &:hover{
+        box-shadow: $depth-100;
+        position: absolute;
+        z-index: 100;
+        width: 100%;
+        & .cta-outer{
+            display: block;
+        }
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .items{
+        padding-left: 2.4rem;
+        padding-right: 2.4rem;
+    }
+}

@@ -1,0 +1,224 @@
+@import '../components/base';
+
+.recipt-orders{
+    margin-top: $sp-xxxlg;
+    .recipt-order-title{
+        margin-bottom: $sp-sm;
+    }
+    .recipt-order{
+        width: 100%;
+    }
+    .recipt-list{
+        border: 1px solid $base-iron;
+        border-radius: .4rem;
+        margin-bottom: $sp-sm;
+        .recipt-header {
+            width: 100%;
+            padding-top: $sp-sm;
+            padding-bottom: $sp-sm;
+            padding-left: 6.4rem;
+            padding-right: $sp-sm;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid $base-iron;
+            position: relative;
+            .btn-collapse{
+                padding-left: 0;
+                padding-right: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+                border-radius: 100px;
+                height: 2.8rem;
+                width: 2.8rem;
+                position: absolute;
+                top: 50%;
+                left: 1.6rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transform: translateY(-50%);
+                &::after{
+                    font-family: "Font Awesome 5 Free";
+                    font-weight: 900;
+                    content: "\f078";
+                    position: relative;
+                    top: 1px;
+                    font-size: 1.2rem;
+                }
+            }
+            .recipt-item-title{
+                display: flex;
+                align-items: center;
+                width: 75%;
+                .recipt-item-image{
+                    width: 7.2rem;
+                    margin-right: $sp-sm;
+                }
+                .recipt-item-text{
+                    .item-text-price{
+                        margin-top: $sp-xxxsm;
+                        display: flex;
+                        align-items: center;
+                        .item-price{
+                            margin-right: $sp-xxsm;
+                        }
+                    }
+                }
+            }
+            .recipt-item-cta{
+                // width: 25%;
+                text-align: right;
+                span{
+                    display: block;
+                    margin-top: $sp-xxxsm;
+                }
+            }
+        }
+        .recipt-body{
+            .recipt-info{
+                padding-left: 8.0rem;
+                padding-right: 8.0rem;
+                padding-top: $sp-sm;
+                padding-bottom: $sp-sm;
+            }
+            .item-info-row:last-child{
+                border-bottom: none;
+            }
+            .branch-info-row, .item-info-row{
+                border-bottom: 1px dashed $base-iron;
+                padding-top: $sp-xsm;
+                padding-bottom: $sp-xsm;
+                .branch-info{
+                    &.branch-name{
+                        p{
+                            margin-bottom: $sp-xxxsm;
+                        }
+                    }
+                    &.meta-data{
+                        span{
+                            display: block;
+                            margin-bottom: $sp-xxxsm;
+                        }
+                    }
+                }
+                .item-info-col{
+                    &:last-child{
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                }
+            }
+            .bank-info{
+                text-align: right;
+                padding-left: 0;
+                padding-right: 0;
+                .bank-image{
+                    margin-bottom: $sp-xxsm;
+                    img{
+                        width: 12.0rem;
+                    }
+                }
+                .meta-data{
+                    span{
+                        display: block;
+                    }
+                }
+            }
+            .branch-info{
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .item-info-col{
+                display: flex;
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .item-info{
+                padding-left: 16px;
+                padding-right: 16px;
+                .item-info-title{
+                    display: block;
+                }
+                .item-info-desc{
+                    display: block;
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+                &:last-child{
+                    padding-right: 0;
+                }
+                &:first-child{
+                    padding-left: 0;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .recipt-orders{
+        padding-left: 2.4rem;
+        padding-right: 2.4rem;
+    }
+}
+@media (max-width: 767.98px) {
+    .recipt-orders{
+        .recipt-list{
+            .recipt-header{
+                flex-direction: column;
+                .recipt-item-title{
+                    width: 100%;
+                }
+                .recipt-item-cta{
+                    margin-top: 1.6rem;
+                    text-align: left;
+                    width: 100%;
+                }
+                .btn-collapse{
+                    top: 3.2rem;
+                    transform: translateY(0);
+                }
+            }
+        } 
+    }
+}
+@media (max-width: 575.98px) {
+    .recipt-orders .recipt-list .recipt-header .recipt-item-title{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .recipt-orders .recipt-list .recipt-header .recipt-item-title .recipt-item-text .item-text-price{
+        flex-direction: column;
+        align-items: flex-end;
+        align-items: flex-start;
+        .item-price{
+            margin-bottom: 1.2rem;
+        }
+    }
+    .recipt-orders .recipt-list .recipt-header .recipt-item-title .recipt-item-image{
+        margin-right: 0;
+        margin-bottom: 1.2rem;
+    }
+    .recipt-orders .recipt-list .recipt-body .recipt-info{
+        padding: 1.6rem;
+    }
+    .recipt-orders .recipt-list .recipt-body .branch-info-row, .recipt-orders .recipt-list .recipt-body .item-info-row{
+        margin-left: 0;
+        margin-right: 0;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    .recipt-orders .recipt-list .recipt-body .bank-info{
+        margin-top: 2.4rem;
+        text-align: left;
+    }
+    .recipt-orders .recipt-list .recipt-body .item-info-col{
+        flex-direction: column;
+    }
+    .recipt-orders .recipt-list .recipt-body .item-info{
+        margin-bottom: 1.6rem;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

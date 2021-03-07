@@ -1,0 +1,346 @@
+// Base Colors
+$base-white: #FFFFFF;
+$base-grey: #F4F5F6;
+$base-iron: #E7E8EA;
+$cta-blue: #3A56F3;
+$cta-blue-hover: #526BF4;
+$cta-secondary: #FAFAFA;
+$cta-secondary-hover: #FAFAFA;
+$cta-orange: #F77512;
+$cta-orange-hover: #F88935;
+
+// Font Colors
+$font-title: #232A4D;
+$font-body: #44485F;
+$font-meta-data: #7C7F8D;
+$font-placeholder: #979AA5;
+
+// accsen color
+$blue-80:#0F3C71;
+$blue-60:#1B6ED0;
+$blue-50:#458FE7;
+$blue-40:#81B1EA;
+$blue-20:#D8E7F8;
+
+$red-80:#6E2121;
+$red-60:#BC3838;
+$red-50:#CE5A5A;
+$red-40:#D99191;
+$red-20:#F3DDDD;
+
+$yellow-80:#836611;
+$yellow-60:#DDAD1D;
+$yellow-50:#E7BE45;
+$yellow-40:#F1DDA2;
+$yellow-20:#F9F2DC;
+
+$green-80:#144831;
+$green-60:#2A9866;
+$green-50:#35C081;
+$green-40:#6BD1A3;
+$green-20:#B9E9D4;
+
+
+// Depth Colors
+$depth-10-color: RGBA(30, 30, 36, 0.10);
+$depth-100-color: RGBA(30, 30, 36, 0.14);
+$depth-1000-color: RGBA(30, 30, 36, 0.25);
+
+// Font Familiy
+$font-familiy-heading: 'Inter', sans-serif;
+$font-familiy-body: 'Inter', sans-serif;
+
+// Depth
+$depth-10: 0 2px 6px 0 $depth-10-color;
+$depth-100: 0 4px 8px 0 $depth-100-color;
+$depth-1000: 0 6px 10px 0 $depth-1000-color;
+
+// Spacer
+$sp-xxxsm: 0.4rem;
+$sp-xxsm: 0.8rem;
+$sp-xsm: 1.2rem;
+$sp-sm: 1.6rem;
+$sp-md: 2.0rem;
+$sp-lg: 2.4rem;
+$sp-xlg: 3.2rem;
+$sp-xxlg: 3.6rem;
+$sp-xxxlg: 4.0rem;
+$sp-xxxslg: 4.8rem;
+
+// Boder Radius
+$radius-sm: 0.4rem;
+
+%heading1, %heading2, %heading3, %heading4, 
+%font-type-title-md, %font-type-title-sm{
+    font-family: $font-familiy-heading;
+    font-weight: 500;
+    color: $font-title;
+}
+%heading1{
+    font-size: 3.6rem;
+    line-height: 4.8rem;
+}
+%heading2{
+    font-size: 3.2rem;
+    line-height: 4.8rem;
+}
+%heading3{
+    font-size: 2.6rem;
+    line-height: 4.0rem;
+}
+%heading4{
+    font-size: 2.2rem;
+    line-height: 3.2rem;
+}
+%font-type-title-md{
+    font-size: 2.0rem;
+    line-height: 3.2rem;
+}
+%font-type-title-sm{
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+}
+%font-type-body{
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    font-weight: 400;
+    color: $font-body;
+}
+%font-type-placeholder{
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    font-weight: 400;
+    color: $font-placeholder;
+}
+%font-type-meta-data{
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    font-weight: 400;
+    color: $font-meta-data;
+}
+%font-type-button-md{
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    font-weight: 500;
+}
+
+.f-button-md{
+    @extend %font-type-button-md;
+}
+
+html{
+    font-size: 62.5%;
+}
+body{
+    background: $base-white;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.4rem;
+    color: $font-body;
+}
+h1.h1 .h1{
+    @extend %heading1;
+}
+h2.h2, .h2{
+    @extend %heading2;
+}
+h3.h3, .h3{
+    @extend %heading3;
+}
+h4.h4, .h4{
+    @extend %heading4;
+}
+.f-title-md{
+    @extend  %font-type-title-md;
+}
+.f-title-sm{
+    @extend %font-type-title-sm;
+}
+.f-body{
+    @extend %font-type-body;
+}
+.f-placeholder{
+    @extend %font-type-placeholder;
+}
+.f-meta-data{
+    @extend %font-type-meta-data;
+}
+.depth-10{
+    box-shadow: $depth-10;
+}
+.depth-100{
+    box-shadow: $depth-100;
+}
+.depth-1000{
+    box-shadow: $depth-1000;
+}
+.btn{
+    @extend %font-type-button-md;
+    &.btn-md{
+        padding-top: $sp-xxsm;
+        padding-bottom: $sp-xxsm; 
+    }
+    &.btn-full{
+        width: 100%;
+    }
+    &.btn-50{
+        width: 50%;
+    }
+    &.btn-primary{
+        background: $cta-orange;
+        color: $base-white;
+        border: 1px solid $cta-orange-hover;
+        &:hover{
+            background: $cta-orange-hover;
+        }
+    }
+    &.btn-secondary{
+        background: $base-white;
+        color: $cta-blue;
+        border: 1px solid $cta-blue;
+        &:hover{
+            background: $cta-secondary;
+            color: $cta-blue-hover;
+            border-color: $cta-blue-hover;
+        }
+    }
+    &.btn-blue{
+        background: $cta-blue;
+        color: $cta-secondary;
+        border: 1px solid $cta-blue;
+        &:hover{
+            background: $cta-blue-hover;
+            color: $cta-secondary;
+            border-color: $cta-blue;
+        }
+    }
+    &.btn-icon{
+        i{
+            margin-right: $sp-xxsm;
+        }
+    }
+    &.confirm-btn{
+        font-size: 1.2rem;
+        line-height: 1.6rem;
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+        padding-left: 2.0rem;
+        padding-right: 2.0rem;
+    }
+}
+.container{
+    max-width: 1140px;
+    padding-left: 0;
+    padding-right: 0;
+}
+a{
+    color: $cta-blue;
+    &:hover{
+        color: $cta-blue-hover
+    }
+}
+img{
+    max-width: 100%;
+}
+
+.badge{
+    font-size: 1.0rem;
+    line-height: 1.6rem;
+    font-weight: 500;
+    padding-left: $sp-xsm;
+    padding-right: $sp-xsm;
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+    display: inline-block;
+    border-radius: 10rem;
+    &.success{
+        color: $green-80;
+        background: $green-20;
+    }
+    &.warning{
+        color: $yellow-80;
+        background: $yellow-20;
+    }
+    &.info{
+        color: $blue-80;
+        background: $blue-20;
+    }
+    &.error{
+        color: $red-80;
+        background: $red-20;
+    }
+}
+.dropdown{
+    .dropdown-item{
+        display: block;
+        font-size: 1.4rem;
+        min-width: 16.0rem;
+    }
+}
+.modal-body{
+    .item-card-confrimation{
+        width: 100%;
+        padding: 2.4rem;
+        input{
+            margin-bottom: 2.4rem;
+        }
+    }
+}
+
+.item-card-rating{
+    width: 100%;
+    padding: 0 2.4rem 1.6rem;
+}
+
+.rating-order-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    margin-top: 2.4rem;
+    margin-bottom: 2.4rem;
+    span{
+        position:relative;
+        display: inline-block;
+        margin-right: 1.2rem;
+        label{
+            display:inline-block;
+            position: relative;
+            height: 2.4rem;
+            width: 2.4rem;
+            &::after{
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                content: '\f005';
+                font-size: 2.4rem;
+                color: $base-iron;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                cursor: pointer;
+             }
+        }
+        input{
+            cursor: pointer;
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -60%);
+            z-index: 100;
+            opacity:0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+.rating-order-input span:hover ~ span label::after,
+.rating-order-input span:hover label::after,
+.rating-order-input span.checked label::after,
+.rating-order-input span.checked ~ span label::after {
+    color:$yellow-50;
+}
+
+@media (max-width: 991.98px) {
+    .f-title-md{
+        font-size: 1.8rem;
+    }
+}

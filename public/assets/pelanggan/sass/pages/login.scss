@@ -1,0 +1,24 @@
+@import '../components/base';
+@import '../components/form';
+@import '../components/login';
+.login-page{
+    background: $cta-secondary url(../img/bg_login.png)center bottom no-repeat;
+    background-size: contain;
+    background-position: fixed;
+    border-bottom: 8px solid #3E4FAC;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    .login-illustration{
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+    }
+    .login-row{
+        display: flex;
+        justify-content: center;
+    }
+}

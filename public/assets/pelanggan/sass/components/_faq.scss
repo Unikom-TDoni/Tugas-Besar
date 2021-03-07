@@ -1,0 +1,109 @@
+.faqss{
+    margin-top: 8.0rem;
+    h2.h2{
+        margin-bottom: $sp-lg;
+    }
+    .faq-illustration{
+        text-align: right; 
+        width:480px
+    }
+}
+.faqs{
+    .faq{
+        position: relative;
+        padding-top: $sp-sm;
+        padding-bottom: $sp-sm;
+        .question{
+            padding: 0;
+            padding-top: $sp-xxxsm;
+            padding-bottom: $sp-xxxsm;
+            padding-left: $sp-xlg;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+            border: none;
+            position: relative;
+            &::before{
+                content: "Q. ";
+                margin-right: $sp-sm;
+                position: absolute;
+                left: 0;
+                color: $cta-blue;
+            }
+            &:not(.collapsed)::after{
+                background: $cta-blue;
+                color: $base-white;
+                transform: rotate(180deg) translateY(53%);
+            }
+            &::after{
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                content: '\f0d7';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                font-size: 1.6rem;
+                width: 24px;
+                height: 24px;
+                border-radius: 100px;
+                color: $cta-blue;
+                border: 1px solid $cta-blue;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transform: translateY(-53%);
+                transform-origin: center;
+                transition: transform .24s ease-in-out;
+            }
+        }
+        .answer{
+            max-width: 90%;
+            p{
+                margin-top: $sp-xxxsm;
+                padding-left: $sp-xlg;
+                line-height: 3.2rem!important;
+                margin-bottom: 0;
+            }
+        }
+        &::after{
+            content: "";
+            width: 90%;
+            height: 1px;
+            background: $base-grey;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .faqss{
+        padding-left: 2.4rem;
+        padding-right: 2.4rem;
+        .faq-illustration{
+            padding-left: 2.4rem;
+            padding-right: 2.4rem;
+        }
+    }
+    .faqs{
+        .faq{
+            .question{
+                padding-right: 3.6rem;
+            }
+        }
+    }
+}
+@media (max-width: 991.98px) {
+    .faq-row-reverse{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .faqss{
+        .faq-illustration{
+            text-align: center;
+            margin: 0 auto 2.4rem;
+            width: 400px;
+        }
+    }
+}

@@ -1,0 +1,82 @@
+.footer{
+    padding-top: $sp-xxxslg;
+    padding-bottom: $sp-sm;
+    background: $cta-secondary;
+    .footer-content{
+        .footer-logo{
+            .logo{
+                width: 120px;
+                margin-bottom: $sp-sm;
+            }
+            .desc{
+                span{
+                    display: block;
+                    font-size: 1.4rem!important;
+                    &.desc-email{
+                        margin-top: $sp-xxsm;
+                        display: inline-block;
+                        a{
+                            color: $font-body;
+                        }
+                    }
+                    &.desc-social-media{
+                        margin-top: $sp-sm;
+                        .icon {
+                            font-size: 2.0rem;
+                            margin-right: $sp-sm;
+                            color: $font-body;
+                        }
+                    }
+                }
+            }
+        }
+        .footer-link{
+            .title{
+                margin-bottom: $sp-sm;
+                h4{
+                    font-size: 2.0rem;
+                    margin-bottom: 0;
+                }
+            }
+            .link-list{
+                .list{
+                    color: $font-body;
+                    display: block;
+                    padding-top: $sp-xxsm;
+                    padding-bottom: $sp-xxsm;
+                    img{
+                        width: 120px;
+                    }
+                    &:hover{
+                        color: $cta-blue;
+                    }
+                }
+            }
+        }
+        &:last-child{
+            text-align: right;
+        }
+    }
+    .copyright-outer{
+        margin-top: 12rem;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .footer{
+        padding-left: 2.4rem;
+        padding-right: 2.4rem;
+        .footer-logo{
+            margin-bottom: 2.4rem;
+        }
+        .footer-link{
+            margin-bottom: 2.4rem;
+            &:last-child{
+                text-align: left;
+            }
+        }
+        .copyright-outer{
+            margin-top: 3.2rem;
+        }
+    }
+}

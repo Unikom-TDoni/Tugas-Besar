@@ -1,0 +1,84 @@
+.register{
+    position: relative;
+    top: -6.4rem;
+    background: $base-white;
+    padding-top: $sp-lg;       
+    padding-bottom: $sp-lg;       
+    padding-left: $sp-lg;       
+    padding-right: $sp-lg;
+    border-radius: $sp-xxxsm;
+    width: 41.2rem;
+    max-width: 100%;
+    box-shadow: $depth-10;
+    z-index: 100;
+    label{
+        display: none;
+    }
+    .form-title{
+        position: relative;
+        align-items: center;
+        margin-bottom: $sp-xlg;
+        .title{
+            text-align: left;
+            display: inline-block;
+            align-self: flex-start;
+        }
+        .help{
+            position: absolute;
+            top: 50%;
+            right: 0;
+            text-align: right;
+            display: inline-block;
+            transform: translateY(-50%);
+            i{
+                margin-left: $sp-xxxsm;
+            }
+        }
+    }
+    .logo{
+        text-align: center;
+        img{
+            width: 120px;  
+            margin-bottom: $sp-xlg;     
+        }
+    }
+    .register-form{
+        text-align: left;
+        .form-input{
+            margin-bottom: $sp-sm;
+        }
+        .tos-check{
+            padding-bottom: $sp-xxxsm;
+            margin-bottom: $sp-xxxsm;
+            label{
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+            }
+            input[type=checkbox]{
+                background: $cta-secondary-hover;
+                width: 1.6rem;
+                height: 1.6rem;
+                margin-right: $sp-xxsm;
+                border: 1px solid $base-iron;
+                cursor: pointer;
+            }
+        }
+    }
+    .register-info{
+        margin-top: $sp-lg;
+        text-align: center;
+        .term{
+            line-height: 2.4rem;
+            margin-top: $sp-sm;
+            margin-bottom: 0;
+        }
+    }
+}
+
+
+@media (max-width: 767.98px){
+    .register{
+        top: -3.2rem;
+    }
+}
